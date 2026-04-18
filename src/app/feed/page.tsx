@@ -1,8 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { GameCard } from "@/components/GameCard";
+import { TopNavbar } from "@/components/TopNavbar";
+import { BottomNavbar } from "@/components/BottomNavbar";
 import type { Game } from "@/lib/schema";
 import { Game as GameSchema } from "@/lib/schema";
 import { nextRequestParams, useScrollLearn } from "@/lib/store";
@@ -16,6 +17,7 @@ export default function FeedPage() {
 
   const fetchingRef = useRef(false); // prevent concurrent fetch loops
   const containerRef = useRef<HTMLDivElement>(null);
+  const reset = useScrollLearn((s) => s.reset);
 
   const fetchOne = useCallback(async () => {
     if (fetchingRef.current) return;
@@ -87,12 +89,12 @@ export default function FeedPage() {
   }
 
   return (
-    <>
-      {/* Page-level overflow menu (back to landing + reset) */}
-      <PageMenu />
+    <div className="flex h-dvh w-screen flex-col overflow-hidden bg-black">
+      <TopNavbar activeTab="for-you" onReset={reset} />
+
       <div
         ref={containerRef}
-        className="h-screen w-screen snap-y snap-mandatory overflow-y-scroll bg-black"
+        className="snap-y snap-mandatory flex-1 overflow-y-scroll bg-black"
       >
         {games.map((g, i) => (
           <GameCard
@@ -103,9 +105,8 @@ export default function FeedPage() {
           />
         ))}
 
-        {/* Loading / error pad — also acts as a snap target so scroll-snap behaves */}
         {(games.length === 0 || loading || error) && (
-          <section className="flex h-screen w-full snap-start snap-always items-center justify-center bg-gradient-to-br from-zinc-800 to-black">
+          <div className="flex h-full w-full snap-start snap-always items-center justify-center bg-gradient-to-br from-zinc-800 to-black">
             <div className="flex flex-col items-center gap-4 text-white">
               {error ? (
                 <>
@@ -128,32 +129,11 @@ export default function FeedPage() {
                 </>
               )}
             </div>
-          </section>
+          </div>
         )}
       </div>
-    </>
-  );
-}
 
-function PageMenu() {
-  const reset = useScrollLearn((s) => s.reset);
-  return (
-    <div className="pointer-events-none fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-4 pt-3">
-      <Link
-        href="/"
-        className="pointer-events-auto rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-md hover:bg-black/60"
-      >
-        ← home
-      </Link>
-      <button
-        type="button"
-        onClick={() => {
-          if (confirm("Reset your progress?")) reset();
-        }}
-        className="pointer-events-auto rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-md hover:bg-black/60"
-      >
-        ↻ reset
-      </button>
+      <BottomNavbar />
     </div>
   );
 }
