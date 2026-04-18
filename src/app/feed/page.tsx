@@ -1,11 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { GameCard } from "@/components/GameCard";
-import { HUD } from "@/components/HUD";
 import type { Game } from "@/lib/schema";
 import { Game as GameSchema } from "@/lib/schema";
-import { nextRequestParams } from "@/lib/store";
+import { nextRequestParams, useScrollLearn } from "@/lib/store";
 
 const PREFETCH_AHEAD = 3; // keep this many games ready beyond the visible one
 
@@ -88,7 +88,8 @@ export default function FeedPage() {
 
   return (
     <>
-      <HUD />
+      {/* Page-level overflow menu (back to landing + reset) */}
+      <PageMenu />
       <div
         ref={containerRef}
         className="h-screen w-screen snap-y snap-mandatory overflow-y-scroll bg-black"
@@ -131,5 +132,28 @@ export default function FeedPage() {
         )}
       </div>
     </>
+  );
+}
+
+function PageMenu() {
+  const reset = useScrollLearn((s) => s.reset);
+  return (
+    <div className="pointer-events-none fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-4 pt-3">
+      <Link
+        href="/"
+        className="pointer-events-auto rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-md hover:bg-black/60"
+      >
+        ← home
+      </Link>
+      <button
+        type="button"
+        onClick={() => {
+          if (confirm("Reset your progress?")) reset();
+        }}
+        className="pointer-events-auto rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-md hover:bg-black/60"
+      >
+        ↻ reset
+      </button>
+    </div>
   );
 }

@@ -8,7 +8,7 @@ import {
   TEMPLATES,
 } from "./schema";
 
-const MODEL = "claude-opus-4-7";
+const MODEL = "claude-sonnet-4-6";
 
 let _client: Anthropic | null = null;
 function client(): Anthropic {
