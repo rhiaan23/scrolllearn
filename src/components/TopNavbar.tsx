@@ -1,30 +1,26 @@
 "use client";
 
+import Link from "next/link";
+
 interface Props {
-  activeTab?: "following" | "for-you";
+  activeTab: "teacher" | "student";
   onReset?: () => void;
 }
 
-export function TopNavbar({ activeTab = "for-you", onReset }: Props) {
+export function TopNavbar({ activeTab, onReset }: Props) {
   return (
     <header className="relative z-40 flex h-[50px] w-full flex-shrink-0 items-center justify-between px-5 text-white [text-shadow:0_0_2px_rgb(0_0_0/0.6)]">
-      {/* Left: TV / live icon */}
-      <button
-        type="button"
-        aria-label="Live"
-        className="text-white/90 transition-opacity hover:opacity-70"
-      >
-        <TvIcon />
-      </button>
+      {/* Left: spacer to balance reset button */}
+      <div className="w-8" />
 
-      {/* Center: Following | For You */}
+      {/* Center: Teacher | Student */}
       <nav className="flex items-center gap-5 text-sm font-medium">
-        <Tab label="Following" active={activeTab === "following"} />
+        <Tab label="Teacher" href="/teacher" active={activeTab === "teacher"} />
         <span className="text-white/60">|</span>
-        <Tab label="For You" active={activeTab === "for-you"} />
+        <Tab label="Student" href="/feed" active={activeTab === "student"} />
       </nav>
 
-      {/* Right: reset (stand-in for search) */}
+      {/* Right: reset */}
       <button
         type="button"
         aria-label="Reset progress"
@@ -40,35 +36,17 @@ export function TopNavbar({ activeTab = "for-you", onReset }: Props) {
   );
 }
 
-function Tab({ label, active }: { label: string; active: boolean }) {
+function Tab({ label, href, active }: { label: string; href: string; active: boolean }) {
   return (
-    <span
-      className={`relative ${active ? "font-bold" : "font-medium text-white/85"}`}
+    <Link
+      href={href}
+      className={`relative ${active ? "font-bold text-white" : "font-medium text-white/75 hover:text-white/95"}`}
     >
       {label}
       {active && (
         <span className="absolute -bottom-1.5 left-1/2 h-[2px] w-6 -translate-x-1/2 rounded-full bg-white" />
       )}
-    </span>
-  );
-}
-
-function TvIcon() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <rect x="2" y="7" width="20" height="13" rx="2" />
-      <path d="m7 4 5 3 5-3" />
-    </svg>
+    </Link>
   );
 }
 

@@ -1,6 +1,5 @@
 "use client";
 
-import { useScrollLearn } from "@/lib/store";
 import { type Subject, SUBJECT_EMOJI } from "@/lib/schema";
 
 interface Props {
@@ -9,24 +8,9 @@ interface Props {
 }
 
 export function ActionRail({ subject, onHelp }: Props) {
-  const score = useScrollLearn((s) => s.score);
-  const streak = useScrollLearn((s) => s.streak);
 
   return (
     <div className="absolute right-1.5 bottom-4 z-30 flex flex-col items-center gap-5 text-white [text-shadow:0_0_4px_rgb(0_0_0/0.5)]">
-      {/* Like (score) */}
-      <RailButton label={formatCount(score)} aria="score">
-        <HeartIcon active={score > 0} />
-      </RailButton>
-
-      {/* Save / streak (bookmark) */}
-      <RailButton
-        label={String(streak)}
-        aria="streak"
-      >
-        <BookmarkIcon active={streak >= 3} />
-      </RailButton>
-
       {/* Help / question mark — opens instructions */}
       <RailButton label="help" aria="instructions" onClick={onHelp}>
         <HelpIcon />
@@ -68,39 +52,6 @@ function RailButton({
         </span>
       )}
     </button>
-  );
-}
-
-function formatCount(n: number): string {
-  if (n >= 10000) return (n / 1000).toFixed(1) + "K";
-  return String(n);
-}
-
-function HeartIcon({ active }: { active: boolean }) {
-  return (
-    <svg
-      width="34"
-      height="34"
-      viewBox="0 0 24 24"
-      fill={active ? "#FF2D55" : "white"}
-      aria-hidden="true"
-    >
-      <path d="M12 21s-7.5-4.6-10-9.2C.2 8.3 2.5 4.5 6 4.5c2 0 3.5 1 4.5 2.5C11.5 5.5 13 4.5 15 4.5c3.5 0 5.8 3.8 4 7.3-2.5 4.6-10 9.2-10 9.2h3z" />
-    </svg>
-  );
-}
-
-function BookmarkIcon({ active }: { active: boolean }) {
-  return (
-    <svg
-      width="32"
-      height="32"
-      viewBox="0 0 24 24"
-      fill={active ? "#ffc107" : "white"}
-      aria-hidden="true"
-    >
-      <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z" />
-    </svg>
   );
 }
 

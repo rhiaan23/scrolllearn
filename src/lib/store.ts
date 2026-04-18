@@ -20,10 +20,16 @@ interface ScrollLearnState {
   answered: Record<string, boolean>; // gameId -> isCorrect (so re-renders don't lose state)
   lastSubject?: Subject;
 
+  // student identity (optional — only set after onboarding)
+  studentId?: string;
+  studentName?: string;
+  classCode?: string;
+
   // actions
   enqueue: (games: Game[]) => void;
   popFromQueue: () => Game | undefined;
   recordAnswer: (game: Game, isCorrect: boolean) => void;
+  setStudentInfo: (id: string, name: string, classCode: string) => void;
   reset: () => void;
 }
 
@@ -40,6 +46,9 @@ export const useScrollLearn = create<ScrollLearnState>()(
       queue: [],
       answered: {},
       lastSubject: undefined,
+      studentId: undefined,
+      studentName: undefined,
+      classCode: undefined,
 
       enqueue: (games) =>
         set((s) => {
@@ -56,21 +65,43 @@ export const useScrollLearn = create<ScrollLearnState>()(
         return first;
       },
 
-      recordAnswer: (game, isCorrect) =>
-        set((s) => {
-          // Idempotent — don't double-count the same answer
-          if (s.answered[game.id] !== undefined) return {};
-          const newStreak = isCorrect ? s.streak + 1 : 0;
-          return {
-            score: s.score + (isCorrect ? 10 : 0),
-            streak: newStreak,
-            bestStreak: Math.max(s.bestStreak, newStreak),
-            stats: recordAnswer(s.stats, game.subject, isCorrect),
-            seenIds: [...s.seenIds, game.id].slice(-SEEN_LIMIT),
-            answered: { ...s.answered, [game.id]: isCorrect },
-            lastSubject: game.subject,
-          };
-        }),
+      recordAnswer: (game, isCorrect) => {
+        const s = get();
+        if (s.answered[game.id] !== undefined) return;
+        const newStreak = isCorrect ? s.streak + 1 : 0;
+        const newScore = s.score + (isCorrect ? 10 : 0);
+        const newBestStreak = Math.max(s.bestStreak, newStreak);
+        set({
+          score: newScore,
+          streak: newStreak,
+          bestStreak: newBestStreak,
+          stats: recordAnswer(s.stats, game.subject, isCorrect),
+          seenIds: [...s.seenIds, game.id].slice(-SEEN_LIMIT),
+          answered: { ...s.answered, [game.id]: isCorrect },
+          lastSubject: game.subject,
+        });
+        if (s.classCode && s.studentId) {
+          fetch("/api/class/progress", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              studentId: s.studentId,
+              classCode: s.classCode,
+              gameId: game.id,
+              prompt: game.prompt,
+              subject: game.subject,
+              difficulty: game.difficulty,
+              isCorrect,
+              score: newScore,
+              streak: newStreak,
+              bestStreak: newBestStreak,
+            }),
+          }).catch(() => {});
+        }
+      },
+
+      setStudentInfo: (id, name, classCode) =>
+        set({ studentId: id, studentName: name, classCode }),
 
       reset: () =>
         set({
@@ -95,6 +126,9 @@ export const useScrollLearn = create<ScrollLearnState>()(
         seenIds: s.seenIds,
         answered: s.answered,
         lastSubject: s.lastSubject,
+        studentId: s.studentId,
+        studentName: s.studentName,
+        classCode: s.classCode,
       }),
     },
   ),

@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { GameCard } from "@/components/GameCard";
 import { TopNavbar } from "@/components/TopNavbar";
-import { BottomNavbar } from "@/components/BottomNavbar";
+import { StudentOnboarding } from "@/components/StudentOnboarding";
 import type { Game } from "@/lib/schema";
 import { Game as GameSchema } from "@/lib/schema";
 import { nextRequestParams, useScrollLearn } from "@/lib/store";
@@ -14,10 +14,20 @@ export default function FeedPage() {
   const [games, games_set] = useState<Game[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   const fetchingRef = useRef(false); // prevent concurrent fetch loops
   const containerRef = useRef<HTMLDivElement>(null);
   const reset = useScrollLearn((s) => s.reset);
+  const classCode = useScrollLearn((s) => s.classCode);
+  const studentId = useScrollLearn((s) => s.studentId);
+
+  // Show onboarding once on first visit if not yet enrolled
+  useEffect(() => {
+    if (classCode === undefined && studentId === undefined) {
+      setShowOnboarding(true);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchOne = useCallback(async () => {
     if (fetchingRef.current) return;
@@ -90,7 +100,8 @@ export default function FeedPage() {
 
   return (
     <div className="flex h-dvh w-screen flex-col overflow-hidden bg-black">
-      <TopNavbar activeTab="for-you" onReset={reset} />
+      {showOnboarding && <StudentOnboarding onDone={() => setShowOnboarding(false)} />}
+      <TopNavbar activeTab="student" onReset={reset} />
 
       <div
         ref={containerRef}
@@ -106,7 +117,7 @@ export default function FeedPage() {
         ))}
 
         {(games.length === 0 || loading || error) && (
-          <div className="flex h-full w-full snap-start snap-always items-center justify-center bg-gradient-to-br from-zinc-800 to-black">
+          <div className="flex h-full w-full snap-start snap-always items-center justify-center bg-linear-to-br from-zinc-800 to-black">
             <div className="flex flex-col items-center gap-4 text-white">
               {error ? (
                 <>
@@ -133,7 +144,6 @@ export default function FeedPage() {
         )}
       </div>
 
-      <BottomNavbar />
     </div>
   );
 }

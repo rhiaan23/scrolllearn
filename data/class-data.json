@@ -1,0 +1,45 @@
+{
+  "students": {
+    "2da42451-f0e3-44b4-b306-a6bc518aa9a5": {
+      "id": "2da42451-f0e3-44b4-b306-a6bc518aa9a5",
+      "name": "Adam",
+      "classCode": "ROOM4B",
+      "score": 20,
+      "streak": 0,
+      "bestStreak": 2,
+      "joinedAt": 1776551458599
+    }
+  },
+  "answers": [
+    {
+      "studentId": "2da42451-f0e3-44b4-b306-a6bc518aa9a5",
+      "classCode": "ROOM4B",
+      "gameId": "math-merge-10",
+      "prompt": "Slide tiles together that add up to 10.",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776551461271
+    },
+    {
+      "studentId": "2da42451-f0e3-44b4-b306-a6bc518aa9a5",
+      "classCode": "ROOM4B",
+      "gameId": "eng-spell-easy",
+      "prompt": "Tap the letters to spell each word.",
+      "subject": "english",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776551512426
+    },
+    {
+      "studentId": "2da42451-f0e3-44b4-b306-a6bc518aa9a5",
+      "classCode": "ROOM4B",
+      "gameId": "sci-tap-flyers",
+      "prompt": "Tap only the things that fly!",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776551857696
+    }
+  ]
+}
