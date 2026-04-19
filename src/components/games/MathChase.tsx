@@ -37,6 +37,7 @@ export function MathChase({ game, onAnswer, locked }: Props) {
 
   const keyRef = useRef(0);
   const finishedRef = useRef(false);
+  const totalRef = useRef(0);
   const onAnswerRef = useRef(onAnswer);
   useEffect(() => {
     onAnswerRef.current = onAnswer;
@@ -49,14 +50,18 @@ export function MathChase({ game, onAnswer, locked }: Props) {
     onAnswerRef.current(isCorrect, description);
   }, []);
 
-  // Countdown timer.
+  // Countdown timer. Reads totalRef so the final message reflects the real
+  // accumulated sum at the moment the timer ends, not a captured closure.
   useEffect(() => {
     if (locked || finishedRef.current) return;
     const id = setInterval(() => {
       setTimeLeft((t) => {
         if (t <= 1) {
           clearInterval(id);
-          finish(false, `Out of time. Total was ${total}, target was ${target}.`);
+          finish(
+            false,
+            `Out of time. Total was ${totalRef.current}, target was ${target}.`,
+          );
           return 0;
         }
         return t - 1;
@@ -94,6 +99,7 @@ export function MathChase({ game, onAnswer, locked }: Props) {
 
     const next = total + item.value;
     setTotal(next);
+    totalRef.current = next;
 
     if (next === target) {
       setFlash("good");

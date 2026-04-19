@@ -118,4 +118,14 @@ export const INSTRUCTIONS: Record<Template, Instruction> = {
     ],
     goal: "Clear every round before your hearts run out.",
   },
+  wizard_dungeon: {
+    title: "Wizard Dungeon",
+    emoji: "⚔️",
+    steps: [
+      "Read the question and pick one of three sword answers (A, B, or C).",
+      "Correct answers hit the enemy — wrong answers hit you!",
+      "Watch the HP hearts: yours on the left, the enemy's on the right.",
+    ],
+    goal: "Drain the enemy's HP to zero before yours runs out.",
+  },
 };

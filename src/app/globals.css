@@ -126,3 +126,15 @@ body {
   from { transform: translateY(-60px); }
   to   { transform: translateY(440px); }
 }
+
+/* Wizard Dungeon — hero attack projectile slides left-to-right */
+@keyframes slideRight {
+  from { transform: translateY(-50%) translateX(0); opacity: 1; }
+  to   { transform: translateY(-50%) translateX(160px); opacity: 0; }
+}
+
+/* Wizard Dungeon — enemy attack projectile slides right-to-left */
+@keyframes slideLeft {
+  from { transform: translateY(-50%) translateX(0); opacity: 1; }
+  to   { transform: translateY(-50%) translateX(-160px); opacity: 0; }
+}

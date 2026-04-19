@@ -187,6 +187,25 @@ export const CleanRiverGame = z.object({
   }),
 });
 
+export const WizardDungeonGame = z.object({
+  template: z.literal("wizard_dungeon"),
+  ...baseShape,
+  data: z.object({
+    questions: z
+      .array(
+        z.object({
+          question: z.string().min(4).max(160),
+          options: z.tuple([z.string(), z.string(), z.string()]),
+          correctIndex: z.union([z.literal(0), z.literal(1), z.literal(2)]),
+        }),
+      )
+      .min(3)
+      .max(7),
+    heroHp: z.number().int().min(2).max(6).default(4),
+    enemyHp: z.number().int().min(2).max(6).default(4),
+  }),
+});
+
 export const Game = z.discriminatedUnion("template", [
   MergeMathGame,
   WordBuilderGame,
@@ -199,6 +218,7 @@ export const Game = z.discriminatedUnion("template", [
   MathChaseGame,
   GrammarQuestGame,
   CleanRiverGame,
+  WizardDungeonGame,
 ]);
 
 export type Game = z.infer<typeof Game>;
@@ -213,6 +233,7 @@ export type BalanceScaleGame = z.infer<typeof BalanceScaleGame>;
 export type MathChaseGame = z.infer<typeof MathChaseGame>;
 export type GrammarQuestGame = z.infer<typeof GrammarQuestGame>;
 export type CleanRiverGame = z.infer<typeof CleanRiverGame>;
+export type WizardDungeonGame = z.infer<typeof WizardDungeonGame>;
 
 export const TEMPLATES = [
   "merge_math",
@@ -226,6 +247,7 @@ export const TEMPLATES = [
   "math_chase",
   "grammar_quest",
   "clean_river",
+  "wizard_dungeon",
 ] as const;
 export type Template = (typeof TEMPLATES)[number];
 

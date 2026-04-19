@@ -591,4 +591,57 @@ export const SEED_GAMES: Game[] = [
       passingScore: 4,
     },
   }),
+
+  // science · wizard_dungeon · medium
+  // Questions ported from edutainment-submission (Science Wizard Dungeon Quiz).
+  Game.parse({
+    id: "sci-wizard-earth-med",
+    subject: "science",
+    difficulty: 2,
+    template: "wizard_dungeon",
+    prompt: "Answer earth-science questions to defeat the dungeon enemy!",
+    explanation:
+      "Earth processes like glaciers, earthquakes, and erosion constantly shape the land around us.",
+    data: {
+      heroHp: 4,
+      enemyHp: 4,
+      questions: [
+        {
+          question: "What is an example of ice and gravity creating and moving sediments?",
+          options: ["Glaciers move", "Icebergs float", "Frost on grass"],
+          correctIndex: 0,
+        },
+        {
+          question: "How might an earthquake change the land?",
+          options: ["Hardening the ground", "Lowering or raising the ground", "Forming ice sheets"],
+          correctIndex: 1,
+        },
+        {
+          question: "What does rain help create on the land?",
+          options: ["Oceans", "Limestone caves", "Glaciers"],
+          correctIndex: 1,
+        },
+        {
+          question: "Which fossil indicates the oldest layer of rock?",
+          options: ["Trilobite", "T-rex", "Mammoth"],
+          correctIndex: 0,
+        },
+        {
+          question: "What is obsidian?",
+          options: ["Volcanic glass", "Sedimentary cement", "Metamorphic shale"],
+          correctIndex: 0,
+        },
+        {
+          question: "Petroleum (crude oil) was once ____?",
+          options: ["Marine life", "Lava", "Magma"],
+          correctIndex: 0,
+        },
+        {
+          question: "Which causes erosion but NOT weathering?",
+          options: ["Acid rain", "Direct sunlight", "Fierce wind"],
+          correctIndex: 1,
+        },
+      ],
+    },
+  }),
 ];

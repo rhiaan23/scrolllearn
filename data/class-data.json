@@ -184,10 +184,19 @@
       "id": "b8079147-949d-411d-bab1-60d41ceb1be4",
       "name": "ABC",
       "classCode": "123",
-      "score": 0,
+      "score": 20,
       "streak": 0,
-      "bestStreak": 0,
+      "bestStreak": 2,
       "joinedAt": 1776584558378
+    },
+    "8732faf1-9c40-4a75-85b8-0e6f01a35b3d": {
+      "id": "8732faf1-9c40-4a75-85b8-0e6f01a35b3d",
+      "name": "th",
+      "classCode": "345",
+      "score": 170,
+      "streak": 1,
+      "bestStreak": 7,
+      "joinedAt": 1776586481841
     }
   },
   "answers": [
@@ -690,6 +699,56 @@
       "difficulty": 2,
       "isCorrect": false,
       "timestamp": 1776583402824
+    },
+    {
+      "studentId": "b8079147-949d-411d-bab1-60d41ceb1be4",
+      "classCode": "123",
+      "gameId": "math-2048-easy",
+      "prompt": "Slide so equal tiles bump into each other and double — build a 16!",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776584793912
+    },
+    {
+      "studentId": "b8079147-949d-411d-bab1-60d41ceb1be4",
+      "classCode": "123",
+      "gameId": "eng-grammar-easy",
+      "prompt": "Pick the word that fits each sentence.",
+      "subject": "english",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776584807619
+    },
+    {
+      "studentId": "b8079147-949d-411d-bab1-60d41ceb1be4",
+      "classCode": "123",
+      "gameId": "sci-tap-mammals",
+      "prompt": "Tap only the mammals before time runs out!",
+      "subject": "science",
+      "difficulty": 1,
+      "isCorrect": false,
+      "timestamp": 1776584829824
+    },
+    {
+      "studentId": "b8079147-949d-411d-bab1-60d41ceb1be4",
+      "classCode": "123",
+      "gameId": "sci-tap-flyers",
+      "prompt": "Tap only the things that fly!",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776585128618
+    },
+    {
+      "studentId": "8732faf1-9c40-4a75-85b8-0e6f01a35b3d",
+      "classCode": "345",
+      "gameId": "sci-wizard-earth-med",
+      "prompt": "Answer earth-science questions to defeat the dungeon enemy!",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776586538581
     }
   ]
 }
