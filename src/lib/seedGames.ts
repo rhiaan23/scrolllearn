@@ -53,22 +53,7 @@ export const SEED_GAMES: Game[] = [
     },
   }),
 
-  // 3 — math · sequence_order · medium
-  Game.parse({
-    id: "math-order-asc",
-    subject: "math",
-    difficulty: 2,
-    template: "sequence_order",
-    prompt: "Put these numbers in order, smallest to biggest.",
-    explanation:
-      "Compare each number's value. Three is smallest, then 7, 14, 19, and 22 is biggest.",
-    data: {
-      tokens: ["14", "7", "22", "3", "19"],
-      correctOrder: ["3", "7", "14", "19", "22"],
-    },
-  }),
-
-  // 4 — math · merge_math · hard (2048 to 64)
+  // 3 — math · merge_math · hard (2048 to 64)
   // Head-start the player with a few merged tiles, but keep half the board
   // empty so there's always somewhere to slide.
   Game.parse({
@@ -126,22 +111,7 @@ export const SEED_GAMES: Game[] = [
     },
   }),
 
-  // 7 — english · sequence_order · medium
-  Game.parse({
-    id: "eng-sentence",
-    subject: "english",
-    difficulty: 2,
-    template: "sequence_order",
-    prompt: "Put the words in order to make a sentence.",
-    explanation:
-      "A sentence usually starts with the subject (the cat), then the action (sat), then where (on the mat).",
-    data: {
-      tokens: ["cat", "the", "on", "sat", "mat", "the"],
-      correctOrder: ["the", "cat", "sat", "on", "the", "mat"],
-    },
-  }),
-
-  // 8 — science · quick_sort · easy
+  // 7 — science · quick_sort · easy
   Game.parse({
     id: "sci-tap-mammals",
     subject: "science",
@@ -203,28 +173,7 @@ export const SEED_GAMES: Game[] = [
     },
   }),
 
-  // 10 — science · sequence_order · hard
-  Game.parse({
-    id: "sci-water-cycle",
-    subject: "science",
-    difficulty: 3,
-    template: "sequence_order",
-    prompt: "Order the steps of the water cycle.",
-    explanation:
-      "Sun heats water → it evaporates into clouds → clouds condense → rain falls → water collects in lakes and oceans, then it starts again.",
-    data: {
-      tokens: ["Rain", "Evaporation", "Collection", "Sun heats water", "Clouds form"],
-      correctOrder: [
-        "Sun heats water",
-        "Evaporation",
-        "Clouds form",
-        "Rain",
-        "Collection",
-      ],
-    },
-  }),
-
-  // 11 — math · math_castle · easy
+  // 10 — math · math_castle · easy
   Game.parse({
     id: "math-castle-add-easy",
     subject: "math",
@@ -645,6 +594,65 @@ export const SEED_GAMES: Game[] = [
           correctIndex: 1,
         },
       ],
+    },
+  }),
+
+  // math · fraction_golf · easy
+  // Reduce 4/8 → 1/2. Mechanic ported from peterjjchen/fraction-golf (ISC).
+  Game.parse({
+    id: "math-frac-golf-easy",
+    subject: "math",
+    difficulty: 2,
+    template: "fraction_golf",
+    prompt: "Sink the balls that make the reduced fraction.",
+    explanation:
+      "Find the largest number that divides BOTH the top and the bottom evenly, and divide both by it. 4 ÷ 4 = 1, 8 ÷ 4 = 2 → 1/2.",
+    data: {
+      displayNumerator: 4,
+      displayDenominator: 8,
+      // 1 is the correct numerator of the reduced form
+      topBalls: [1, 3],
+      // 2 is the correct denominator of the reduced form
+      bottomBalls: [2, 5],
+      maxStrokes: 3,
+    },
+  }),
+
+  // math · fraction_golf · medium
+  // Reduce 6/9 → 2/3.
+  Game.parse({
+    id: "math-frac-golf-med",
+    subject: "math",
+    difficulty: 2,
+    template: "fraction_golf",
+    prompt: "Reduce the fraction — pick one ball per pool.",
+    explanation:
+      "Both 6 and 9 divide by 3. 6 ÷ 3 = 2, 9 ÷ 3 = 3 → 2/3.",
+    data: {
+      displayNumerator: 6,
+      displayDenominator: 9,
+      topBalls: [2, 4],
+      bottomBalls: [3, 7],
+      maxStrokes: 3,
+    },
+  }),
+
+  // math · fraction_golf · hard
+  // Reduce 12/16 → 3/4.
+  Game.parse({
+    id: "math-frac-golf-hard",
+    subject: "math",
+    difficulty: 3,
+    template: "fraction_golf",
+    prompt: "Two-digit fraction — find its simplest form!",
+    explanation:
+      "12 and 16 share a factor of 4. 12 ÷ 4 = 3, 16 ÷ 4 = 4 → 3/4.",
+    data: {
+      displayNumerator: 12,
+      displayDenominator: 16,
+      topBalls: [3, 6],
+      bottomBalls: [4, 8],
+      maxStrokes: 3,
     },
   }),
 ];

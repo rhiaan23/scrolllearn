@@ -9,7 +9,6 @@ import { InstructionsModal } from "./InstructionsModal";
 import { MergeMath } from "./games/MergeMath";
 import { WordBuilder } from "./games/WordBuilder";
 import { QuickSort } from "./games/QuickSort";
-import { SequenceOrder } from "./games/SequenceOrder";
 import { MathCastle } from "./games/MathCastle";
 import { Hangman } from "./games/Hangman";
 import { MiniCrossword } from "./games/MiniCrossword";
@@ -18,6 +17,7 @@ import { MathChase } from "./games/MathChase";
 import { GrammarQuest } from "./games/GrammarQuest";
 import { CleanRiver } from "./games/CleanRiver";
 import { WizardDungeon } from "./games/WizardDungeon";
+import { FractionGolf } from "./games/FractionGolf";
 
 const DIFFICULTY_LABEL: Record<number, string> = { 1: "K–1", 2: "Gr2–3", 3: "Gr4–5" };
 const SUBJECT_PILL: Record<string, string> = {
@@ -88,9 +88,6 @@ export function GameCard({ game, index, onAdvance }: Props) {
     case "quick_sort":
       body = <QuickSort game={game} onAnswer={handleAnswer} locked={locked} />;
       break;
-    case "sequence_order":
-      body = <SequenceOrder game={game} onAnswer={handleAnswer} locked={locked} />;
-      break;
     case "math_castle":
       body = <MathCastle game={game} onAnswer={handleAnswer} locked={locked} />;
       break;
@@ -114,6 +111,9 @@ export function GameCard({ game, index, onAdvance }: Props) {
       break;
     case "wizard_dungeon":
       body = <WizardDungeon game={game} onAnswer={handleAnswer} locked={locked} />;
+      break;
+    case "fraction_golf":
+      body = <FractionGolf game={game} onAnswer={handleAnswer} locked={locked} />;
       break;
   }
 

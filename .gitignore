@@ -42,3 +42,5 @@ next-env.d.ts
 
 # Vendored reference repos
 /grammar-quest/
+/fraction-golf/
+/TOP-game-jam-1/

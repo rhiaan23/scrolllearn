@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Vendored reference repos — not our code.
     "grammar-quest/**",
+    "fraction-golf/**",
+    "TOP-game-jam-1/**",
   ]),
 ]);
 

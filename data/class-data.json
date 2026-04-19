@@ -194,9 +194,45 @@
       "name": "th",
       "classCode": "345",
       "score": 170,
-      "streak": 1,
+      "streak": 0,
       "bestStreak": 7,
       "joinedAt": 1776586481841
+    },
+    "c27d6785-3400-4a43-a5d4-ea49811f41a3": {
+      "id": "c27d6785-3400-4a43-a5d4-ea49811f41a3",
+      "name": "Demo",
+      "classCode": "1234",
+      "score": 0,
+      "streak": 0,
+      "bestStreak": 0,
+      "joinedAt": 1776588204396
+    },
+    "3997833b-fbbe-4730-a832-40350fccd6fb": {
+      "id": "3997833b-fbbe-4730-a832-40350fccd6fb",
+      "name": "a",
+      "classCode": "1234",
+      "score": 0,
+      "streak": 0,
+      "bestStreak": 0,
+      "joinedAt": 1776588209495
+    },
+    "9b505d62-f4ab-4b48-8a9f-865ef4703afa": {
+      "id": "9b505d62-f4ab-4b48-8a9f-865ef4703afa",
+      "name": "RJ",
+      "classCode": "1234",
+      "score": 0,
+      "streak": 0,
+      "bestStreak": 0,
+      "joinedAt": 1776588671246
+    },
+    "7c084548-8141-4fde-84c2-7f90f5857646": {
+      "id": "7c084548-8141-4fde-84c2-7f90f5857646",
+      "name": "alex",
+      "classCode": "ROOM123",
+      "score": 0,
+      "streak": 0,
+      "bestStreak": 0,
+      "joinedAt": 1776588747165
     }
   },
   "answers": [
@@ -749,6 +785,16 @@
       "difficulty": 2,
       "isCorrect": true,
       "timestamp": 1776586538581
+    },
+    {
+      "studentId": "8732faf1-9c40-4a75-85b8-0e6f01a35b3d",
+      "classCode": "345",
+      "gameId": "math-river-hard",
+      "prompt": "Times tables at river speed — don't miss!",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776587199821
     }
   ]
 }

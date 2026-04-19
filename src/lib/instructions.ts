@@ -38,16 +38,6 @@ export const INSTRUCTIONS: Record<Template, Instruction> = {
     ],
     goal: "Hit the passing score before the timer hits zero.",
   },
-  sequence_order: {
-    title: "Sequence Order",
-    emoji: "🪜",
-    steps: [
-      "Read the prompt — it tells you the order to build.",
-      "Tap a token at the top, then tap an empty slot to place it.",
-      "Tap a placed token to send it back to the pool.",
-    ],
-    goal: "Fill every slot in the correct order.",
-  },
   math_castle: {
     title: "Math Castle",
     emoji: "🏰",
@@ -127,5 +117,15 @@ export const INSTRUCTIONS: Record<Template, Instruction> = {
       "Watch the HP hearts: yours on the left, the enemy's on the right.",
     ],
     goal: "Drain the enemy's HP to zero before yours runs out.",
+  },
+  fraction_golf: {
+    title: "Fraction Golf",
+    emoji: "⛳",
+    steps: [
+      "Look at the target fraction on the green.",
+      "Tap a numbered ball, then tap the numerator hole (top) or denominator hole (bottom) to drop it in.",
+      "Tap a placed ball to send it back to the pool.",
+    ],
+    goal: "Sink balls into the right holes so they make the target fraction.",
   },
 };

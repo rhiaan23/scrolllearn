@@ -69,15 +69,6 @@ export const QuickSortGame = z.object({
   }),
 });
 
-export const SequenceOrderGame = z.object({
-  template: z.literal("sequence_order"),
-  ...baseShape,
-  data: z.object({
-    tokens: z.array(z.string()).min(3).max(7),
-    correctOrder: z.array(z.string()).min(3).max(7),
-  }),
-});
-
 export const MathCastleGame = z.object({
   template: z.literal("math_castle"),
   ...baseShape,
@@ -206,11 +197,23 @@ export const WizardDungeonGame = z.object({
   }),
 });
 
+export const FractionGolfGame = z.object({
+  template: z.literal("fraction_golf"),
+  ...baseShape,
+  data: z.object({
+    displayNumerator: z.number().int().min(1).max(60),
+    displayDenominator: z.number().int().min(2).max(60),
+    // 2 balls per half; exactly one per half is the correct reduced-form value
+    topBalls: z.tuple([z.number().int().min(1).max(12), z.number().int().min(1).max(12)]),
+    bottomBalls: z.tuple([z.number().int().min(1).max(12), z.number().int().min(1).max(12)]),
+    maxStrokes: z.number().int().min(3).max(8),
+  }),
+});
+
 export const Game = z.discriminatedUnion("template", [
   MergeMathGame,
   WordBuilderGame,
   QuickSortGame,
-  SequenceOrderGame,
   MathCastleGame,
   HangmanGame,
   MiniCrosswordGame,
@@ -219,13 +222,13 @@ export const Game = z.discriminatedUnion("template", [
   GrammarQuestGame,
   CleanRiverGame,
   WizardDungeonGame,
+  FractionGolfGame,
 ]);
 
 export type Game = z.infer<typeof Game>;
 export type MergeMathGame = z.infer<typeof MergeMathGame>;
 export type WordBuilderGame = z.infer<typeof WordBuilderGame>;
 export type QuickSortGame = z.infer<typeof QuickSortGame>;
-export type SequenceOrderGame = z.infer<typeof SequenceOrderGame>;
 export type MathCastleGame = z.infer<typeof MathCastleGame>;
 export type HangmanGame = z.infer<typeof HangmanGame>;
 export type MiniCrosswordGame = z.infer<typeof MiniCrosswordGame>;
@@ -234,12 +237,12 @@ export type MathChaseGame = z.infer<typeof MathChaseGame>;
 export type GrammarQuestGame = z.infer<typeof GrammarQuestGame>;
 export type CleanRiverGame = z.infer<typeof CleanRiverGame>;
 export type WizardDungeonGame = z.infer<typeof WizardDungeonGame>;
+export type FractionGolfGame = z.infer<typeof FractionGolfGame>;
 
 export const TEMPLATES = [
   "merge_math",
   "word_builder",
   "quick_sort",
-  "sequence_order",
   "math_castle",
   "hangman",
   "mini_crossword",
@@ -248,6 +251,7 @@ export const TEMPLATES = [
   "grammar_quest",
   "clean_river",
   "wizard_dungeon",
+  "fraction_golf",
 ] as const;
 export type Template = (typeof TEMPLATES)[number];
 
