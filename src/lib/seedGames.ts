@@ -13,6 +13,7 @@ import { Game } from "./schema";
  */
 export const SEED_GAMES: Game[] = [
   // 1 — math · merge_math · easy (2048 to 16)
+  // Classic 2048 starts with 2 tiles. Sparse boards = always playable.
   Game.parse({
     id: "math-2048-easy",
     subject: "math",
@@ -24,10 +25,10 @@ export const SEED_GAMES: Game[] = [
     data: {
       target: 16,
       startGrid: [
-        [2, null, 2, null],
-        [null, 4, null, 4],
-        [2, null, 2, null],
+        [2, null, null, null],
         [null, null, null, null],
+        [null, null, null, null],
+        [null, null, 2, null],
       ],
     },
   }),
@@ -44,10 +45,10 @@ export const SEED_GAMES: Game[] = [
     data: {
       target: 32,
       startGrid: [
-        [2, 4, 2, 4],
-        [4, null, 8, null],
-        [null, 8, null, 4],
-        [2, null, 2, null],
+        [2, 2, null, null],
+        [null, null, 4, null],
+        [null, 4, null, null],
+        [null, null, null, 2],
       ],
     },
   }),
@@ -68,6 +69,8 @@ export const SEED_GAMES: Game[] = [
   }),
 
   // 4 — math · merge_math · hard (2048 to 64)
+  // Head-start the player with a few merged tiles, but keep half the board
+  // empty so there's always somewhere to slide.
   Game.parse({
     id: "math-2048-hard",
     subject: "math",
@@ -79,10 +82,10 @@ export const SEED_GAMES: Game[] = [
     data: {
       target: 64,
       startGrid: [
-        [16, 8, 4, 2],
-        [8, 16, 2, 4],
-        [4, 2, 8, 16],
-        [2, 4, 16, 8],
+        [16, null, 8, null],
+        [null, 8, null, 4],
+        [4, null, 2, null],
+        [null, 2, null, null],
       ],
     },
   }),

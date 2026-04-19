@@ -95,16 +95,11 @@ export function MathCastle({ game, onAnswer, locked }: Props) {
         setSelected((s) => (s === key ? null : s));
         setCastleShake(true);
         setTimeout(() => setCastleShake(false), 400);
-        setLives((L) => {
-          const next = L - 1;
-          if (next <= 0) {
-            finish(
-              false,
-              `Castle fell — ${enemies.length - killedRef.current} enemies broke through.`,
-            );
-          }
-          return next;
-        });
+        // Pure decrement only. The lose-condition side-effect (call finish,
+        // which sets parent state) is handled by the lives-watcher useEffect
+        // below. Calling finish from inside an updater triggers React's
+        // "setState during render of a different component" error.
+        setLives((L) => Math.max(0, L - 1));
       }, travel);
       breachTimersRef.current.set(key, t);
     }
@@ -120,6 +115,18 @@ export function MathCastle({ game, onAnswer, locked }: Props) {
       finish(true, `Castle held! All ${enemies.length} enemies defeated.`);
     }
   }, [killed, enemies.length, finish]);
+
+  // Watch lives — when a breach drops it to 0, end the game. Done in an effect
+  // so the side-effect happens AFTER the state commit, not during a setLives
+  // updater (which would trigger setState-during-render of GameCard).
+  useEffect(() => {
+    if (lives <= 0 && !finishedRef.current) {
+      finish(
+        false,
+        `Castle fell — ${enemies.length - killedRef.current} enemies broke through.`,
+      );
+    }
+  }, [lives, enemies.length, finish]);
 
   useEffect(() => {
     const timers = breachTimersRef.current;
