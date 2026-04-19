@@ -1,7 +1,10 @@
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const DEFAULT_VOICE_ID = "21m00Tcm4TlvDq8ikWAM"; // Rachel — friendly default
+// Jessica — warm, friendly premade voice that works on free-tier API keys.
+// (The original "Rachel" voice has been moved to paid-only.) Override by
+// setting ELEVENLABS_VOICE_ID in .env.local.
+const DEFAULT_VOICE_ID = "cgSgspJ2msm6clMCkdW9";
 
 export async function POST(request: Request) {
   if (!process.env.ELEVENLABS_API_KEY) {
@@ -19,16 +22,19 @@ export async function POST(request: Request) {
   if (!text.trim()) {
     return Response.json({ error: "text is required" }, { status: 400 });
   }
-  const voiceId = body.voiceId || DEFAULT_VOICE_ID;
+  const voiceId =
+    body.voiceId || process.env.ELEVENLABS_VOICE_ID || DEFAULT_VOICE_ID;
 
+  // Use the with-timestamps endpoint so the client can highlight each
+  // character as it's being spoken. Returns JSON with base64 audio + per-char
+  // alignment instead of a raw MP3 stream.
   const upstream = await fetch(
-    `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
+    `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/with-timestamps`,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "xi-api-key": process.env.ELEVENLABS_API_KEY,
-        Accept: "audio/mpeg",
       },
       body: JSON.stringify({
         text,
@@ -46,11 +52,10 @@ export async function POST(request: Request) {
     );
   }
 
-  return new Response(upstream.body, {
-    status: 200,
-    headers: {
-      "Content-Type": "audio/mpeg",
-      "Cache-Control": "public, max-age=86400",
-    },
+  const data = await upstream.json();
+  // Forward verbatim. Shape: { audio_base64, alignment: { characters,
+  // character_start_times_seconds, character_end_times_seconds } }
+  return Response.json(data, {
+    headers: { "Cache-Control": "public, max-age=86400" },
   });
 }

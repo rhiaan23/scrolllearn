@@ -26,7 +26,11 @@ export default function FeedPage() {
   const [pinnedSubject, setPinnedSubject] = useState<Subject | null>(null);
   const pinnedSubjectRef = useRef<Subject | null>(null);
   const [tabKey, setTabKey] = useState(0);
+  const [exhausted, setExhausted] = useState(false);
+  const exhaustedRef = useRef(false);
   const fetchingRef = useRef(false);
+  // Session-scoped — every id loaded this session. Resets on reload. Sent
+  // to the API as the full avoid list so no game can repeat.
   const loadedIdsRef = useRef<string[]>([]);
   const recentTemplatesRef = useRef<string[]>([]);
   const pendingAdvanceRef = useRef(false);
@@ -34,7 +38,7 @@ export default function FeedPage() {
   const reset = useScrollLearn((s) => s.reset);
 
   const fetchOne = useCallback(async () => {
-    if (fetchingRef.current) return;
+    if (fetchingRef.current || exhaustedRef.current) return;
     fetchingRef.current = true;
     setLoading(true);
     setError(null);
@@ -42,32 +46,34 @@ export default function FeedPage() {
       const base = nextRequestParams();
       const subject = pinnedSubjectRef.current ?? base.subject;
       const difficulty = base.difficulty;
-      const recentLoaded = loadedIdsRef.current.slice(-12);
-      const recentSet = new Set(recentLoaded);
-      const olderPlayed = base.avoid.filter((id) => !recentSet.has(id)).slice(-12);
-      const avoid = [...olderPlayed, ...recentLoaded];
       const res = await fetch("/api/games/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           subject,
           difficulty,
-          avoid,
+          avoid: loadedIdsRef.current,
           avoidTemplates: recentTemplatesRef.current,
           strictSubject: pinnedSubjectRef.current !== null,
         }),
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json.error ?? `HTTP ${res.status}`);
+      if (json.exhausted) {
+        exhaustedRef.current = true;
+        setExhausted(true);
+        return;
+      }
       const parsed = GameSchema.safeParse(json.game);
       if (!parsed.success) {
         throw new Error("invalid game shape from server");
       }
       games_set((g) => {
-        loadedIdsRef.current = [...loadedIdsRef.current, parsed.data.id].slice(-32);
-        recentTemplatesRef.current = [...recentTemplatesRef.current, parsed.data.template].slice(
-          -2,
-        );
+        loadedIdsRef.current = [...loadedIdsRef.current, parsed.data.id];
+        recentTemplatesRef.current = [
+          ...recentTemplatesRef.current,
+          parsed.data.template,
+        ].slice(-3);
         return [...g, parsed.data];
       });
     } catch (err) {
@@ -85,6 +91,8 @@ export default function FeedPage() {
     games_set([]);
     loadedIdsRef.current = [];
     recentTemplatesRef.current = [];
+    exhaustedRef.current = false;
+    setExhausted(false);
     setTabKey((k) => k + 1);
   }
 
@@ -105,7 +113,7 @@ export default function FeedPage() {
     const el = containerRef.current;
     if (!el) return;
     function onScroll() {
-      if (!el) return;
+      if (!el || exhausted) return;
       const visibleIndex = Math.round(el.scrollTop / el.clientHeight);
       const remaining = games.length - 1 - visibleIndex;
       if (remaining < PREFETCH_AHEAD) {
@@ -114,23 +122,27 @@ export default function FeedPage() {
     }
     el.addEventListener("scroll", onScroll, { passive: true });
     return () => el.removeEventListener("scroll", onScroll);
-  }, [games.length, fetchOne]);
+  }, [games.length, fetchOne, exhausted]);
 
   useEffect(() => {
     const el = containerRef.current;
-    if (!el) return;
+    if (!el || exhausted) return;
     const visibleIndex = Math.round(el.scrollTop / el.clientHeight);
     const remaining = games.length - 1 - visibleIndex;
     if (remaining < PREFETCH_AHEAD) {
       fetchOne();
     }
-  }, [games.length, fetchOne]);
+  }, [games.length, fetchOne, exhausted]);
 
   function advance() {
     const el = containerRef.current;
     if (!el) return;
     const visibleIndex = Math.round(el.scrollTop / el.clientHeight);
     if (visibleIndex >= games.length - 1) {
+      if (exhausted) {
+        el.scrollTo({ top: games.length * el.clientHeight, behavior: "smooth" });
+        return;
+      }
       pendingAdvanceRef.current = true;
       fetchOne();
       return;
@@ -206,7 +218,48 @@ export default function FeedPage() {
             <GameCard key={`${i}-${g.id}`} game={g} index={i} onAdvance={advance} />
           ))}
 
-          {(games.length === 0 || loading || error) && (
+          {exhausted && (
+            <div
+              className="flex h-full w-full snap-start snap-always items-center justify-center px-6"
+              style={{ background: paper.bg }}
+            >
+              <div className="flex max-w-xs flex-col items-center gap-5 text-center">
+                <div
+                  className="flex h-16 w-16 items-center justify-center rounded-full font-display text-3xl font-black"
+                  style={{
+                    background: "#FFFFFF",
+                    border: `3px solid ${paper.science.lo}`,
+                    color: paper.science.lo,
+                    transform: "rotate(-4deg)",
+                    boxShadow: "0 8px 16px rgba(43,29,16,0.14)",
+                  }}
+                >
+                  ★
+                </div>
+                <h2
+                  className="font-display text-2xl font-black"
+                  style={{ color: paper.ink }}
+                >
+                  That&apos;s every game!
+                </h2>
+                <p
+                  className="font-body text-sm font-semibold"
+                  style={{ color: paper.inkSoft }}
+                >
+                  You&apos;ve seen all {loadedIdsRef.current.length} games this session. Refresh to start fresh.
+                </p>
+                <PaperButton
+                  variant="primary"
+                  subject="science"
+                  onClick={() => window.location.reload()}
+                >
+                  Refresh
+                </PaperButton>
+              </div>
+            </div>
+          )}
+
+          {!exhausted && (games.length === 0 || loading || error) && (
             <div
               className="flex h-full w-full snap-start snap-always items-center justify-center px-6"
               style={{ background: paper.bg }}

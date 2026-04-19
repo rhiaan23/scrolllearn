@@ -34,12 +34,14 @@ export async function POST(request: Request) {
     ? body.difficulty
     : 1) as Difficulty;
 
-  const avoid = Array.isArray(body.avoid) ? body.avoid.slice(0, 16) : [];
+  // NO truncation — the full session history is the source of truth for
+  // "don't repeat". Max session length = seed pool size.
+  const avoid = Array.isArray(body.avoid) ? body.avoid : [];
 
   const avoidTemplates = Array.isArray(body.avoidTemplates)
     ? body.avoidTemplates
         .filter((t): t is Template => TEMPLATES.includes(t as Template))
-        .slice(0, 5)
+        .slice(-5)
     : [];
 
   try {
@@ -51,6 +53,9 @@ export async function POST(request: Request) {
       avoidTemplates,
       strictSubject,
     });
+    if (game === null) {
+      return Response.json({ exhausted: true }, { status: 200 });
+    }
     return Response.json({ game });
   } catch (err) {
     const message = err instanceof Error ? err.message : "unknown error";

@@ -36,6 +36,14 @@ type Active = {
   answer: number;
   lane: number;
   sheet: string;
+  spawnedAt: number;
+};
+
+type Burst = {
+  id: number;
+  x: number;
+  y: number;
+  kind: "hit" | "miss";
 };
 
 export function MathCastle({ game, onAnswer, locked }: Props) {
@@ -51,9 +59,13 @@ export function MathCastle({ game, onAnswer, locked }: Props) {
   const [input, setInput] = useState("");
   const [wrongKey, setWrongKey] = useState<number | null>(null);
   const [castleShake, setCastleShake] = useState(false);
+  const [damageFlash, setDamageFlash] = useState(0);
+  const [bursts, setBursts] = useState<Burst[]>([]);
+  const [heartPulseIdx, setHeartPulseIdx] = useState<number | null>(null);
 
   const spawnIdxRef = useRef(0);
   const keySeqRef = useRef(0);
+  const burstSeqRef = useRef(0);
   const finishedRef = useRef(false);
   const killedRef = useRef(0);
   const breachTimersRef = useRef<Map<number, ReturnType<typeof setTimeout>>>(
@@ -72,6 +84,26 @@ export function MathCastle({ game, onAnswer, locked }: Props) {
     onAnswerRef.current(isCorrect, description);
   }, []);
 
+  const triggerDamage = useCallback(() => {
+    setDamageFlash((n) => n + 1);
+    setCastleShake(true);
+    setTimeout(() => setCastleShake(false), 400);
+    setLives((L) => {
+      const next = Math.max(0, L - 1);
+      setHeartPulseIdx(next);
+      setTimeout(() => setHeartPulseIdx(null), 500);
+      return next;
+    });
+  }, []);
+
+  const addBurst = useCallback((x: number, y: number, kind: "hit" | "miss") => {
+    const id = ++burstSeqRef.current;
+    setBursts((prev) => [...prev, { id, x, y, kind }]);
+    setTimeout(() => {
+      setBursts((prev) => prev.filter((b) => b.id !== id));
+    }, 700);
+  }, []);
+
   useEffect(() => {
     if (locked || finishedRef.current) return;
     if (spawnIdxRef.current >= enemies.length) return;
@@ -87,20 +119,25 @@ export function MathCastle({ game, onAnswer, locked }: Props) {
       const sheet = SHEETS[idx % SHEETS.length];
       setActive((prev) => [
         ...prev,
-        { key, question: e.question, answer: e.answer, lane, sheet },
+        {
+          key,
+          question: e.question,
+          answer: e.answer,
+          lane,
+          sheet,
+          spawnedAt: Date.now(),
+        },
       ]);
 
       const t = setTimeout(() => {
         breachTimersRef.current.delete(key);
         setActive((prev) => prev.filter((a) => a.key !== key));
         setSelected((s) => (s === key ? null : s));
-        setCastleShake(true);
-        setTimeout(() => setCastleShake(false), 400);
-        // Pure decrement only. The lose-condition side-effect (call finish,
-        // which sets parent state) is handled by the lives-watcher useEffect
-        // below. Calling finish from inside an updater triggers React's
-        // "setState during render of a different component" error.
-        setLives((L) => Math.max(0, L - 1));
+        // Breach damage: shake castle, flash red, lose a heart.
+        triggerDamage();
+        // Small "miss" burst at the castle gate in the breached lane.
+        const laneY = LANE_TOP + lane * LANE_GAP;
+        addBurst(CASTLE_RIGHT + 10, laneY, "miss");
       }, travel);
       breachTimersRef.current.set(key, t);
     }
@@ -108,7 +145,7 @@ export function MathCastle({ game, onAnswer, locked }: Props) {
     spawnNext();
     const id = setInterval(spawnNext, spawnInterval);
     return () => clearInterval(id);
-  }, [enemies, travel, spawnInterval, locked, finish]);
+  }, [enemies, travel, spawnInterval, locked, triggerDamage, addBurst]);
 
   useEffect(() => {
     killedRef.current = killed;
@@ -117,9 +154,9 @@ export function MathCastle({ game, onAnswer, locked }: Props) {
     }
   }, [killed, enemies.length, finish]);
 
-  // Watch lives — when a breach drops it to 0, end the game. Done in an effect
-  // so the side-effect happens AFTER the state commit, not during a setLives
-  // updater (which would trigger setState-during-render of GameCard).
+  // Watch lives — when it drops to 0, end the game. Done in an effect so the
+  // side-effect happens AFTER the state commit, not during a setLives updater
+  // (which would trigger setState-during-render of GameCard).
   useEffect(() => {
     if (lives <= 0 && !finishedRef.current) {
       finish(
@@ -155,6 +192,14 @@ export function MathCastle({ game, onAnswer, locked }: Props) {
     const value = Number(trimmed);
     if (!Number.isFinite(value)) return;
 
+    // Compute the enemy's current on-screen x/y so feedback bursts land on it.
+    const elapsed = Date.now() - target.spawnedAt;
+    const progress = Math.min(1, elapsed / travel);
+    const startX = FIELD_WIDTH - ENEMY_WIDTH;
+    const endX = CASTLE_RIGHT - ENEMY_WIDTH / 2;
+    const enemyX = startX + (endX - startX) * progress + ENEMY_WIDTH / 2;
+    const enemyY = LANE_TOP + target.lane * LANE_GAP;
+
     if (value === target.answer) {
       const t = breachTimersRef.current.get(selected);
       if (t) clearTimeout(t);
@@ -163,11 +208,15 @@ export function MathCastle({ game, onAnswer, locked }: Props) {
       setKilled((k) => k + 1);
       setSelected(null);
       setInput("");
+      addBurst(enemyX, enemyY, "hit");
     } else {
       setWrongKey(selected);
       setTimeout(() => setWrongKey(null), 450);
       setSelected(null);
       setInput("");
+      // Wrong answer now costs a heart and triggers the red flash.
+      triggerDamage();
+      addBurst(enemyX, enemyY, "miss");
     }
   }
 
@@ -207,20 +256,40 @@ export function MathCastle({ game, onAnswer, locked }: Props) {
 
   return (
     <div ref={wrapRef} className="flex w-full flex-col items-center gap-2">
-      <div className="flex w-full items-center justify-between rounded-xl bg-black/30 px-4 py-2 backdrop-blur-sm">
-        <div className="flex gap-1" aria-label={`${lives} lives`}>
-          {Array.from({ length: startingLives }).map((_, i) => (
-            <PixelIcon
-              key={i}
-              name="heart"
-              size={18}
-              color={i < lives ? "#ef4444" : "#525252"}
-            />
-          ))}
+      <div className="flex w-full items-center justify-between rounded-xl border border-amber-400/20 bg-linear-to-b from-stone-900/80 to-stone-950/80 px-4 py-2 shadow-inner backdrop-blur-sm">
+        <div
+          className="flex items-center gap-1.5"
+          aria-label={`${lives} of ${startingLives} lives remaining`}
+        >
+          {Array.from({ length: startingLives }).map((_, i) => {
+            const alive = i < lives;
+            const pulsing = heartPulseIdx === i;
+            return (
+              <span
+                key={i}
+                style={{
+                  display: "inline-flex",
+                  animation: pulsing ? "mc-heart-lose 0.5s ease-out" : undefined,
+                  filter: alive
+                    ? "drop-shadow(0 0 3px rgba(239,68,68,0.55))"
+                    : "grayscale(1) opacity(0.55)",
+                }}
+              >
+                <PixelIcon
+                  name="heart"
+                  size={22}
+                  color={alive ? "#ef4444" : "#52525b"}
+                />
+              </span>
+            );
+          })}
         </div>
-        <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-white/80">
-          <PixelIcon name="castle" size={14} color="#fcd34d" />
-          <span className="text-amber-300">{killed}</span>/{enemies.length} defeated
+        <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-white/85">
+          <PixelIcon name="castle" size={16} color="#fcd34d" />
+          <span className="text-amber-300">{killed}</span>
+          <span className="text-white/50">/</span>
+          <span>{enemies.length}</span>
+          <span className="text-white/60">defeated</span>
         </div>
       </div>
 
@@ -277,7 +346,7 @@ export function MathCastle({ game, onAnswer, locked }: Props) {
                 top: laneTop,
                 left: 0,
                 width: ENEMY_WIDTH,
-                height: ENEMY_HEIGHT + 18,
+                height: ENEMY_HEIGHT + 22,
                 // @ts-expect-error: CSS custom properties
                 "--mc-start": `${startX}px`,
                 "--mc-end": `${endX}px`,
@@ -290,8 +359,8 @@ export function MathCastle({ game, onAnswer, locked }: Props) {
               aria-label={`Enemy asking ${a.question}`}
             >
               <div
-                className="mx-auto rounded bg-black/70 px-1.5 py-0.5 text-center text-[11px] font-bold text-white"
-                style={{ width: "fit-content", transform: "translateY(-2px)" }}
+                className="mx-auto rounded-md border border-amber-300/60 bg-linear-to-b from-amber-100 to-amber-200 px-2 py-0.5 text-center text-[12px] font-black text-stone-900 shadow-[0_2px_0_rgba(0,0,0,0.45)]"
+                style={{ width: "fit-content", transform: "translateY(-3px)" }}
               >
                 {a.question}
               </div>
@@ -305,15 +374,57 @@ export function MathCastle({ game, onAnswer, locked }: Props) {
                   animation: `mc-walk ${WALK_DURATION_SEC}s steps(${SPRITE_FRAMES}) infinite`,
                   animationPlayState: locked ? "paused" : "running",
                   transform: "scaleX(-1)",
+                  imageRendering: "pixelated",
                 }}
               />
             </button>
           );
         })}
 
+        {/* Correct / miss feedback bursts positioned on the field */}
+        {bursts.map((b) => (
+          <div
+            key={b.id}
+            className="pointer-events-none absolute z-20"
+            style={{
+              left: b.x,
+              top: b.y,
+              transform: "translate(-50%, -50%)",
+              animation: "mc-hit-burst 0.7s ease-out forwards",
+            }}
+            aria-hidden="true"
+          >
+            {b.kind === "hit" ? (
+              <div className="flex items-center gap-1 rounded-full border-2 border-emerald-200 bg-emerald-500/95 px-2 py-0.5 text-[13px] font-black text-white shadow-[0_0_14px_rgba(16,185,129,0.9)]">
+                <PixelIcon name="check" size={14} color="#ffffff" />
+                <span>+1</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1 rounded-full border-2 border-rose-200 bg-rose-600/95 px-2 py-0.5 text-[13px] font-black text-white shadow-[0_0_14px_rgba(244,63,94,0.9)]">
+                <PixelIcon name="cancel" size={14} color="#ffffff" />
+              </div>
+            )}
+          </div>
+        ))}
+
+        {/* Red damage flash overlay — covers the field only, keyed so it
+            retriggers the animation on every hit. */}
+        {damageFlash > 0 && (
+          <div
+            key={damageFlash}
+            className="pointer-events-none absolute inset-0 z-30"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, rgba(239,68,68,0.55) 0%, rgba(127,29,29,0.45) 55%, rgba(127,29,29,0) 100%)",
+              animation: "mc-damage-flash 0.45s ease-out forwards",
+            }}
+            aria-hidden="true"
+          />
+        )}
+
         {selectedEnemy && !locked && (
           <div
-            className="absolute bottom-2 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 rounded-xl bg-black/80 px-3 py-2 ring-2 ring-amber-300 backdrop-blur-sm"
+            className="absolute bottom-2 left-1/2 z-40 flex -translate-x-1/2 items-center gap-2 rounded-xl bg-black/80 px-3 py-2 ring-2 ring-amber-300 backdrop-blur-sm"
             role="dialog"
             aria-label="Answer the question"
           >

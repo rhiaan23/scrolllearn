@@ -287,6 +287,96 @@
       "streak": 0,
       "bestStreak": 0,
       "joinedAt": 1776595647668
+    },
+    "a70f54c8-d95a-4cf4-b78d-6c20397eb15b": {
+      "id": "a70f54c8-d95a-4cf4-b78d-6c20397eb15b",
+      "name": "Alice Martinez",
+      "classCode": "DEMO",
+      "score": 100,
+      "streak": 0,
+      "bestStreak": 8,
+      "joinedAt": 1776568100356
+    },
+    "81fd3f5d-b018-4297-a16c-e7576dd3caab": {
+      "id": "81fd3f5d-b018-4297-a16c-e7576dd3caab",
+      "name": "Ben Kumar",
+      "classCode": "DEMO",
+      "score": 110,
+      "streak": 7,
+      "bestStreak": 7,
+      "joinedAt": 1776406100356
+    },
+    "0d1e8609-8302-4cc2-a715-e3e63d32bc36": {
+      "id": "0d1e8609-8302-4cc2-a715-e3e63d32bc36",
+      "name": "Chloe Park",
+      "classCode": "DEMO",
+      "score": 110,
+      "streak": 0,
+      "bestStreak": 6,
+      "joinedAt": 1776402500356
+    },
+    "d6b24226-1edb-4f38-9f3c-85077c1bea02": {
+      "id": "d6b24226-1edb-4f38-9f3c-85077c1bea02",
+      "name": "David Reyes",
+      "classCode": "DEMO",
+      "score": 120,
+      "streak": 0,
+      "bestStreak": 8,
+      "joinedAt": 1776395300356
+    },
+    "badaaad0-24ee-4a7c-adc5-ccc4750c28f0": {
+      "id": "badaaad0-24ee-4a7c-adc5-ccc4750c28f0",
+      "name": "Emma Singh",
+      "classCode": "DEMO",
+      "score": 90,
+      "streak": 0,
+      "bestStreak": 4,
+      "joinedAt": 1776391700356
+    },
+    "90e66f2b-af8a-470a-a3a8-15d68cda9188": {
+      "id": "90e66f2b-af8a-470a-a3a8-15d68cda9188",
+      "name": "Fatima Ahmed",
+      "classCode": "DEMO",
+      "score": 100,
+      "streak": 7,
+      "bestStreak": 7,
+      "joinedAt": 1776546500356
+    },
+    "eddac463-9271-479f-9409-157a4b4a2d96": {
+      "id": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "name": "Gabriel Torres",
+      "classCode": "DEMO",
+      "score": 70,
+      "streak": 2,
+      "bestStreak": 2,
+      "joinedAt": 1776564500356
+    },
+    "bfb1dffe-e435-4048-bee4-b15a530111a6": {
+      "id": "bfb1dffe-e435-4048-bee4-b15a530111a6",
+      "name": "Hannah Lewis",
+      "classCode": "DEMO",
+      "score": 120,
+      "streak": 0,
+      "bestStreak": 8,
+      "joinedAt": 1776524900356
+    },
+    "4258fdd9-6891-4200-a817-7e73fdafa390": {
+      "id": "4258fdd9-6891-4200-a817-7e73fdafa390",
+      "name": "Anonymous",
+      "classCode": "DEMO",
+      "score": 30,
+      "streak": 0,
+      "bestStreak": 3,
+      "joinedAt": 1776601398337
+    },
+    "c612ac75-a702-4bff-95cb-381da1fe5e2a": {
+      "id": "c612ac75-a702-4bff-95cb-381da1fe5e2a",
+      "name": "Anonymous",
+      "classCode": "DEMO",
+      "score": 30,
+      "streak": 0,
+      "bestStreak": 3,
+      "joinedAt": 1776601885724
     }
   },
   "answers": [
@@ -1099,6 +1189,1216 @@
       "difficulty": 1,
       "isCorrect": false,
       "timestamp": 1776596630830
+    },
+    {
+      "studentId": "a70f54c8-d95a-4cf4-b78d-6c20397eb15b",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-0",
+      "prompt": "Spell: animal",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776568157224
+    },
+    {
+      "studentId": "a70f54c8-d95a-4cf4-b78d-6c20397eb15b",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-1",
+      "prompt": "Which is a producer in a food chain?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776568177018
+    },
+    {
+      "studentId": "a70f54c8-d95a-4cf4-b78d-6c20397eb15b",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-2",
+      "prompt": "What is 3 + 4?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776568587781
+    },
+    {
+      "studentId": "a70f54c8-d95a-4cf4-b78d-6c20397eb15b",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-3",
+      "prompt": "Which is a producer in a food chain?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776568791768
+    },
+    {
+      "studentId": "a70f54c8-d95a-4cf4-b78d-6c20397eb15b",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-4",
+      "prompt": "Fill the blank: The fox ___ in the forest.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776568614986
+    },
+    {
+      "studentId": "a70f54c8-d95a-4cf4-b78d-6c20397eb15b",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-5",
+      "prompt": "What is 6 + 2?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776568815520
+    },
+    {
+      "studentId": "a70f54c8-d95a-4cf4-b78d-6c20397eb15b",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-6",
+      "prompt": "Spell: animal",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776568928008
+    },
+    {
+      "studentId": "a70f54c8-d95a-4cf4-b78d-6c20397eb15b",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-7",
+      "prompt": "What is 3 + 4?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776569093188
+    },
+    {
+      "studentId": "a70f54c8-d95a-4cf4-b78d-6c20397eb15b",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-8",
+      "prompt": "Spell: forest",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776569454271
+    },
+    {
+      "studentId": "a70f54c8-d95a-4cf4-b78d-6c20397eb15b",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-9",
+      "prompt": "Which is a producer in a food chain?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776569392656
+    },
+    {
+      "studentId": "a70f54c8-d95a-4cf4-b78d-6c20397eb15b",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-10",
+      "prompt": "What is 9 - 4?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776569473156
+    },
+    {
+      "studentId": "a70f54c8-d95a-4cf4-b78d-6c20397eb15b",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-11",
+      "prompt": "What do plants need to grow?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776568604500
+    },
+    {
+      "studentId": "a70f54c8-d95a-4cf4-b78d-6c20397eb15b",
+      "classCode": "DEMO",
+      "gameId": "demo-math-3-12",
+      "prompt": "What is 11 × 5?",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776569283668
+    },
+    {
+      "studentId": "81fd3f5d-b018-4297-a16c-e7576dd3caab",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-0",
+      "prompt": "Spell: climate",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776406225994
+    },
+    {
+      "studentId": "81fd3f5d-b018-4297-a16c-e7576dd3caab",
+      "classCode": "DEMO",
+      "gameId": "demo-math-3-1",
+      "prompt": "What is 11 × 5?",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": true,
+      "timestamp": 1776406300328
+    },
+    {
+      "studentId": "81fd3f5d-b018-4297-a16c-e7576dd3caab",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-2",
+      "prompt": "What is 9 - 4?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776406610419
+    },
+    {
+      "studentId": "81fd3f5d-b018-4297-a16c-e7576dd3caab",
+      "classCode": "DEMO",
+      "gameId": "demo-math-3-3",
+      "prompt": "What is 15 × 4?",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776406503416
+    },
+    {
+      "studentId": "81fd3f5d-b018-4297-a16c-e7576dd3caab",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-4",
+      "prompt": "What do plants need to grow?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776406323671
+    },
+    {
+      "studentId": "81fd3f5d-b018-4297-a16c-e7576dd3caab",
+      "classCode": "DEMO",
+      "gameId": "demo-math-3-5",
+      "prompt": "What is 12 × 3?",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776406911328
+    },
+    {
+      "studentId": "81fd3f5d-b018-4297-a16c-e7576dd3caab",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-6",
+      "prompt": "Spell: environment",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776407351130
+    },
+    {
+      "studentId": "81fd3f5d-b018-4297-a16c-e7576dd3caab",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-7",
+      "prompt": "Spell: animal",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776407170052
+    },
+    {
+      "studentId": "81fd3f5d-b018-4297-a16c-e7576dd3caab",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-8",
+      "prompt": "Fill the blank: The fox ___ in the forest.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776406952215
+    },
+    {
+      "studentId": "81fd3f5d-b018-4297-a16c-e7576dd3caab",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-9",
+      "prompt": "Where does a food chain's energy come from?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776407523466
+    },
+    {
+      "studentId": "81fd3f5d-b018-4297-a16c-e7576dd3caab",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-10",
+      "prompt": "Mushrooms that break down dead leaves are?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776406829238
+    },
+    {
+      "studentId": "81fd3f5d-b018-4297-a16c-e7576dd3caab",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-11",
+      "prompt": "Mushrooms that break down dead leaves are?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776406608568
+    },
+    {
+      "studentId": "81fd3f5d-b018-4297-a16c-e7576dd3caab",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-12",
+      "prompt": "What is 6 + 2?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776407929014
+    },
+    {
+      "studentId": "0d1e8609-8302-4cc2-a715-e3e63d32bc36",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-0",
+      "prompt": "Fill the blank: Rabbits ___ grass and leaves.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776402675380
+    },
+    {
+      "studentId": "0d1e8609-8302-4cc2-a715-e3e63d32bc36",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-1",
+      "prompt": "What is 8 - 3?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776402841882
+    },
+    {
+      "studentId": "0d1e8609-8302-4cc2-a715-e3e63d32bc36",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-2",
+      "prompt": "Spell: forest",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776402932269
+    },
+    {
+      "studentId": "0d1e8609-8302-4cc2-a715-e3e63d32bc36",
+      "classCode": "DEMO",
+      "gameId": "demo-math-3-3",
+      "prompt": "What is 13 × 6?",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": true,
+      "timestamp": 1776402896536
+    },
+    {
+      "studentId": "0d1e8609-8302-4cc2-a715-e3e63d32bc36",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-4",
+      "prompt": "What do plants need to grow?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776402789826
+    },
+    {
+      "studentId": "0d1e8609-8302-4cc2-a715-e3e63d32bc36",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-5",
+      "prompt": "Spell: animal",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776402934450
+    },
+    {
+      "studentId": "0d1e8609-8302-4cc2-a715-e3e63d32bc36",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-6",
+      "prompt": "Where does a food chain's energy come from?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776403305181
+    },
+    {
+      "studentId": "0d1e8609-8302-4cc2-a715-e3e63d32bc36",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-7",
+      "prompt": "Fill the blank: The fox ___ in the forest.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776403501580
+    },
+    {
+      "studentId": "0d1e8609-8302-4cc2-a715-e3e63d32bc36",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-8",
+      "prompt": "Spell: animal",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776404108917
+    },
+    {
+      "studentId": "0d1e8609-8302-4cc2-a715-e3e63d32bc36",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-9",
+      "prompt": "What is 3 + 4?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776402981786
+    },
+    {
+      "studentId": "0d1e8609-8302-4cc2-a715-e3e63d32bc36",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-10",
+      "prompt": "What do plants need to grow?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776404200868
+    },
+    {
+      "studentId": "0d1e8609-8302-4cc2-a715-e3e63d32bc36",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-11",
+      "prompt": "What do plants need to grow?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776404191432
+    },
+    {
+      "studentId": "0d1e8609-8302-4cc2-a715-e3e63d32bc36",
+      "classCode": "DEMO",
+      "gameId": "demo-math-3-12",
+      "prompt": "What is 14 × 7?",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776403575846
+    },
+    {
+      "studentId": "d6b24226-1edb-4f38-9f3c-85077c1bea02",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-0",
+      "prompt": "Spell: climate",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776395448710
+    },
+    {
+      "studentId": "d6b24226-1edb-4f38-9f3c-85077c1bea02",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-1",
+      "prompt": "What is 6 + 2?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776395537610
+    },
+    {
+      "studentId": "d6b24226-1edb-4f38-9f3c-85077c1bea02",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-2",
+      "prompt": "What is 9 - 4?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776395563540
+    },
+    {
+      "studentId": "d6b24226-1edb-4f38-9f3c-85077c1bea02",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-3",
+      "prompt": "What is 3 + 4?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776395482088
+    },
+    {
+      "studentId": "d6b24226-1edb-4f38-9f3c-85077c1bea02",
+      "classCode": "DEMO",
+      "gameId": "demo-math-3-4",
+      "prompt": "What is 12 × 3?",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776395883451
+    },
+    {
+      "studentId": "d6b24226-1edb-4f38-9f3c-85077c1bea02",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-5",
+      "prompt": "What is 9 - 4?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776396243844
+    },
+    {
+      "studentId": "d6b24226-1edb-4f38-9f3c-85077c1bea02",
+      "classCode": "DEMO",
+      "gameId": "demo-math-3-6",
+      "prompt": "What is 14 × 7?",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": true,
+      "timestamp": 1776396558221
+    },
+    {
+      "studentId": "d6b24226-1edb-4f38-9f3c-85077c1bea02",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-7",
+      "prompt": "Mushrooms that break down dead leaves are?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776396532252
+    },
+    {
+      "studentId": "d6b24226-1edb-4f38-9f3c-85077c1bea02",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-8",
+      "prompt": "Fill the blank: The fox ___ in the forest.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776396587329
+    },
+    {
+      "studentId": "d6b24226-1edb-4f38-9f3c-85077c1bea02",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-9",
+      "prompt": "Spell: climate",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776395742356
+    },
+    {
+      "studentId": "d6b24226-1edb-4f38-9f3c-85077c1bea02",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-10",
+      "prompt": "What is 3 + 4?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776396608762
+    },
+    {
+      "studentId": "d6b24226-1edb-4f38-9f3c-85077c1bea02",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-11",
+      "prompt": "What is 6 + 2?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776397347364
+    },
+    {
+      "studentId": "d6b24226-1edb-4f38-9f3c-85077c1bea02",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-12",
+      "prompt": "Fill the blank: The fox ___ in the forest.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776396639590
+    },
+    {
+      "studentId": "d6b24226-1edb-4f38-9f3c-85077c1bea02",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-13",
+      "prompt": "Fill the blank: The fox ___ in the forest.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776395997010
+    },
+    {
+      "studentId": "d6b24226-1edb-4f38-9f3c-85077c1bea02",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-14",
+      "prompt": "Fill the blank: The fox ___ in the forest.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776397876021
+    },
+    {
+      "studentId": "d6b24226-1edb-4f38-9f3c-85077c1bea02",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-15",
+      "prompt": "What is 3 + 4?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": false,
+      "timestamp": 1776396771796
+    },
+    {
+      "studentId": "badaaad0-24ee-4a7c-adc5-ccc4750c28f0",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-0",
+      "prompt": "Fill the blank: Rabbits ___ grass and leaves.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776391835486
+    },
+    {
+      "studentId": "badaaad0-24ee-4a7c-adc5-ccc4750c28f0",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-1",
+      "prompt": "What is 6 + 2?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776391965048
+    },
+    {
+      "studentId": "badaaad0-24ee-4a7c-adc5-ccc4750c28f0",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-2",
+      "prompt": "Spell: climate",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776392227429
+    },
+    {
+      "studentId": "badaaad0-24ee-4a7c-adc5-ccc4750c28f0",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-3",
+      "prompt": "Fill the blank: The fox ___ in the forest.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776392048628
+    },
+    {
+      "studentId": "badaaad0-24ee-4a7c-adc5-ccc4750c28f0",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-4",
+      "prompt": "What is 9 - 4?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": false,
+      "timestamp": 1776391930251
+    },
+    {
+      "studentId": "badaaad0-24ee-4a7c-adc5-ccc4750c28f0",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-5",
+      "prompt": "Spell: environment",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776392630278
+    },
+    {
+      "studentId": "badaaad0-24ee-4a7c-adc5-ccc4750c28f0",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-6",
+      "prompt": "Where does a food chain's energy come from?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776392842224
+    },
+    {
+      "studentId": "badaaad0-24ee-4a7c-adc5-ccc4750c28f0",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-7",
+      "prompt": "What is 6 + 2?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776392082876
+    },
+    {
+      "studentId": "badaaad0-24ee-4a7c-adc5-ccc4750c28f0",
+      "classCode": "DEMO",
+      "gameId": "demo-math-3-8",
+      "prompt": "What is 13 × 6?",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776393314380
+    },
+    {
+      "studentId": "badaaad0-24ee-4a7c-adc5-ccc4750c28f0",
+      "classCode": "DEMO",
+      "gameId": "demo-math-3-9",
+      "prompt": "What is 14 × 7?",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776392215266
+    },
+    {
+      "studentId": "badaaad0-24ee-4a7c-adc5-ccc4750c28f0",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-10",
+      "prompt": "Fill the blank: Rabbits ___ grass and leaves.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776392619351
+    },
+    {
+      "studentId": "badaaad0-24ee-4a7c-adc5-ccc4750c28f0",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-11",
+      "prompt": "Spell: animal",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776392472052
+    },
+    {
+      "studentId": "badaaad0-24ee-4a7c-adc5-ccc4750c28f0",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-12",
+      "prompt": "Spell: climate",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776392337564
+    },
+    {
+      "studentId": "badaaad0-24ee-4a7c-adc5-ccc4750c28f0",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-13",
+      "prompt": "What is 2 + 7?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": false,
+      "timestamp": 1776394186546
+    },
+    {
+      "studentId": "90e66f2b-af8a-470a-a3a8-15d68cda9188",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-0",
+      "prompt": "What do plants need to grow?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776546565078
+    },
+    {
+      "studentId": "90e66f2b-af8a-470a-a3a8-15d68cda9188",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-1",
+      "prompt": "Spell: environment",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776546754094
+    },
+    {
+      "studentId": "90e66f2b-af8a-470a-a3a8-15d68cda9188",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-2",
+      "prompt": "Spell: animal",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776547017559
+    },
+    {
+      "studentId": "90e66f2b-af8a-470a-a3a8-15d68cda9188",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-3",
+      "prompt": "Spell: environment",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776547201896
+    },
+    {
+      "studentId": "90e66f2b-af8a-470a-a3a8-15d68cda9188",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-4",
+      "prompt": "Spell: environment",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776546826371
+    },
+    {
+      "studentId": "90e66f2b-af8a-470a-a3a8-15d68cda9188",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-5",
+      "prompt": "Spell: environment",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776547550500
+    },
+    {
+      "studentId": "90e66f2b-af8a-470a-a3a8-15d68cda9188",
+      "classCode": "DEMO",
+      "gameId": "demo-math-3-6",
+      "prompt": "What is 11 × 5?",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": true,
+      "timestamp": 1776547096861
+    },
+    {
+      "studentId": "90e66f2b-af8a-470a-a3a8-15d68cda9188",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-7",
+      "prompt": "Spell: animal",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776547293964
+    },
+    {
+      "studentId": "90e66f2b-af8a-470a-a3a8-15d68cda9188",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-8",
+      "prompt": "Mushrooms that break down dead leaves are?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776546890200
+    },
+    {
+      "studentId": "90e66f2b-af8a-470a-a3a8-15d68cda9188",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-9",
+      "prompt": "What is 8 - 3?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776547525656
+    },
+    {
+      "studentId": "90e66f2b-af8a-470a-a3a8-15d68cda9188",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-10",
+      "prompt": "What is 3 + 4?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776547207579
+    },
+    {
+      "studentId": "90e66f2b-af8a-470a-a3a8-15d68cda9188",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-11",
+      "prompt": "Spell: animal",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776548595784
+    },
+    {
+      "studentId": "90e66f2b-af8a-470a-a3a8-15d68cda9188",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-12",
+      "prompt": "Fill the blank: The fox ___ in the forest.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776547398305
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-0",
+      "prompt": "Spell: animal",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776564541321
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-1",
+      "prompt": "Spell: forest",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776564581272
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-2",
+      "prompt": "Spell: animal",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776564671194
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-3",
+      "prompt": "Spell: climate",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776564782416
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-math-3-4",
+      "prompt": "What is 15 × 4?",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776564882421
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-5",
+      "prompt": "Fill the blank: The fox ___ in the forest.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776565202836
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-6",
+      "prompt": "Fill the blank: The fox ___ in the forest.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776564908708
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-7",
+      "prompt": "Fill the blank: The fox ___ in the forest.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776565206828
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-math-3-8",
+      "prompt": "What is 13 × 6?",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776565307314
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-math-3-9",
+      "prompt": "What is 12 × 3?",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776565844906
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-10",
+      "prompt": "Spell: forest",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776565635226
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-11",
+      "prompt": "Spell: climate",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776566547136
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-12",
+      "prompt": "Spell: environment",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776565780531
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-math-3-13",
+      "prompt": "What is 14 × 7?",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776565894616
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-14",
+      "prompt": "What is 3 + 4?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": false,
+      "timestamp": 1776566309641
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-15",
+      "prompt": "Spell: climate",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776567125412
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-16",
+      "prompt": "What is 2 + 7?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": false,
+      "timestamp": 1776565857432
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-17",
+      "prompt": "Spell: environment",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776565048330
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-18",
+      "prompt": "Where does a food chain's energy come from?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776566051725
+    },
+    {
+      "studentId": "eddac463-9271-479f-9409-157a4b4a2d96",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-19",
+      "prompt": "Spell: climate",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776566831536
+    },
+    {
+      "studentId": "bfb1dffe-e435-4048-bee4-b15a530111a6",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-0",
+      "prompt": "Spell: forest",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776525015862
+    },
+    {
+      "studentId": "bfb1dffe-e435-4048-bee4-b15a530111a6",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-1",
+      "prompt": "Fill the blank: Rabbits ___ grass and leaves.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776525060934
+    },
+    {
+      "studentId": "bfb1dffe-e435-4048-bee4-b15a530111a6",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-2",
+      "prompt": "Fill the blank: Rabbits ___ grass and leaves.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776525127216
+    },
+    {
+      "studentId": "bfb1dffe-e435-4048-bee4-b15a530111a6",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-3",
+      "prompt": "Where does a food chain's energy come from?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776525594908
+    },
+    {
+      "studentId": "bfb1dffe-e435-4048-bee4-b15a530111a6",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-4",
+      "prompt": "What is 5 + 5?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776525613816
+    },
+    {
+      "studentId": "bfb1dffe-e435-4048-bee4-b15a530111a6",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-5",
+      "prompt": "Where does a food chain's energy come from?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776525811714
+    },
+    {
+      "studentId": "bfb1dffe-e435-4048-bee4-b15a530111a6",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-6",
+      "prompt": "Fill the blank: Rabbits ___ grass and leaves.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776526048363
+    },
+    {
+      "studentId": "bfb1dffe-e435-4048-bee4-b15a530111a6",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-7",
+      "prompt": "Fill the blank: The fox ___ in the forest.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776525735492
+    },
+    {
+      "studentId": "bfb1dffe-e435-4048-bee4-b15a530111a6",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-8",
+      "prompt": "Where does a food chain's energy come from?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776525724477
+    },
+    {
+      "studentId": "bfb1dffe-e435-4048-bee4-b15a530111a6",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-9",
+      "prompt": "Spell: animal",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776525586626
+    },
+    {
+      "studentId": "bfb1dffe-e435-4048-bee4-b15a530111a6",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-10",
+      "prompt": "What is 3 + 4?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776526600450
+    },
+    {
+      "studentId": "bfb1dffe-e435-4048-bee4-b15a530111a6",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-11",
+      "prompt": "Which is a producer in a food chain?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776525871996
+    },
+    {
+      "studentId": "bfb1dffe-e435-4048-bee4-b15a530111a6",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-12",
+      "prompt": "Fill the blank: Rabbits ___ grass and leaves.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776525793248
+    },
+    {
+      "studentId": "bfb1dffe-e435-4048-bee4-b15a530111a6",
+      "classCode": "DEMO",
+      "gameId": "demo-math-1-13",
+      "prompt": "What is 3 + 4?",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776526123494
+    },
+    {
+      "studentId": "bfb1dffe-e435-4048-bee4-b15a530111a6",
+      "classCode": "DEMO",
+      "gameId": "demo-math-3-14",
+      "prompt": "What is 16 × 4?",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776525547816
+    },
+    {
+      "studentId": "bfb1dffe-e435-4048-bee4-b15a530111a6",
+      "classCode": "DEMO",
+      "gameId": "demo-science-2-15",
+      "prompt": "What do plants need to grow?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776525889364
+    },
+    {
+      "studentId": "bfb1dffe-e435-4048-bee4-b15a530111a6",
+      "classCode": "DEMO",
+      "gameId": "demo-english-2-16",
+      "prompt": "Fill the blank: The fox ___ in the forest.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776527777317
+    },
+    {
+      "studentId": "4258fdd9-6891-4200-a817-7e73fdafa390",
+      "classCode": "DEMO",
+      "gameId": "math-calc-hard",
+      "prompt": "All four operations — how many can you feed the monster?",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776601593940
+    },
+    {
+      "studentId": "c612ac75-a702-4bff-95cb-381da1fe5e2a",
+      "classCode": "DEMO",
+      "gameId": "sci-tap-flyers",
+      "prompt": "Tap only the things that fly!",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776601950879
     }
   ]
 }

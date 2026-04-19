@@ -159,6 +159,28 @@ body {
   75%      { filter: hue-rotate(30deg) brightness(1.2); }
 }
 
+/* Math Castle — red overlay flash on damage (breach or wrong answer) */
+@keyframes mc-damage-flash {
+  0%   { opacity: 0; }
+  25%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Math Castle — correct/miss feedback burst that pops in and rises away */
+@keyframes mc-hit-burst {
+  0%   { transform: translate(-50%, -50%) scale(0.4); opacity: 0; }
+  25%  { transform: translate(-50%, -80%) scale(1.15); opacity: 1; }
+  100% { transform: translate(-50%, -180%) scale(0.95); opacity: 0; }
+}
+
+/* Math Castle — heart icon reaction when a life is lost */
+@keyframes mc-heart-lose {
+  0%   { transform: scale(1); filter: drop-shadow(0 0 3px rgba(239,68,68,0.55)); }
+  35%  { transform: scale(1.45) rotate(-12deg); filter: drop-shadow(0 0 10px rgba(239,68,68,1)) brightness(1.6); }
+  70%  { transform: scale(0.85) rotate(6deg); filter: grayscale(0.6) opacity(0.7); }
+  100% { transform: scale(1); filter: grayscale(1) opacity(0.55); }
+}
+
 /* Math Chase — number falls from top to bottom of field */
 @keyframes mc-fall {
   from { transform: translateY(0); }
@@ -181,4 +203,10 @@ body {
 @keyframes slideLeft {
   from { transform: translateY(-50%) translateX(0); opacity: 1; }
   to   { transform: translateY(-50%) translateX(-160px); opacity: 0; }
+}
+
+/* Equalizer bars shown in the Instructions speaker button while narration plays */
+@keyframes eq {
+  0%, 100% { transform: scaleY(0.4); }
+  50%      { transform: scaleY(1); }
 }

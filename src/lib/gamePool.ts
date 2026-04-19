@@ -4,92 +4,57 @@ import { SEED_GAMES } from "./seedGames";
 interface TakeOpts {
   subject: Subject;
   difficulty?: Difficulty;
-  avoid?: string[]; // ordered oldest → newest of recently-served IDs
-  avoidTemplates?: Template[]; // last N served templates — avoid repeating mechanics
+  avoid?: string[]; // every game ID already served this session
+  avoidTemplates?: Template[]; // soft preference — last N templates to spread mechanics
   /** When true, never fall back to a different subject even if the pool is exhausted. */
   strictSubject?: boolean;
 }
 
-// Hard adjacency window: NEVER return a game whose ID appears in the last
-// NO_REPEAT_WINDOW entries of `avoid`, no matter how exhausted the pool gets.
-// Tuned so even a 3-game subject (e.g. science) never produces visible adjacent repeats.
-const NO_REPEAT_WINDOW = 4;
-
 /**
- * Pick the next demo game.
- *
- * Priority cascade (each tier respects the FULL avoid list):
- *   1. Same subject AND same difficulty AND different template
- *   2. Same subject (any difficulty) AND different template
- *   3. Any subject AND different template
- *   4. Same subject AND same difficulty (template filter relaxed)
- *   5. Same subject (any difficulty)
- *   6. Any subject
- * Final fallback (avoid list relaxed):
- *   7. Anything outside the hard adjacency window — guarantees no immediate ID repeat
- *   8. Anything at all (only reachable when SEED_GAMES has fewer entries than the window)
+ * Strict, session-scoped pick. A game id in `avoid` is NEVER returned —
+ * callers pass the full session history. When every game has been seen,
+ * returns null so the feed can show an end-of-pool state rather than repeat.
  */
-export async function takeGame(opts: TakeOpts): Promise<Game> {
-  const avoidList = opts.avoid ?? [];
-  const avoid = new Set(avoidList);
-  // The last N IDs are the ones that would feel like a "right next to itself" repeat.
-  const recent = new Set(avoidList.slice(-NO_REPEAT_WINDOW));
+export async function takeGame(opts: TakeOpts): Promise<Game | null> {
+  const avoid = new Set(opts.avoid ?? []);
+  const recentTemplates = new Set(opts.avoidTemplates ?? []);
 
   const notSeen = (g: Game) => !avoid.has(g.id);
-  const notRecent = (g: Game) => !recent.has(g.id);
-  const differentTemplate = (g: Game) =>
-    !opts.avoidTemplates?.length || !opts.avoidTemplates.includes(g.template);
+  const freshTemplate = (g: Game) => !recentTemplates.has(g.template);
 
-  // Tier 1-3: honor both avoid list AND template adjacency.
-  const exactFresh = SEED_GAMES.filter(
+  // 1. Same subject + same difficulty + fresh template
+  const t1 = SEED_GAMES.filter(
     (g) =>
       g.subject === opts.subject &&
       g.difficulty === opts.difficulty &&
       notSeen(g) &&
-      differentTemplate(g),
+      freshTemplate(g),
   );
-  if (exactFresh.length > 0) return pickRandom(exactFresh);
+  if (t1.length > 0) return pickRandom(t1);
 
-  const subjectFresh = SEED_GAMES.filter(
-    (g) => g.subject === opts.subject && notSeen(g) && differentTemplate(g),
+  // 2. Same subject + fresh template (any difficulty)
+  const t2 = SEED_GAMES.filter(
+    (g) => g.subject === opts.subject && notSeen(g) && freshTemplate(g),
   );
-  if (subjectFresh.length > 0) return pickRandom(subjectFresh);
+  if (t2.length > 0) return pickRandom(t2);
 
-  // Tier 3 (cross-subject) — only allowed when not strictly filtered.
-  if (!opts.strictSubject) {
-    const anyFresh = SEED_GAMES.filter((g) => notSeen(g) && differentTemplate(g));
-    if (anyFresh.length > 0) return pickRandom(anyFresh);
-  }
+  // 3. Same subject, any template
+  const t3 = SEED_GAMES.filter((g) => g.subject === opts.subject && notSeen(g));
+  if (t3.length > 0) return pickRandom(t3);
 
-  // Tier 4-6: template adjacency relaxed, but avoid list still honored.
-  const exact = SEED_GAMES.filter(
-    (g) => g.subject === opts.subject && g.difficulty === opts.difficulty && notSeen(g),
-  );
-  if (exact.length > 0) return pickRandom(exact);
+  // Subject exhausted — bail if caller wants strict subject pinning.
+  if (opts.strictSubject) return null;
 
-  const subjectMatch = SEED_GAMES.filter((g) => g.subject === opts.subject && notSeen(g));
-  if (subjectMatch.length > 0) return pickRandom(subjectMatch);
+  // 4. Any subject + fresh template
+  const t4 = SEED_GAMES.filter((g) => notSeen(g) && freshTemplate(g));
+  if (t4.length > 0) return pickRandom(t4);
 
-  if (!opts.strictSubject) {
-    const anyUnseen = SEED_GAMES.filter(notSeen);
-    if (anyUnseen.length > 0) return pickRandom(anyUnseen);
-  }
+  // 5. Any unseen game
+  const t5 = SEED_GAMES.filter(notSeen);
+  if (t5.length > 0) return pickRandom(t5);
 
-  // When strict, recycle within the subject instead of breaking filter.
-  const subjectPool = SEED_GAMES.filter((g) => g.subject === opts.subject);
-  if (opts.strictSubject) {
-    const notTooRecentInSubject = subjectPool.filter(notRecent);
-    if (notTooRecentInSubject.length > 0) return pickRandom(notTooRecentInSubject);
-    return pickRandom(subjectPool.length > 0 ? subjectPool : SEED_GAMES);
-  }
-
-  // Cycled past the whole avoid list — relax it, but STILL refuse anything
-  // we just served in the last NO_REPEAT_WINDOW picks.
-  const notTooRecent = SEED_GAMES.filter(notRecent);
-  if (notTooRecent.length > 0) return pickRandom(notTooRecent);
-
-  // Pool smaller than the no-repeat window. Best we can do.
-  return pickRandom(SEED_GAMES);
+  // Pool fully exhausted — do NOT repeat.
+  return null;
 }
 
 function pickRandom<T>(arr: T[]): T {
