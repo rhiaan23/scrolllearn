@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { QuickSortGame } from "@/lib/schema";
+import { GameIcon } from "@/components/GameIcon";
 
 interface Props {
   game: QuickSortGame;
@@ -130,31 +131,52 @@ export function QuickSort({ game, onAnswer, locked }: Props) {
     setTimeout(() => setFlash(null), 250);
   }
 
+  // Keyboard input — number keys 1-9 map to grid slots.
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (locked || finishedRef.current) return;
+      const n = Number(e.key);
+      if (!Number.isInteger(n) || n < 1 || n > 9) return;
+      tap(n - 1);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slots, locked]);
+
   return (
     <div className="flex w-full flex-col items-center gap-3">
       {/* Rule banner */}
-      <div className="flex w-full items-center justify-between rounded-xl bg-black/30 px-4 py-2 backdrop-blur-sm">
+      <div className="flex w-full items-center justify-between rounded-xl bg-black/40 px-4 py-2.5 backdrop-blur-sm ring-1 ring-white/10">
         <div className="flex items-center gap-2 text-sm font-bold text-white">
-          <span className="text-lg">{ruleEmoji}</span>
+          <GameIcon emoji={ruleEmoji} size={22} className="!drop-shadow-sm" />
           <span>{rule}</span>
         </div>
-        <div className="flex gap-3 text-xs font-bold">
-          <span className="text-amber-300">⚡ {score}</span>
+        <div className="flex items-center gap-3 text-xs font-bold">
+          <span className="rounded-full bg-amber-400/20 px-2 py-0.5 text-amber-200">
+            ⚡ {score}
+          </span>
           <span className="text-white/80">⏱ {timeLeft}s</span>
         </div>
       </div>
 
       {/* 3×3 grid */}
-      <div className="grid w-full max-w-[340px] grid-cols-3 gap-2">
+      <div className="grid w-full max-w-[340px] grid-cols-3 gap-2.5">
         {slots.map((item, i) => {
           const isFlashOk = flash?.slot === i && flash.kind === "ok";
           const isFlashBad = flash?.slot === i && flash.kind === "bad";
           let cls =
-            "relative aspect-square flex flex-col items-center justify-center rounded-xl border-2 transition-all";
-          if (isFlashOk) cls += " border-green-200 bg-green-400/40";
-          else if (isFlashBad) cls += " border-red-200 bg-red-400/40";
-          else if (item) cls += " border-white/40 bg-white/15 hover:bg-white/25 active:scale-95";
-          else cls += " border-white/10 bg-white/5";
+            "relative aspect-square flex flex-col items-center justify-center gap-1 rounded-2xl transition-all duration-150";
+          if (isFlashOk) {
+            cls += " bg-green-400 ring-4 ring-green-200 scale-105";
+          } else if (isFlashBad) {
+            cls += " bg-red-400 ring-4 ring-red-200 scale-95";
+          } else if (item) {
+            cls +=
+              " bg-white shadow-[0_4px_0_rgba(0,0,0,0.18),0_0_0_1px_rgba(0,0,0,0.05)_inset] hover:-translate-y-0.5 active:translate-y-0 active:shadow-[0_1px_0_rgba(0,0,0,0.18)]";
+          } else {
+            cls += " bg-white/5 ring-1 ring-white/10";
+          }
           return (
             <button
               key={i}
@@ -162,11 +184,25 @@ export function QuickSort({ game, onAnswer, locked }: Props) {
               onClick={() => tap(i)}
               disabled={!item || locked}
               className={cls}
+              style={
+                item
+                  ? {
+                      // Stagger pop-in so the grid doesn't all flash at once.
+                      animation: `pop-in 0.28s cubic-bezier(0.34, 1.56, 0.64, 1)`,
+                      animationDelay: `${(i % 3) * 30}ms`,
+                    }
+                  : undefined
+              }
             >
               {item && (
                 <>
-                  <span className="text-3xl drop-shadow">{pool[item.poolIdx].emoji}</span>
-                  <span className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-white/90">
+                  <GameIcon
+                    emoji={pool[item.poolIdx].emoji}
+                    alt={pool[item.poolIdx].label}
+                    size={56}
+                    className="!drop-shadow-none"
+                  />
+                  <span className="text-[10px] font-bold uppercase tracking-wide text-zinc-700">
                     {pool[item.poolIdx].label}
                   </span>
                 </>

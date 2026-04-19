@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { WordBuilderGame } from "@/lib/schema";
 
 interface Props {
@@ -50,8 +50,6 @@ export function WordBuilder({ game, onAnswer, locked }: Props) {
   }
 
   return (
-    // The key={wordIdx} forces a fresh round on every word — React unmounts &
-    // remounts WordRound so its useState initializers re-run with the new word.
     <WordRound
       key={wordIdx}
       word={game.data.words[wordIdx]}
@@ -72,45 +70,94 @@ interface RoundProps {
 function WordRound({ word, stepLabel, onComplete, locked }: RoundProps) {
   const answer = word.answer.toLowerCase();
   const [pool] = useState<string[]>(() => makePool(answer));
-  const [used, setUsed] = useState<boolean[]>(() => new Array(pool.length).fill(false));
-  const [filled, setFilled] = useState<{ ch: string; poolIdx: number }[]>([]);
+
+  // assignment[slotIdx] = poolIdx of the letter placed there, or null
+  const [assignment, setAssignment] = useState<(number | null)[]>(() =>
+    new Array(answer.length).fill(null),
+  );
   const [shake, setShake] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
+  const checkingRef = useRef(false); // prevent double-checks during reset timeout
 
-  function tap(letter: string, poolIdx: number) {
-    if (locked || celebrating) return;
-    if (used[poolIdx]) return;
-    const expected = answer[filled.length];
-    if (letter !== expected) {
-      setShake(true);
-      setTimeout(() => setShake(false), 350);
-      return;
-    }
-    const nextFilled = [...filled, { ch: letter, poolIdx }];
-    const nextUsed = used.slice();
-    nextUsed[poolIdx] = true;
-    setFilled(nextFilled);
-    setUsed(nextUsed);
-
-    if (nextFilled.length === answer.length) {
-      setCelebrating(true);
-      setTimeout(() => onComplete(), 800);
-    }
-  }
-
-  function untap() {
-    if (locked || celebrating || filled.length === 0) return;
-    const last = filled[filled.length - 1];
-    const nextUsed = used.slice();
-    nextUsed[last.poolIdx] = false;
-    setFilled(filled.slice(0, -1));
-    setUsed(nextUsed);
-  }
-
-  const slots = useMemo(
-    () => answer.split("").map((_, i) => filled[i]?.ch ?? null),
-    [answer, filled],
+  // Derived: which pool indices are currently in use, and the spelled word
+  const usedSet = useMemo(() => new Set(assignment.filter((v): v is number => v !== null)), [assignment]);
+  const spelled = useMemo(
+    () => assignment.map((p) => (p === null ? "" : pool[p])).join(""),
+    [assignment, pool],
   );
+
+  function placeLetter(poolIdx: number) {
+    if (locked || celebrating || checkingRef.current) return;
+    if (usedSet.has(poolIdx)) return;
+    const nextSlot = assignment.indexOf(null);
+    if (nextSlot === -1) return;
+    const next = assignment.slice();
+    next[nextSlot] = poolIdx;
+    setAssignment(next);
+
+    // Auto-check when all slots are filled.
+    if (next.every((s) => s !== null)) {
+      checkingRef.current = true;
+      const candidate = next.map((p) => pool[p as number]).join("");
+      if (candidate === answer) {
+        setCelebrating(true);
+        setTimeout(() => onComplete(), 700);
+      } else {
+        // Wrong: shake, then clear so the user can retry without bouncing the card.
+        setShake(true);
+        setTimeout(() => {
+          setShake(false);
+          setAssignment(new Array(answer.length).fill(null));
+          checkingRef.current = false;
+        }, 500);
+      }
+    }
+  }
+
+  function unplaceSlot(slotIdx: number) {
+    if (locked || celebrating || checkingRef.current) return;
+    if (assignment[slotIdx] === null) return;
+    const next = assignment.slice();
+    next[slotIdx] = null;
+    setAssignment(next);
+  }
+
+  function unplaceLast() {
+    if (locked || celebrating || checkingRef.current) return;
+    // Find the last non-null slot.
+    let lastFilled = -1;
+    for (let i = assignment.length - 1; i >= 0; i--) {
+      if (assignment[i] !== null) {
+        lastFilled = i;
+        break;
+      }
+    }
+    if (lastFilled === -1) return;
+    unplaceSlot(lastFilled);
+  }
+
+  // Keyboard: type any letter → place the first unused matching pool letter
+  // into the next empty slot. Backspace → undo the last placement.
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (locked || celebrating || checkingRef.current) return;
+      if (e.key === "Backspace") {
+        e.preventDefault();
+        unplaceLast();
+        return;
+      }
+      if (!/^[a-zA-Z]$/.test(e.key)) return;
+      const ch = e.key.toLowerCase();
+      const poolIdx = pool.findIndex((p, i) => p === ch && !usedSet.has(i));
+      if (poolIdx === -1) return;
+      placeLetter(poolIdx);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [assignment, locked, celebrating, pool]);
+
+  const correctSoFar = celebrating || spelled === answer;
 
   return (
     <div className="flex w-full flex-col items-center gap-5">
@@ -123,34 +170,41 @@ function WordRound({ word, stepLabel, onComplete, locked }: RoundProps) {
         <div className="text-[10px] font-medium text-white/50">{stepLabel}</div>
       </div>
 
-      {/* Slots */}
+      {/* Slots — tap a filled slot to send its letter back to the pool */}
       <div className={`flex gap-2 ${shake ? "animate-shake" : ""}`}>
-        {slots.map((ch, i) => (
-          <div
-            key={i}
-            className={`flex h-12 w-10 items-center justify-center rounded-lg border-b-4 text-2xl font-black uppercase ${
-              ch
-                ? celebrating
-                  ? "border-amber-200 bg-amber-300 text-amber-950"
-                  : "border-white/60 bg-white/30 text-white"
-                : "border-white/40 bg-white/10 text-white/30"
-            }`}
-          >
-            {ch ?? ""}
-          </div>
-        ))}
+        {assignment.map((poolIdx, i) => {
+          const ch = poolIdx === null ? null : pool[poolIdx];
+          return (
+            <button
+              key={i}
+              type="button"
+              disabled={poolIdx === null || locked || celebrating}
+              onClick={() => unplaceSlot(i)}
+              aria-label={ch ? `Remove ${ch} from slot ${i + 1}` : `Empty slot ${i + 1}`}
+              className={`flex h-12 w-10 items-center justify-center rounded-lg border-b-4 text-2xl font-black uppercase transition-colors ${
+                ch
+                  ? correctSoFar
+                    ? "border-amber-200 bg-amber-300 text-amber-950"
+                    : "border-white/60 bg-white/30 text-white hover:bg-white/40"
+                  : "border-white/40 bg-white/10 text-white/30"
+              }`}
+            >
+              {ch ?? ""}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Letter pool */}
+      {/* Letter pool — tap any letter to drop into the next empty slot */}
       <div className="flex flex-wrap justify-center gap-2">
         {pool.map((letter, i) => {
-          const isUsed = used[i];
+          const isUsed = usedSet.has(i);
           return (
             <button
               key={i}
               type="button"
               disabled={isUsed || locked || celebrating}
-              onClick={() => tap(letter, i)}
+              onClick={() => placeLetter(i)}
               className={`flex h-11 w-11 items-center justify-center rounded-lg border-2 text-xl font-bold uppercase transition-all active:scale-90 ${
                 isUsed
                   ? "border-white/10 bg-white/5 text-white/20"
@@ -165,8 +219,8 @@ function WordRound({ word, stepLabel, onComplete, locked }: RoundProps) {
 
       <button
         type="button"
-        onClick={untap}
-        disabled={filled.length === 0 || celebrating}
+        onClick={unplaceLast}
+        disabled={!assignment.some((v) => v !== null) || celebrating}
         className="text-xs font-medium text-white/60 underline-offset-2 hover:underline disabled:text-white/20"
       >
         ← undo last

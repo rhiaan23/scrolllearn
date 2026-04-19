@@ -110,29 +110,32 @@ function hasAnyMove(grid: Grid): boolean {
   return false;
 }
 
-// Tailwind-safe lookup (full classes so JIT keeps them).
+// Arbitrary values keep the iconic hex codes intact through Tailwind's JIT.
 const TILE_STYLES: Record<number, string> = {
-  0: "bg-white/5",
-  2: "bg-amber-50 text-amber-950",
-  4: "bg-amber-100 text-amber-950",
-  8: "bg-orange-300 text-orange-950",
-  16: "bg-orange-400 text-white",
-  32: "bg-rose-400 text-white",
-  64: "bg-rose-500 text-white",
-  128: "bg-amber-400 text-amber-950 ring-2 ring-amber-200",
-  256: "bg-amber-300 text-amber-950 ring-2 ring-amber-200",
+  0: "bg-[#cdc1b4]",
+  2: "bg-[#eee4da] text-[#776e65]",
+  4: "bg-[#ede0c8] text-[#776e65]",
+  8: "bg-[#f2b179] text-[#f9f6f2]",
+  16: "bg-[#f59563] text-[#f9f6f2]",
+  32: "bg-[#f67c5f] text-[#f9f6f2]",
+  64: "bg-[#f65e3b] text-[#f9f6f2]",
+  128: "bg-[#edcf72] text-[#f9f6f2] shadow-[0_0_30px_10px_rgba(243,215,116,0.24)]",
+  256: "bg-[#edcc61] text-[#f9f6f2] shadow-[0_0_30px_10px_rgba(243,215,116,0.32)]",
+  512: "bg-[#edc850] text-[#f9f6f2] shadow-[0_0_30px_10px_rgba(243,215,116,0.40)]",
+  1024: "bg-[#edc53f] text-[#f9f6f2] shadow-[0_0_30px_10px_rgba(243,215,116,0.48)]",
+  2048: "bg-[#edc22e] text-[#f9f6f2] shadow-[0_0_30px_10px_rgba(243,215,116,0.56)]",
 };
 
 function tileClass(value: Cell): string {
   if (value === null) return TILE_STYLES[0];
-  return TILE_STYLES[value] ?? "bg-amber-300 text-amber-950 ring-2 ring-amber-200";
+  return TILE_STYLES[value] ?? "bg-[#3c3a32] text-[#f9f6f2]";
 }
 
 function tileFontClass(value: Cell): string {
   if (value === null) return "text-2xl";
-  if (value < 100) return "text-2xl";
-  if (value < 1000) return "text-xl";
-  return "text-base";
+  if (value < 100) return "text-3xl";
+  if (value < 1000) return "text-2xl";
+  return "text-xl";
 }
 
 export function MergeMath({ game, onAnswer, locked }: Props) {
@@ -231,19 +234,25 @@ export function MergeMath({ game, onAnswer, locked }: Props) {
 
   return (
     <div className="flex w-full flex-col items-center gap-3">
-      <div className="flex w-full items-center justify-between rounded-xl bg-black/30 px-4 py-2 backdrop-blur-sm">
-        <div className="text-xs font-bold uppercase tracking-wider text-white/70">
-          Build a <span className="text-amber-300">{winTile}</span> tile
+      {/* Score row — 2048 uses two dark cream-on-brown boxes for SCORE / BEST */}
+      <div className="flex w-full items-center justify-between gap-2">
+        <div className="rounded-md bg-[#bbada0] px-3 py-1.5 text-center">
+          <div className="text-[9px] font-bold uppercase tracking-wider text-[#eee4da]">
+            target
+          </div>
+          <div className="text-lg font-extrabold leading-tight text-white">{winTile}</div>
         </div>
-        <div className="flex gap-3 text-sm font-bold text-white">
-          <span>
-            🏆 best <span className="text-amber-300">{highest}</span>
-          </span>
+        <div className="rounded-md bg-[#bbada0] px-3 py-1.5 text-center">
+          <div className="text-[9px] font-bold uppercase tracking-wider text-[#eee4da]">
+            best
+          </div>
+          <div className="text-lg font-extrabold leading-tight text-white">{highest}</div>
         </div>
       </div>
 
+      {/* Iconic 2048 board — brown padded container with cream cells */}
       <div
-        className="grid w-full max-w-[340px] grid-cols-4 gap-2 rounded-2xl bg-black/20 p-2 touch-none select-none"
+        className="grid w-full max-w-[340px] grid-cols-4 gap-2 rounded-md bg-[#bbada0] p-2 touch-none select-none shadow-[0_4px_0_rgba(0,0,0,0.15)]"
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
         role="grid"
@@ -253,9 +262,14 @@ export function MergeMath({ game, onAnswer, locked }: Props) {
           row.map((cell, c) => (
             <div
               key={`${r}-${c}`}
-              className={`flex aspect-square items-center justify-center rounded-lg font-extrabold transition-all ${tileClass(
+              className={`flex aspect-square items-center justify-center rounded-md font-extrabold transition-all duration-100 ${tileClass(
                 cell,
               )} ${tileFontClass(cell)}`}
+              style={
+                cell !== null
+                  ? { animation: "pop-in 0.18s cubic-bezier(0.34, 1.56, 0.64, 1)" }
+                  : undefined
+              }
             >
               {cell ?? ""}
             </div>

@@ -98,4 +98,24 @@ export const INSTRUCTIONS: Record<Template, Instruction> = {
     ],
     goal: "Hit the target number exactly before the timer runs out.",
   },
+  grammar_quest: {
+    title: "Grammar Quest",
+    emoji: "🌊",
+    steps: [
+      "Read the sentence and find the missing word.",
+      "Tap the option that fits — or press 1-4 on the keyboard.",
+      "You answer one question at a time, then move on automatically.",
+    ],
+    goal: "Get enough questions right to clear the round.",
+  },
+  clean_river: {
+    title: "Clean the River",
+    emoji: "🌊",
+    steps: [
+      "Solve the math expression shown above the river.",
+      "Numbered trash floats down — tap the one that matches the answer.",
+      "Wrong taps and missed answers cost a heart.",
+    ],
+    goal: "Clear every round before your hearts run out.",
+  },
 };

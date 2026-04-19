@@ -176,8 +176,29 @@ export function MathCastle({ game, onAnswer, locked }: Props) {
 
   const selectedEnemy = selected !== null ? active.find((a) => a.key === selected) : null;
 
+  // Responsive scaling — measure parent width, derive a 0..1 scale factor that
+  // shrinks the fixed-pixel field to fit narrow phones without breaking the
+  // sprite-sheet animation (sprite step math depends on the 1620px sheet width
+  // staying in pixel-perfect proportion to ENEMY_WIDTH, so we scale via CSS
+  // transform instead of mutating the constants).
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    function measure() {
+      if (!el) return;
+      const w = el.clientWidth;
+      setScale(Math.min(1, w / FIELD_WIDTH));
+    }
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   return (
-    <div className="flex w-full flex-col items-center gap-2">
+    <div ref={wrapRef} className="flex w-full flex-col items-center gap-2">
       <div className="flex w-full items-center justify-between rounded-xl bg-black/30 px-4 py-2 backdrop-blur-sm">
         <div className="flex gap-1 text-lg" aria-label={`${lives} lives`}>
           {Array.from({ length: startingLives }).map((_, i) => (
@@ -191,16 +212,26 @@ export function MathCastle({ game, onAnswer, locked }: Props) {
         </div>
       </div>
 
+      {/* Scaled wrapper: collapses to FIELD_HEIGHT * scale so siblings don't
+          get pushed off-screen by the unscaled child. */}
       <div
-        className="relative overflow-hidden rounded-2xl ring-2 ring-white/20"
         style={{
-          width: FIELD_WIDTH,
-          height: FIELD_HEIGHT,
-          backgroundImage: "url(/math-castle/field.png)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          width: FIELD_WIDTH * scale,
+          height: FIELD_HEIGHT * scale,
         }}
       >
+        <div
+          className="relative overflow-hidden rounded-2xl ring-2 ring-white/20"
+          style={{
+            width: FIELD_WIDTH,
+            height: FIELD_HEIGHT,
+            transform: `scale(${scale})`,
+            transformOrigin: "top left",
+            backgroundImage: "url(/math-castle/field.png)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
         <div
           className="pointer-events-none absolute left-0 top-0 h-full"
           style={{
@@ -307,10 +338,7 @@ export function MathCastle({ game, onAnswer, locked }: Props) {
             </button>
           </div>
         )}
-      </div>
-
-      <div className="text-center text-[11px] font-medium uppercase tracking-wider text-white/60">
-        tap an enemy · answer to defend
+        </div>
       </div>
     </div>
   );

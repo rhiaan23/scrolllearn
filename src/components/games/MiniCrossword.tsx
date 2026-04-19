@@ -196,28 +196,30 @@ export function MiniCrossword({ game, onAnswer, locked }: Props) {
 
   const across = entries.filter((e) => e.direction === "across");
   const down = entries.filter((e) => e.direction === "down");
-  const cellPx = Math.min(42, Math.floor(320 / size));
+  const cellPx = Math.min(54, Math.floor(320 / size));
 
   return (
-    <div className="flex w-full flex-col items-center gap-3">
-      {/* Current clue ticker */}
-      <div className="flex min-h-[38px] w-full items-center rounded-xl bg-black/30 px-3 py-2 backdrop-blur-sm">
+    <div className="flex w-full flex-col items-center gap-2.5">
+      {/* Current clue ticker — NYT-style: dark band with the active clue front-and-center */}
+      <div className="flex min-h-[40px] w-full items-center rounded-md bg-[#3a3431] px-3 py-2">
         {activeEntry ? (
-          <div className="text-[12px] font-semibold text-white">
-            <span className="text-amber-300">
+          <div className="flex w-full items-center gap-2 text-white">
+            <span className="rounded bg-[#ffd700] px-1.5 py-0.5 text-[11px] font-black text-[#3a3431]">
               {activeEntry.number}
               {activeEntry.direction === "across" ? "A" : "D"}
-            </span>{" "}
-            {activeEntry.clue}
+            </span>
+            <span className="flex-1 truncate text-[13px] font-medium leading-tight">
+              {activeEntry.clue}
+            </span>
           </div>
         ) : (
           <div className="text-[12px] font-medium text-white/70">
-            Tap a cell to start. Tap the same cell to switch direction.
+            Tap a cell to start · tap again to switch direction
           </div>
         )}
       </div>
 
-      {/* Grid */}
+      {/* Grid (NYT-style paper card) */}
       <Grid
         size={size}
         cellPx={cellPx}
@@ -229,10 +231,10 @@ export function MiniCrossword({ game, onAnswer, locked }: Props) {
         onCellClick={handleCellClick}
       />
 
-      {/* Clue lists */}
+      {/* Clue lists — newsprint-card look */}
       <div className="flex w-full max-w-[320px] flex-row gap-2 text-[11px]">
-        <ClueList title="Across" entries={across} />
-        <ClueList title="Down" entries={down} />
+        <ClueList title="Across" entries={across} activeNumber={activeEntry?.number} activeDir={activeEntry?.direction} />
+        <ClueList title="Down" entries={down} activeNumber={activeEntry?.number} activeDir={activeEntry?.direction} />
       </div>
 
       {/* Soft keyboard (single row, compact) */}
@@ -289,30 +291,36 @@ function Grid({
             r >= activeEntry.row &&
             r < activeEntry.row + activeEntry.answer.length));
       const clueNum = cell.number;
+      // NYT palette: focused = #ffd700, in-word = #fdf3a3, plain = white, blocked = solid black
+      let bgCls = "bg-black";
+      if (active) {
+        if (isFocused) bgCls = "bg-[#ffd700]";
+        else if (inActive) bgCls = "bg-[#fdf3a3]";
+        else bgCls = "bg-white";
+      }
       cells.push(
         <button
           key={`${r},${c}`}
           type="button"
           onClick={() => onCellClick(r, c)}
           disabled={!active || locked}
-          className={`relative flex items-center justify-center text-[15px] font-black ${
-            active
-              ? isFocused
-                ? "bg-amber-300 text-slate-900"
-                : inActive
-                  ? "bg-sky-200 text-slate-900"
-                  : "bg-white text-slate-900"
-              : "bg-transparent"
-          }`}
+          className={`relative flex items-center justify-center font-black uppercase text-[#1a1a1a] outline-none ${bgCls}`}
           style={{
             width: cellPx,
             height: cellPx,
-            border: active ? "1px solid rgba(15,23,42,0.3)" : "none",
+            // Hairline black grid lines between every cell
+            borderRight: c < size - 1 ? "1px solid #1a1a1a" : "none",
+            borderBottom: r < size - 1 ? "1px solid #1a1a1a" : "none",
+            fontSize: Math.floor(cellPx * 0.5),
+            lineHeight: 1,
           }}
           aria-label={active ? `Row ${r + 1} column ${c + 1}` : "blank"}
         >
           {clueNum !== undefined && (
-            <span className="absolute left-[2px] top-0 text-[8px] font-bold text-slate-600">
+            <span
+              className="absolute left-[2px] top-[1px] font-bold text-[#1a1a1a]"
+              style={{ fontSize: Math.max(8, Math.floor(cellPx * 0.22)) }}
+            >
               {clueNum}
             </span>
           )}
@@ -323,29 +331,54 @@ function Grid({
   }
   return (
     <div
-      className="grid rounded-lg bg-black/40 p-1 shadow-inner"
-      style={{
-        gridTemplateColumns: `repeat(${size}, ${cellPx}px)`,
-        gridTemplateRows: `repeat(${size}, ${cellPx}px)`,
-      }}
+      className="overflow-hidden rounded-[3px] border-[3px] border-[#1a1a1a] bg-white shadow-[0_4px_0_rgba(0,0,0,0.25)]"
+      style={{ width: cellPx * size + 6 }}
     >
-      {cells}
+      <div
+        className="grid"
+        style={{
+          gridTemplateColumns: `repeat(${size}, ${cellPx}px)`,
+          gridTemplateRows: `repeat(${size}, ${cellPx}px)`,
+        }}
+      >
+        {cells}
+      </div>
     </div>
   );
 }
 
-function ClueList({ title, entries }: { title: string; entries: EntryWithNumber[] }) {
+function ClueList({
+  title,
+  entries,
+  activeNumber,
+  activeDir,
+}: {
+  title: string;
+  entries: EntryWithNumber[];
+  activeNumber?: number;
+  activeDir?: Direction;
+}) {
+  const dirKey: Direction = title.toLowerCase() as Direction;
   return (
-    <div className="flex-1 rounded-lg bg-black/30 p-2">
-      <div className="mb-1 text-[10px] font-bold uppercase tracking-wider text-amber-300">
+    <div className="flex-1 rounded-md border border-[#1a1a1a]/80 bg-[#fafaf6] p-2 text-[#1a1a1a] shadow-[0_2px_0_rgba(0,0,0,0.18)]">
+      <div className="mb-1 border-b border-[#1a1a1a]/40 pb-0.5 text-[10px] font-black uppercase tracking-[0.12em]">
         {title}
       </div>
       <ul className="space-y-0.5">
-        {entries.map((e) => (
-          <li key={`${e.number}-${e.direction}`} className="leading-tight text-white/90">
-            <span className="font-bold text-amber-200">{e.number}.</span> {e.clue}
-          </li>
-        ))}
+        {entries.map((e) => {
+          const isActive = e.number === activeNumber && activeDir === dirKey;
+          return (
+            <li
+              key={`${e.number}-${e.direction}`}
+              className={`flex gap-1 leading-tight ${
+                isActive ? "rounded-sm bg-[#fdf3a3] px-1 -mx-1 font-semibold" : ""
+              }`}
+            >
+              <span className="shrink-0 font-bold">{e.number}.</span>
+              <span className="truncate">{e.clue}</span>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
@@ -367,16 +400,16 @@ function SoftKeyboard({
   disabled: boolean;
 }) {
   return (
-    <div className="flex w-full flex-col items-center gap-[3px]">
+    <div className="flex w-full flex-col items-center gap-[4px]">
       {KEY_ROWS.map((row, ri) => (
-        <div key={ri} className="flex gap-[3px]">
+        <div key={ri} className="flex gap-[4px]">
           {row.map((ch) => (
             <button
               key={ch}
               type="button"
               disabled={disabled}
               onClick={() => onType(ch)}
-              className="flex h-7 min-w-[22px] items-center justify-center rounded bg-white/90 px-1 text-[11px] font-bold text-slate-900 shadow transition-transform active:scale-90 disabled:opacity-60"
+              className="flex h-8 min-w-[24px] items-center justify-center rounded-md bg-white px-1 text-[12px] font-bold text-[#1a1a1a] shadow-[0_2px_0_rgba(0,0,0,0.25)] transition-all active:translate-y-[2px] active:shadow-none disabled:opacity-50"
             >
               {ch}
             </button>
@@ -386,7 +419,7 @@ function SoftKeyboard({
               type="button"
               disabled={disabled}
               onClick={onBackspace}
-              className="flex h-7 min-w-[28px] items-center justify-center rounded bg-rose-500/80 px-1 text-[11px] font-bold text-white shadow transition-transform active:scale-90 disabled:opacity-60"
+              className="flex h-8 min-w-[32px] items-center justify-center rounded-md bg-[#3a3431] px-1 text-[13px] font-bold text-white shadow-[0_2px_0_rgba(0,0,0,0.25)] transition-all active:translate-y-[2px] active:shadow-none disabled:opacity-50"
               aria-label="Backspace"
             >
               ⌫

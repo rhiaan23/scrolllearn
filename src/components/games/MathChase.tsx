@@ -113,6 +113,23 @@ export function MathChase({ game, onAnswer, locked }: Props) {
     setTimeout(() => setFlash(null), 200);
   }
 
+  // Keyboard input — number keys grab the LOWEST (oldest) falling number
+  // matching that value (i.e. the one most likely to drop off the field next).
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (locked || finishedRef.current) return;
+      const n = Number(e.key);
+      if (!Number.isInteger(n) || n < 0 || n > 9) return;
+      const match = falling
+        .filter((f) => f.value === n)
+        .sort((a, b) => a.spawnedAt - b.spawnedAt)[0];
+      if (match) tap(match);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [falling, total, locked]);
+
   const progressPct = useMemo(
     () => Math.min(100, Math.round((total / target) * 100)),
     [total, target],

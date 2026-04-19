@@ -450,4 +450,145 @@ export const SEED_GAMES: Game[] = [
       pool: [3, 5, 7, 8, 10, 12, 13, 15, 4, 6],
     },
   }),
+
+  // 24 — math · clean_river · easy
+  Game.parse({
+    id: "math-river-easy",
+    subject: "math",
+    difficulty: 1,
+    template: "clean_river",
+    prompt: "Clean the river — tap the right answer before it drifts away!",
+    explanation:
+      "Read the expression, find the answer floating down, tap it. The others are tricks.",
+    data: {
+      rounds: [
+        { expression: "2 + 3", answer: 5, options: [5, 4, 6] },
+        { expression: "4 + 1", answer: 5, options: [3, 5, 7] },
+        { expression: "6 - 2", answer: 4, options: [4, 6, 2] },
+      ],
+      fallDurationMs: 9500,
+      lives: 3,
+    },
+  }),
+
+  // 25 — math · clean_river · medium
+  Game.parse({
+    id: "math-river-med",
+    subject: "math",
+    difficulty: 2,
+    template: "clean_river",
+    prompt: "Mixed plus and minus — grab the right trash!",
+    explanation:
+      "Add or subtract carefully. 13-5=8, 7+6=13, 16-9=7, 8+5=13.",
+    data: {
+      rounds: [
+        { expression: "7 + 6", answer: 13, options: [12, 13, 14] },
+        { expression: "13 - 5", answer: 8, options: [8, 7, 9] },
+        { expression: "16 - 9", answer: 7, options: [5, 7, 8, 9] },
+        { expression: "8 + 5", answer: 13, options: [12, 13, 14] },
+      ],
+      fallDurationMs: 8000,
+      lives: 2,
+    },
+  }),
+
+  // 26 — math · clean_river · hard
+  Game.parse({
+    id: "math-river-hard",
+    subject: "math",
+    difficulty: 3,
+    template: "clean_river",
+    prompt: "Times tables at river speed — don't miss!",
+    explanation:
+      "Single-digit multiplication. 6×7=42, 8×4=32, 9×5=45, 7×8=56, 6×9=54.",
+    data: {
+      rounds: [
+        { expression: "6 × 7", answer: 42, options: [36, 42, 48, 49] },
+        { expression: "8 × 4", answer: 32, options: [24, 32, 36] },
+        { expression: "9 × 5", answer: 45, options: [40, 45, 50] },
+        { expression: "7 × 8", answer: 56, options: [48, 54, 56, 63] },
+        { expression: "6 × 9", answer: 54, options: [48, 54, 56] },
+      ],
+      fallDurationMs: 6500,
+      lives: 2,
+    },
+  }),
+
+  // english · grammar_quest · easy
+  // Mechanic + question content ported from AstroMike101/grammar-quest (MIT,
+  Game.parse({
+    id: "eng-grammar-easy",
+    subject: "english",
+    difficulty: 1,
+    template: "grammar_quest",
+    prompt: "Pick the word that fits each sentence.",
+    explanation:
+      "Reading the whole sentence helps — the words around the blank usually hint at which form is right.",
+    data: {
+      questions: [
+        {
+          sentence: "The monkey loves to ___ bananas.",
+          options: ["eat", "eating", "eated"],
+          correctIndex: 0,
+        },
+        {
+          sentence: "Look over ___!",
+          options: ["there", "their", "they're"],
+          correctIndex: 0,
+        },
+        {
+          sentence: "Timmy is ___ his homework.",
+          options: ["do", "did", "doing"],
+          correctIndex: 2,
+        },
+        {
+          sentence: "The ___ was on the street.",
+          options: ["man", "men", "mens"],
+          correctIndex: 0,
+        },
+      ],
+      passingScore: 3,
+    },
+  }),
+
+  // english · grammar_quest · medium
+  Game.parse({
+    id: "eng-grammar-med",
+    subject: "english",
+    difficulty: 2,
+    template: "grammar_quest",
+    prompt: "Choose the correct word for each sentence.",
+    explanation:
+      "Watch for tense (when something happens) and possession (whose thing it is) — those are the two most common traps.",
+    data: {
+      questions: [
+        {
+          sentence: "___ exam was yesterday.",
+          options: ["Him", "He", "His"],
+          correctIndex: 2,
+        },
+        {
+          sentence: "The ___ toy was stolen.",
+          options: ["kids", "kid", "kid's"],
+          correctIndex: 2,
+        },
+        {
+          sentence: "He told the man to help him ___.",
+          options: ["build", "built", "building"],
+          correctIndex: 0,
+        },
+        {
+          sentence: "They have ___ best friends since preschool.",
+          options: ["been", "being", "be"],
+          correctIndex: 0,
+        },
+        {
+          sentence: "Before playing video games, you have to ___ your homework.",
+          options: ["finish", "finishing", "finished"],
+          correctIndex: 0,
+        },
+      ],
+      passingScore: 4,
+    },
+  }),
 ];

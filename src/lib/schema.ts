@@ -150,6 +150,43 @@ export const MathChaseGame = z.object({
   }),
 });
 
+export const GrammarQuestGame = z.object({
+  template: z.literal("grammar_quest"),
+  ...baseShape,
+  data: z.object({
+    questions: z
+      .array(
+        z.object({
+          sentence: z.string().min(4).max(140), // contains "___" placeholder
+          options: z.array(z.string()).min(2).max(4),
+          correctIndex: z.number().int().min(0).max(3),
+        }),
+      )
+      .min(3)
+      .max(10),
+    passingScore: z.number().int().min(1).optional(), // defaults to ceil(N * 0.6)
+  }),
+});
+
+export const CleanRiverGame = z.object({
+  template: z.literal("clean_river"),
+  ...baseShape,
+  data: z.object({
+    rounds: z
+      .array(
+        z.object({
+          expression: z.string().min(1).max(20),
+          answer: z.number().int(),
+          options: z.array(z.number().int()).min(3).max(4),
+        }),
+      )
+      .min(3)
+      .max(5),
+    fallDurationMs: z.number().int().min(5000).max(12000).default(8000),
+    lives: z.number().int().min(1).max(3).default(2),
+  }),
+});
+
 export const Game = z.discriminatedUnion("template", [
   MergeMathGame,
   WordBuilderGame,
@@ -160,6 +197,8 @@ export const Game = z.discriminatedUnion("template", [
   MiniCrosswordGame,
   BalanceScaleGame,
   MathChaseGame,
+  GrammarQuestGame,
+  CleanRiverGame,
 ]);
 
 export type Game = z.infer<typeof Game>;
@@ -172,6 +211,8 @@ export type HangmanGame = z.infer<typeof HangmanGame>;
 export type MiniCrosswordGame = z.infer<typeof MiniCrosswordGame>;
 export type BalanceScaleGame = z.infer<typeof BalanceScaleGame>;
 export type MathChaseGame = z.infer<typeof MathChaseGame>;
+export type GrammarQuestGame = z.infer<typeof GrammarQuestGame>;
+export type CleanRiverGame = z.infer<typeof CleanRiverGame>;
 
 export const TEMPLATES = [
   "merge_math",
@@ -183,6 +224,8 @@ export const TEMPLATES = [
   "mini_crossword",
   "balance_scale",
   "math_chase",
+  "grammar_quest",
+  "clean_river",
 ] as const;
 export type Template = (typeof TEMPLATES)[number];
 

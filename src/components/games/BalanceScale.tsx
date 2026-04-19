@@ -68,6 +68,28 @@ export function BalanceScale({ game, onAnswer, locked }: Props) {
     setPlaced((p) => p.filter((q) => q.id !== item.id));
   }
 
+  // Keyboard input — number keys map to the value of an available weight.
+  // Pressing 5 picks the first available weight whose value is 5; Backspace
+  // returns the last placed weight.
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (locked || finishedRef.current) return;
+      if (e.key === "Backspace") {
+        e.preventDefault();
+        const last = placed[placed.length - 1];
+        if (last) returnToPool(last);
+        return;
+      }
+      const n = Number(e.key);
+      if (!Number.isInteger(n) || n < 1 || n > 9) return;
+      const match = available.find((p) => p.value === n);
+      if (match) pickFromPool(match);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [available, placed, locked]);
+
   // Visual tilt based on sum comparison.
   const diff = placedSum - fixedSum;
   // fixed side is heavier → its end tilts down. tilt angle in degrees.

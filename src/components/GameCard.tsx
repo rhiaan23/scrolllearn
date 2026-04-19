@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { type Game, SUBJECT_COLORS } from "@/lib/schema";
+import { useEffect, useRef, useState } from "react";
+import { type Game } from "@/lib/schema";
 import { useScrollLearn } from "@/lib/store";
 import { ActionRail } from "./ActionRail";
 import { FooterLeft } from "./FooterLeft";
@@ -15,6 +15,8 @@ import { Hangman } from "./games/Hangman";
 import { MiniCrossword } from "./games/MiniCrossword";
 import { BalanceScale } from "./games/BalanceScale";
 import { MathChase } from "./games/MathChase";
+import { GrammarQuest } from "./games/GrammarQuest";
+import { CleanRiver } from "./games/CleanRiver";
 
 interface Props {
   game: Game;
@@ -23,14 +25,35 @@ interface Props {
 }
 
 export function GameCard({ game, index, onAdvance }: Props) {
-  const colors = SUBJECT_COLORS[game.subject];
   const recordAnswer = useScrollLearn((s) => s.recordAnswer);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const [result, setResult] = useState<{ correct: boolean; description: string } | null>(
     null,
   );
   const [helpOpen, setHelpOpen] = useState(false);
+  // Initialize the first card as visible so it doesn't wait for the observer
+  // to fire before its game (e.g., a 20-second QuickSort timer) can start.
+  const [isVisible, setIsVisible] = useState(index === 0);
   const advancedRef = useRef(false);
+
+  // Track whether this card is the one currently in view. When it is NOT,
+  // we set `locked` below — every game's timer/spawner/keyboard handler is
+  // already gated on `locked`, so this single flag pauses off-screen play.
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          setIsVisible(e.isIntersecting && e.intersectionRatio > 0.5);
+        }
+      },
+      { threshold: [0, 0.5, 1] },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   function handleAnswer(isCorrect: boolean, description: string) {
     if (advancedRef.current) return;
@@ -38,11 +61,13 @@ export function GameCard({ game, index, onAdvance }: Props) {
     recordAnswer(game, isCorrect);
     if (onAdvance) {
       advancedRef.current = true;
-      setTimeout(() => onAdvance(), isCorrect ? 1400 : 2200);
+      setTimeout(() => onAdvance(), isCorrect ? 1100 : 1700);
     }
   }
 
-  const locked = result !== null;
+  // locked = "no input, no timers, no spawners"
+  // — true if the user finished, OR this card isn't currently the visible one.
+  const locked = result !== null || !isVisible;
 
   let body: React.ReactNode;
   switch (game.template) {
@@ -73,32 +98,31 @@ export function GameCard({ game, index, onAdvance }: Props) {
     case "math_chase":
       body = <MathChase game={game} onAnswer={handleAnswer} locked={locked} />;
       break;
+    case "grammar_quest":
+      body = <GrammarQuest game={game} onAnswer={handleAnswer} locked={locked} />;
+      break;
+    case "clean_river":
+      body = <CleanRiver game={game} onAnswer={handleAnswer} locked={locked} />;
+      break;
   }
 
   return (
     <section
-      className={`relative h-full w-full flex-shrink-0 snap-start snap-always overflow-hidden bg-gradient-to-br ${colors.bg} text-white [text-shadow:0_0_4px_rgb(0_0_0/0.5)]`}
+      ref={sectionRef}
+      className="relative h-full w-full flex-shrink-0 snap-start snap-always overflow-hidden bg-black text-white [text-shadow:0_0_4px_rgb(0_0_0/0.5)]"
       aria-label={`Game ${index + 1}: ${game.subject}`}
     >
-      {/* Top vignette (matches TikTok-UI-Clone ::before) */}
+      {/* Top vignette */}
       <div
         className="pointer-events-none absolute inset-0 z-[5] vignette-top"
         aria-hidden="true"
       />
 
-      {/* Decorative blurs */}
-      <div className="pointer-events-none absolute -left-16 -top-16 h-56 w-56 rounded-full bg-white/15 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-24 -right-16 h-72 w-72 rounded-full bg-white/15 blur-3xl" />
-
-      {/* Game body — centered between top nav and footer area */}
-      <div className="absolute inset-x-0 top-4 bottom-[148px] z-10 flex items-center justify-center px-5">
-        <div
-          className={`w-full ${
-            game.template === "math_castle" ? "max-w-[640px]" : "max-w-[380px]"
-          }`}
-        >
-          {body}
-        </div>
+      {/* Game body — centered between top nav and footer area.
+          Each game's component handles its own internal responsive sizing,
+          so the wrapper is a single max-width for everything. */}
+      <div className="absolute inset-x-0 top-4 bottom-[168px] z-10 flex items-center justify-center px-5">
+        <div className="w-full max-w-[420px]">{body}</div>
       </div>
 
       {/* Left caption overlay */}

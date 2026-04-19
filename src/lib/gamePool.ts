@@ -4,21 +4,33 @@ import { SEED_GAMES } from "./seedGames";
 interface TakeOpts {
   subject: Subject;
   difficulty?: Difficulty;
-  avoid?: string[];
+  avoid?: string[]; // ordered oldest → newest of recently-served IDs
 }
 
+// Hard adjacency window: NEVER return a game whose ID appears in the last
+// NO_REPEAT_WINDOW entries of `avoid`, no matter how exhausted the pool gets.
+// Tuned so even a 3-game subject (e.g. science) never produces visible adjacent repeats.
+const NO_REPEAT_WINDOW = 4;
+
 /**
- * Pick the best demo game for the given parameters.
+ * Pick the next demo game.
  *
- * Priority:
- *   1. Subject matches AND difficulty matches AND not in avoid list
- *   2. Subject matches AND not in avoid list
- *   3. Not in avoid list
- *   4. Anything (avoid list ignored — we've cycled past all 10)
+ * Priority cascade (each tier respects the FULL avoid list):
+ *   1. Same subject AND same difficulty
+ *   2. Same subject (any difficulty)
+ *   3. Any subject
+ * Final fallback (avoid list relaxed):
+ *   4. Anything outside the hard adjacency window — guarantees no immediate repeat
+ *   5. Anything at all (only reachable when SEED_GAMES has fewer entries than the window)
  */
 export async function takeGame(opts: TakeOpts): Promise<Game> {
-  const avoid = new Set(opts.avoid ?? []);
+  const avoidList = opts.avoid ?? [];
+  const avoid = new Set(avoidList);
+  // The last N IDs are the ones that would feel like a "right next to itself" repeat.
+  const recent = new Set(avoidList.slice(-NO_REPEAT_WINDOW));
+
   const notSeen = (g: Game) => !avoid.has(g.id);
+  const notRecent = (g: Game) => !recent.has(g.id);
 
   const exact = SEED_GAMES.filter(
     (g) => g.subject === opts.subject && g.difficulty === opts.difficulty && notSeen(g),
@@ -31,7 +43,12 @@ export async function takeGame(opts: TakeOpts): Promise<Game> {
   const anyUnseen = SEED_GAMES.filter(notSeen);
   if (anyUnseen.length > 0) return pickRandom(anyUnseen);
 
-  // Fully cycled — start over with a random pick.
+  // Cycled past the whole avoid list — relax it, but STILL refuse anything
+  // we just served in the last NO_REPEAT_WINDOW picks.
+  const notTooRecent = SEED_GAMES.filter(notRecent);
+  if (notTooRecent.length > 0) return pickRandom(notTooRecent);
+
+  // Pool smaller than the no-repeat window. Best we can do.
   return pickRandom(SEED_GAMES);
 }
 

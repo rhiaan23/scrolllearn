@@ -49,6 +49,13 @@ body {
   }
 }
 
+/* In-place pop-in for grid tiles, sprites, etc. (no centered translate) */
+@keyframes pop-in {
+  0%   { transform: scale(0.6);  opacity: 0; }
+  60%  { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1);    opacity: 1; }
+}
+
 /* Wrong-answer shake */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
@@ -112,4 +119,10 @@ body {
 @keyframes mc-fall {
   from { transform: translateY(0); }
   to   { transform: translateY(340px); }
+}
+
+/* Clean the River — trash drifts from top of river to below the bottom */
+@keyframes river-fall {
+  from { transform: translateY(-60px); }
+  to   { transform: translateY(440px); }
 }

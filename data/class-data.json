@@ -58,10 +58,136 @@
       "id": "ac21271e-4206-4af6-a21e-067d28fd9bbe",
       "name": "sdam",
       "classCode": "123",
+      "score": 20,
+      "streak": 2,
+      "bestStreak": 2,
+      "joinedAt": 1776573063023
+    },
+    "d6115ff4-c723-46b4-b782-f9399e95bcaf": {
+      "id": "d6115ff4-c723-46b4-b782-f9399e95bcaf",
+      "name": "HRO",
+      "classCode": "123",
+      "score": 70,
+      "streak": 0,
+      "bestStreak": 3,
+      "joinedAt": 1776573328458
+    },
+    "1af5cf0a-334b-4415-8839-ff9b127f3b95": {
+      "id": "1af5cf0a-334b-4415-8839-ff9b127f3b95",
+      "name": "RHI",
+      "classCode": "1234",
+      "score": 90,
+      "streak": 0,
+      "bestStreak": 3,
+      "joinedAt": 1776574458178
+    },
+    "97f0e460-ebf7-4f52-81e5-58c5c653aef2": {
+      "id": "97f0e460-ebf7-4f52-81e5-58c5c653aef2",
+      "name": "RJ",
+      "classCode": "123",
       "score": 0,
       "streak": 0,
       "bestStreak": 0,
-      "joinedAt": 1776573063023
+      "joinedAt": 1776576363801
+    },
+    "97f9c4e0-46ef-48a2-90c1-20dad9e36122": {
+      "id": "97f9c4e0-46ef-48a2-90c1-20dad9e36122",
+      "name": "asd",
+      "classCode": "123",
+      "score": 120,
+      "streak": 3,
+      "bestStreak": 3,
+      "joinedAt": 1776576615085
+    },
+    "343f1289-35de-4110-8163-72ea804ed952": {
+      "id": "343f1289-35de-4110-8163-72ea804ed952",
+      "name": "asd",
+      "classCode": "123",
+      "score": 0,
+      "streak": 0,
+      "bestStreak": 0,
+      "joinedAt": 1776576793710
+    },
+    "adf5dc75-21ef-4eb1-993f-8fa39abb3644": {
+      "id": "adf5dc75-21ef-4eb1-993f-8fa39abb3644",
+      "name": "asd",
+      "classCode": "1234",
+      "score": 0,
+      "streak": 0,
+      "bestStreak": 0,
+      "joinedAt": 1776576841836
+    },
+    "2600c769-8c58-44a6-b8fe-32f74e596010": {
+      "id": "2600c769-8c58-44a6-b8fe-32f74e596010",
+      "name": "rhi",
+      "classCode": "123",
+      "score": 0,
+      "streak": 0,
+      "bestStreak": 0,
+      "joinedAt": 1776578817078
+    },
+    "338b84fc-7cb0-493a-a732-77a01f5c8e77": {
+      "id": "338b84fc-7cb0-493a-a732-77a01f5c8e77",
+      "name": "RJ",
+      "classCode": "1234",
+      "score": 130,
+      "streak": 4,
+      "bestStreak": 4,
+      "joinedAt": 1776579003772
+    },
+    "2ddc2ddc-c7b5-4cfc-b948-1a020eac0c45": {
+      "id": "2ddc2ddc-c7b5-4cfc-b948-1a020eac0c45",
+      "name": "asd",
+      "classCode": "123",
+      "score": 0,
+      "streak": 0,
+      "bestStreak": 0,
+      "joinedAt": 1776580087042
+    },
+    "9d193b58-aab4-40a2-8129-493a214de529": {
+      "id": "9d193b58-aab4-40a2-8129-493a214de529",
+      "name": "asd",
+      "classCode": "ASD",
+      "score": 140,
+      "streak": 5,
+      "bestStreak": 5,
+      "joinedAt": 1776580175449
+    },
+    "68c14d3e-48ed-4cc6-b58c-88f515ffe229": {
+      "id": "68c14d3e-48ed-4cc6-b58c-88f515ffe229",
+      "name": "ADAM",
+      "classCode": "QWERTY",
+      "score": 0,
+      "streak": 0,
+      "bestStreak": 0,
+      "joinedAt": 1776581935965
+    },
+    "7da9551d-87bc-4faf-817a-a4094d7db588": {
+      "id": "7da9551d-87bc-4faf-817a-a4094d7db588",
+      "name": "RHI",
+      "classCode": "QWE",
+      "score": 160,
+      "streak": 0,
+      "bestStreak": 7,
+      "joinedAt": 1776582979176
+    },
+    "01d5c61a-d3d1-4bb4-a38b-9e706dbb904b": {
+      "id": "01d5c61a-d3d1-4bb4-a38b-9e706dbb904b",
+      "name": "qw",
+      "classCode": "QWER",
+      "score": 0,
+      "streak": 0,
+      "bestStreak": 0,
+      "joinedAt": 1776583955498
+    },
+    "b8079147-949d-411d-bab1-60d41ceb1be4": {
+      "id": "b8079147-949d-411d-bab1-60d41ceb1be4",
+      "name": "ABC",
+      "classCode": "123",
+      "score": 0,
+      "streak": 0,
+      "bestStreak": 0,
+      "joinedAt": 1776584558378
     }
   },
   "answers": [
@@ -334,6 +460,236 @@
       "difficulty": 2,
       "isCorrect": true,
       "timestamp": 1776572543335
+    },
+    {
+      "studentId": "ac21271e-4206-4af6-a21e-067d28fd9bbe",
+      "classCode": "123",
+      "gameId": "sci-tap-mammals",
+      "prompt": "Tap only the mammals before time runs out!",
+      "subject": "science",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776573251372
+    },
+    {
+      "studentId": "ac21271e-4206-4af6-a21e-067d28fd9bbe",
+      "classCode": "123",
+      "gameId": "math-balance-easy",
+      "prompt": "Balance the scale — both sides must weigh the same.",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776573263318
+    },
+    {
+      "studentId": "d6115ff4-c723-46b4-b782-f9399e95bcaf",
+      "classCode": "123",
+      "gameId": "sci-water-cycle",
+      "prompt": "Order the steps of the water cycle.",
+      "subject": "science",
+      "difficulty": 3,
+      "isCorrect": true,
+      "timestamp": 1776573338726
+    },
+    {
+      "studentId": "d6115ff4-c723-46b4-b782-f9399e95bcaf",
+      "classCode": "123",
+      "gameId": "sci-tap-flyers",
+      "prompt": "Tap only the things that fly!",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776573339227
+    },
+    {
+      "studentId": "d6115ff4-c723-46b4-b782-f9399e95bcaf",
+      "classCode": "123",
+      "gameId": "math-castle-add-easy",
+      "prompt": "Defend the castle — solve each sum before the enemy gets through!",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776573360498
+    },
+    {
+      "studentId": "d6115ff4-c723-46b4-b782-f9399e95bcaf",
+      "classCode": "123",
+      "gameId": "math-chase-20",
+      "prompt": "Tap falling numbers that add to 20 — don't overshoot!",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": false,
+      "timestamp": 1776573373048
+    },
+    {
+      "studentId": "d6115ff4-c723-46b4-b782-f9399e95bcaf",
+      "classCode": "123",
+      "gameId": "math-castle-mix-med",
+      "prompt": "Hold the line — answer the math to fire back!",
+      "subject": "math",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776573385588
+    },
+    {
+      "studentId": "d6115ff4-c723-46b4-b782-f9399e95bcaf",
+      "classCode": "123",
+      "gameId": "math-balance-hard",
+      "prompt": "Balance a bigger load — plan your picks.",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": true,
+      "timestamp": 1776573395514
+    },
+    {
+      "studentId": "d6115ff4-c723-46b4-b782-f9399e95bcaf",
+      "classCode": "123",
+      "gameId": "eng-hangman-pets",
+      "prompt": "Guess the pet before the drawing finishes.",
+      "subject": "english",
+      "difficulty": 1,
+      "isCorrect": false,
+      "timestamp": 1776573451460
+    },
+    {
+      "studentId": "d6115ff4-c723-46b4-b782-f9399e95bcaf",
+      "classCode": "123",
+      "gameId": "eng-xword-kitchen",
+      "prompt": "Mini crossword — kitchen things.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776573452461
+    },
+    {
+      "studentId": "d6115ff4-c723-46b4-b782-f9399e95bcaf",
+      "classCode": "123",
+      "gameId": "math-castle-mul-hard",
+      "prompt": "Multiplication siege — defeat them all!",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776573465817
+    },
+    {
+      "studentId": "d6115ff4-c723-46b4-b782-f9399e95bcaf",
+      "classCode": "123",
+      "gameId": "math-chase-30",
+      "prompt": "Reach exactly 30 — watch the numbers fall.",
+      "subject": "math",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776573499223
+    },
+    {
+      "studentId": "1af5cf0a-334b-4415-8839-ff9b127f3b95",
+      "classCode": "1234",
+      "gameId": "eng-spell-easy",
+      "prompt": "Tap the letters to spell each word.",
+      "subject": "english",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776574471634
+    },
+    {
+      "studentId": "1af5cf0a-334b-4415-8839-ff9b127f3b95",
+      "classCode": "1234",
+      "gameId": "eng-hangman-weather",
+      "prompt": "Weather word — start with vowels.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776574480680
+    },
+    {
+      "studentId": "1af5cf0a-334b-4415-8839-ff9b127f3b95",
+      "classCode": "1234",
+      "gameId": "math-order-asc",
+      "prompt": "Put these numbers in order, smallest to biggest.",
+      "subject": "math",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776574491356
+    },
+    {
+      "studentId": "97f9c4e0-46ef-48a2-90c1-20dad9e36122",
+      "classCode": "123",
+      "gameId": "sci-hangman-body",
+      "prompt": "Part of your body — guess the word.",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776576623629
+    },
+    {
+      "studentId": "97f9c4e0-46ef-48a2-90c1-20dad9e36122",
+      "classCode": "123",
+      "gameId": "eng-xword-animals",
+      "prompt": "Mini crossword — animals.",
+      "subject": "english",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776576657552
+    },
+    {
+      "studentId": "97f9c4e0-46ef-48a2-90c1-20dad9e36122",
+      "classCode": "123",
+      "gameId": "math-2048-easy",
+      "prompt": "Slide so equal tiles bump into each other and double — build a 16!",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776576663459
+    },
+    {
+      "studentId": "338b84fc-7cb0-493a-a732-77a01f5c8e77",
+      "classCode": "1234",
+      "gameId": "math-2048-med",
+      "prompt": "Same-number tiles double when they touch. Build a 32!",
+      "subject": "math",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776579039337
+    },
+    {
+      "studentId": "9d193b58-aab4-40a2-8129-493a214de529",
+      "classCode": "ASD",
+      "gameId": "eng-spell-med",
+      "prompt": "Spell the word for each picture.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776580675307
+    },
+    {
+      "studentId": "7da9551d-87bc-4faf-817a-a4094d7db588",
+      "classCode": "QWE",
+      "gameId": "math-river-easy",
+      "prompt": "Clean the river — tap the right answer before it drifts away!",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776583008195
+    },
+    {
+      "studentId": "7da9551d-87bc-4faf-817a-a4094d7db588",
+      "classCode": "QWE",
+      "gameId": "eng-grammar-easy",
+      "prompt": "Pick the word that fits each sentence.",
+      "subject": "english",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776583195578
+    },
+    {
+      "studentId": "7da9551d-87bc-4faf-817a-a4094d7db588",
+      "classCode": "QWE",
+      "gameId": "math-river-med",
+      "prompt": "Mixed plus and minus — grab the right trash!",
+      "subject": "math",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776583402824
     }
   ]
 }

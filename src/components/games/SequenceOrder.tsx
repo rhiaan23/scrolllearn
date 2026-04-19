@@ -76,6 +76,19 @@ export function SequenceOrder({ game, onAnswer, locked }: Props) {
     if (locked) finishedRef.current = true;
   }, [locked]);
 
+  // Keyboard input — number keys 1-N place the Nth pool item.
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (locked || finishedRef.current) return;
+      const n = Number(e.key);
+      if (!Number.isInteger(n) || n < 1 || n > poolOrder.length) return;
+      tapPoolItem(poolOrder[n - 1]);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [assignment, locked, poolOrder]);
+
   return (
     <div className="flex w-full flex-col items-center gap-5">
       {/* Pool (top) */}
