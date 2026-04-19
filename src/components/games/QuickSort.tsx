@@ -147,12 +147,21 @@ export function QuickSort({ game, onAnswer, locked }: Props) {
   return (
     <div className="flex w-full flex-col items-center gap-3">
       {/* Rule banner */}
-      <div className="flex w-full items-center justify-between rounded-xl bg-black/40 px-4 py-2.5 backdrop-blur-sm ring-1 ring-white/10">
-        <div className="flex items-center gap-2 text-sm font-bold text-white">
+      <div
+        className="relative flex w-full items-center justify-between overflow-hidden rounded-xl px-4 py-2.5 ring-1 ring-white/10"
+        style={{
+          backgroundImage: "url(/sprites/frames/rule-banner.png)",
+          backgroundSize: "cover",
+          backgroundPosition: "center 60%",
+          imageRendering: "pixelated",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/55" aria-hidden="true" />
+        <div className="relative flex items-center gap-2 text-sm font-bold text-white">
           <GameIcon emoji={ruleEmoji} size={22} className="!drop-shadow-sm" />
           <span>{rule}</span>
         </div>
-        <div className="flex items-center gap-3 text-xs font-bold">
+        <div className="relative flex items-center gap-3 text-xs font-bold">
           <span className="rounded-full bg-amber-400/20 px-2 py-0.5 text-amber-200">
             ⚡ {score}
           </span>

@@ -12,6 +12,18 @@
 
 **Our original work:** The React/Tailwind component (`src/components/games/GrammarQuest.tsx`), the `GrammarQuestGame` Zod schema, and the feed integration are original work in this repository.
 
+## Calculationster
+
+**Source:** [es-rene99/calculationster](https://github.com/es-rene99/calculationster)
+
+**License:** GNU General Public License v3 (GPL-3.0). Note: GPL-3.0 is copyleft — derivative works that incorporate GPL-licensed *source code* must also be GPL-3.0. However, game mechanics (rules, timers, scoring systems) are not copyrightable; only the specific code expression is. **No source code was copied from the upstream** — our React/Tailwind component is an independent implementation of the educational concept.
+
+**What was ported:** The timed math-drill concept — solve binary arithmetic problems (+/−/×/÷) against a countdown timer; correct answers feed a monster mascot; reaching a target score passes the round.
+
+**What was NOT ported:** The upstream's monster/wizard/egg artwork, HTML5 audio, start-page cutscene, level-progression meta-game, and items/powers system (armor, time freeze, resurrection, claw, wing-foot). Our component generates no external assets and uses original Tailwind visuals.
+
+**Our original work:** The React/Tailwind component (`src/components/games/Calculationster.tsx`), the `CalculationsterGame` Zod schema, the seed rounds in `src/lib/seedGames.ts`, and the feed integration are original work in this repository.
+
 ## Fraction Golf
 
 **Source:** [peterjjchen/fraction-golf](https://github.com/peterjjchen/fraction-golf)

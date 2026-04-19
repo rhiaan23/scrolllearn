@@ -5,7 +5,7 @@ interface TakeOpts {
   subject: Subject;
   difficulty?: Difficulty;
   avoid?: string[]; // ordered oldest → newest of recently-served IDs
-  avoidTemplate?: Template; // template of the last-served card — avoid back-to-back same mechanic
+  avoidTemplates?: Template[]; // last N served templates — avoid repeating mechanics
 }
 
 // Hard adjacency window: NEVER return a game whose ID appears in the last
@@ -36,7 +36,7 @@ export async function takeGame(opts: TakeOpts): Promise<Game> {
   const notSeen = (g: Game) => !avoid.has(g.id);
   const notRecent = (g: Game) => !recent.has(g.id);
   const differentTemplate = (g: Game) =>
-    opts.avoidTemplate === undefined || g.template !== opts.avoidTemplate;
+    !opts.avoidTemplates?.length || !opts.avoidTemplates.includes(g.template);
 
   // Tier 1-3: honor both avoid list AND template adjacency.
   const exactFresh = SEED_GAMES.filter(

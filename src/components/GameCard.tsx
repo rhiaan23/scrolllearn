@@ -18,12 +18,30 @@ import { GrammarQuest } from "./games/GrammarQuest";
 import { CleanRiver } from "./games/CleanRiver";
 import { WizardDungeon } from "./games/WizardDungeon";
 import { FractionGolf } from "./games/FractionGolf";
+import { Calculationster } from "./games/Calculationster";
 
 const DIFFICULTY_LABEL: Record<number, string> = { 1: "K–1", 2: "Gr2–3", 3: "Gr4–5" };
 const SUBJECT_PILL: Record<string, string> = {
   math: "bg-blue-500/20 text-blue-300 ring-blue-500/40",
   english: "bg-emerald-500/20 text-emerald-300 ring-emerald-500/40",
   science: "bg-purple-500/20 text-purple-300 ring-purple-500/40",
+};
+
+// Per-template pixel-art backdrop. math_castle is intentionally omitted —
+// it already renders its own full-bleed castle scene.
+const TEMPLATE_BG: Partial<Record<Game["template"], string>> = {
+  merge_math: "/sprites/bg/merge-math.png",
+  word_builder: "/sprites/bg/word-builder.png",
+  quick_sort: "/sprites/bg/quick-sort.png",
+  hangman: "/sprites/bg/hangman.png",
+  mini_crossword: "/sprites/bg/mini-crossword.png",
+  balance_scale: "/sprites/bg/balance-scale.png",
+  math_chase: "/sprites/bg/math-chase.png",
+  grammar_quest: "/sprites/bg/grammar-quest.png",
+  clean_river: "/sprites/bg/clean-river.png",
+  wizard_dungeon: "/sprites/bg/wizard-dungeon.png",
+  fraction_golf: "/sprites/bg/fraction-golf.png",
+  calculationster: "/sprites/bg/calculationster.png",
 };
 
 interface Props {
@@ -115,7 +133,12 @@ export function GameCard({ game, index, onAdvance }: Props) {
     case "fraction_golf":
       body = <FractionGolf game={game} onAnswer={handleAnswer} locked={locked} />;
       break;
+    case "calculationster":
+      body = <Calculationster game={game} onAnswer={handleAnswer} locked={locked} />;
+      break;
   }
+
+  const bgSrc = TEMPLATE_BG[game.template];
 
   return (
     <section
@@ -123,6 +146,28 @@ export function GameCard({ game, index, onAdvance }: Props) {
       className="relative h-full w-full flex-shrink-0 snap-start snap-always overflow-hidden bg-black text-white [text-shadow:0_0_4px_rgb(0_0_0/0.5)]"
       aria-label={`Game ${index + 1}: ${game.subject}`}
     >
+      {/* Pixel-art backdrop */}
+      {bgSrc && (
+        <>
+          <div
+            className="pointer-events-none absolute inset-0 z-0"
+            style={{
+              backgroundImage: `url(${bgSrc})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              imageRendering: "pixelated",
+            }}
+            aria-hidden="true"
+          />
+          {/* Dim overlay so game content stays legible */}
+          <div
+            className="pointer-events-none absolute inset-0 z-[1] bg-black/55"
+            aria-hidden="true"
+          />
+        </>
+      )}
+
       {/* Top vignette */}
       <div
         className="pointer-events-none absolute inset-0 z-[5] vignette-top"

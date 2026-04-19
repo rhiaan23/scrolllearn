@@ -210,6 +210,17 @@ export const FractionGolfGame = z.object({
   }),
 });
 
+export const CalculationsterGame = z.object({
+  template: z.literal("calculationster"),
+  ...baseShape,
+  data: z.object({
+    operations: z.array(z.enum(["+", "-", "×", "÷"])).min(1).max(4),
+    maxOperand: z.number().int().min(5).max(99),
+    durationSec: z.number().int().min(15).max(45).default(25),
+    passingScore: z.number().int().min(1).default(4),
+  }),
+});
+
 export const Game = z.discriminatedUnion("template", [
   MergeMathGame,
   WordBuilderGame,
@@ -223,6 +234,7 @@ export const Game = z.discriminatedUnion("template", [
   CleanRiverGame,
   WizardDungeonGame,
   FractionGolfGame,
+  CalculationsterGame,
 ]);
 
 export type Game = z.infer<typeof Game>;
@@ -238,6 +250,7 @@ export type GrammarQuestGame = z.infer<typeof GrammarQuestGame>;
 export type CleanRiverGame = z.infer<typeof CleanRiverGame>;
 export type WizardDungeonGame = z.infer<typeof WizardDungeonGame>;
 export type FractionGolfGame = z.infer<typeof FractionGolfGame>;
+export type CalculationsterGame = z.infer<typeof CalculationsterGame>;
 
 export const TEMPLATES = [
   "merge_math",
@@ -252,6 +265,7 @@ export const TEMPLATES = [
   "clean_river",
   "wizard_dungeon",
   "fraction_golf",
+  "calculationster",
 ] as const;
 export type Template = (typeof TEMPLATES)[number];
 

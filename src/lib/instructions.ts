@@ -128,4 +128,14 @@ export const INSTRUCTIONS: Record<Template, Instruction> = {
     ],
     goal: "Sink balls into the right holes so they make the target fraction.",
   },
+  calculationster: {
+    title: "Calculationster",
+    emoji: "🧟",
+    steps: [
+      "Solve the math problem shown on the card.",
+      "Type your answer and press Enter (or tap GO!).",
+      "Feed your monster by getting as many right as you can before time runs out.",
+    ],
+    goal: "Score enough correct answers before the timer hits zero.",
+  },
 };

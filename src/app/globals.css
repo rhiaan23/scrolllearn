@@ -88,6 +88,12 @@ body {
   box-shadow: 0 -33px 48px rgba(0, 0, 0, 0.5) inset;
 }
 
+/* Crisp upscaling for pixel-art sprites */
+.pixelated {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
 /* Math Castle — sprite walk cycle (18 frames across the sheet) */
 @keyframes mc-walk {
   from { background-position: 0 0; }

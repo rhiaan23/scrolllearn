@@ -34,7 +34,7 @@ export default function FeedPage() {
   const [tabKey, setTabKey] = useState(0);
   const fetchingRef = useRef(false); // prevent concurrent fetch loops
   const loadedIdsRef = useRef<string[]>([]);
-  const lastTemplateRef = useRef<string | undefined>(undefined);
+  const recentTemplatesRef = useRef<string[]>([]);
   const pendingAdvanceRef = useRef(false); // user advanced from last card; scroll forward as soon as a new card lands
   const containerRef = useRef<HTMLDivElement>(null);
   const reset = useScrollLearn((s) => s.reset);
@@ -69,7 +69,7 @@ export default function FeedPage() {
       const res = await fetch("/api/games/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ subject, difficulty, avoid, avoidTemplate: lastTemplateRef.current }),
+        body: JSON.stringify({ subject, difficulty, avoid, avoidTemplates: recentTemplatesRef.current }),
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json.error ?? `HTTP ${res.status}`);
@@ -79,7 +79,7 @@ export default function FeedPage() {
       }
       games_set((g) => {
         loadedIdsRef.current = [...loadedIdsRef.current, parsed.data.id].slice(-32);
-        lastTemplateRef.current = parsed.data.template;
+        recentTemplatesRef.current = [...recentTemplatesRef.current, parsed.data.template].slice(-2);
         return [...g, parsed.data];
       });
     } catch (err) {
@@ -96,7 +96,7 @@ export default function FeedPage() {
     pinnedSubjectRef.current = s;
     games_set([]);
     loadedIdsRef.current = [];
-    lastTemplateRef.current = undefined;
+    recentTemplatesRef.current = [];
     setTabKey((k) => k + 1);
   }
 

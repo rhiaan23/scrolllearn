@@ -229,10 +229,46 @@
       "id": "7c084548-8141-4fde-84c2-7f90f5857646",
       "name": "alex",
       "classCode": "ROOM123",
-      "score": 180,
-      "streak": 1,
+      "score": 190,
+      "streak": 2,
       "bestStreak": 7,
       "joinedAt": 1776588747165
+    },
+    "aadc6193-03b9-4815-bd21-7be45abe8db1": {
+      "id": "aadc6193-03b9-4815-bd21-7be45abe8db1",
+      "name": "SD",
+      "classCode": "234",
+      "score": 0,
+      "streak": 0,
+      "bestStreak": 0,
+      "joinedAt": 1776590089881
+    },
+    "334d2325-0e40-4a9a-a5ad-c1c12d4f4145": {
+      "id": "334d2325-0e40-4a9a-a5ad-c1c12d4f4145",
+      "name": "ASDC",
+      "classCode": "ASD12",
+      "score": 10,
+      "streak": 0,
+      "bestStreak": 1,
+      "joinedAt": 1776590300090
+    },
+    "c6dccfde-16e4-4a3c-98d3-33b1e452275f": {
+      "id": "c6dccfde-16e4-4a3c-98d3-33b1e452275f",
+      "name": "wer",
+      "classCode": "ER",
+      "score": 20,
+      "streak": 0,
+      "bestStreak": 2,
+      "joinedAt": 1776591495578
+    },
+    "fc0b3997-711d-4bac-852f-c05b25d6de96": {
+      "id": "fc0b3997-711d-4bac-852f-c05b25d6de96",
+      "name": "we",
+      "classCode": "234",
+      "score": 10,
+      "streak": 0,
+      "bestStreak": 1,
+      "joinedAt": 1776591923721
     }
   },
   "answers": [
@@ -815,6 +851,106 @@
       "difficulty": 3,
       "isCorrect": true,
       "timestamp": 1776589273537
+    },
+    {
+      "studentId": "7c084548-8141-4fde-84c2-7f90f5857646",
+      "classCode": "ROOM123",
+      "gameId": "math-frac-golf-med",
+      "prompt": "Reduce the fraction — pick one ball per pool.",
+      "subject": "math",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776589661904
+    },
+    {
+      "studentId": "334d2325-0e40-4a9a-a5ad-c1c12d4f4145",
+      "classCode": "ASD12",
+      "gameId": "math-calc-med",
+      "prompt": "Can you feed the monster 5 times before the clock runs out?",
+      "subject": "math",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776590325279
+    },
+    {
+      "studentId": "334d2325-0e40-4a9a-a5ad-c1c12d4f4145",
+      "classCode": "ASD12",
+      "gameId": "sci-wizard-earth-med",
+      "prompt": "Answer earth-science questions to defeat the dungeon enemy!",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776591135250
+    },
+    {
+      "studentId": "334d2325-0e40-4a9a-a5ad-c1c12d4f4145",
+      "classCode": "ASD12",
+      "gameId": "eng-spell-easy",
+      "prompt": "Tap the letters to spell each word.",
+      "subject": "english",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776591427348
+    },
+    {
+      "studentId": "334d2325-0e40-4a9a-a5ad-c1c12d4f4145",
+      "classCode": "ASD12",
+      "gameId": "math-calc-easy",
+      "prompt": "Solve the math problems before time runs out!",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": false,
+      "timestamp": 1776591473807
+    },
+    {
+      "studentId": "c6dccfde-16e4-4a3c-98d3-33b1e452275f",
+      "classCode": "ER",
+      "gameId": "eng-hangman-pets",
+      "prompt": "Guess the pet before the drawing finishes.",
+      "subject": "english",
+      "difficulty": 1,
+      "isCorrect": false,
+      "timestamp": 1776591517561
+    },
+    {
+      "studentId": "334d2325-0e40-4a9a-a5ad-c1c12d4f4145",
+      "classCode": "ASD12",
+      "gameId": "math-castle-add-easy",
+      "prompt": "Defend the castle — solve each sum before the enemy gets through!",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": false,
+      "timestamp": 1776591674826
+    },
+    {
+      "studentId": "fc0b3997-711d-4bac-852f-c05b25d6de96",
+      "classCode": "234",
+      "gameId": "math-castle-mix-med",
+      "prompt": "Hold the line — answer the math to fire back!",
+      "subject": "math",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776591948821
+    },
+    {
+      "studentId": "c6dccfde-16e4-4a3c-98d3-33b1e452275f",
+      "classCode": "ER",
+      "gameId": "math-river-easy",
+      "prompt": "Clean the river — tap the right answer before it drifts away!",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": false,
+      "timestamp": 1776592061363
+    },
+    {
+      "studentId": "fc0b3997-711d-4bac-852f-c05b25d6de96",
+      "classCode": "234",
+      "gameId": "math-calc-med",
+      "prompt": "Can you feed the monster 5 times before the clock runs out?",
+      "subject": "math",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776592216836
     }
   ]
 }

@@ -655,4 +655,58 @@ export const SEED_GAMES: Game[] = [
       maxStrokes: 3,
     },
   }),
+
+  // math · calculationster · easy (K–1)
+  // Addition and subtraction within 10. Feed the monster!
+  Game.parse({
+    id: "math-calc-easy",
+    subject: "math",
+    difficulty: 1,
+    template: "calculationster",
+    prompt: "Solve the math problems before time runs out!",
+    explanation:
+      "Adding means putting numbers together. Subtracting means taking away. Keep practicing — the monster gets hungrier the faster you go!",
+    data: {
+      operations: ["+", "-"],
+      maxOperand: 10,
+      durationSec: 30,
+      passingScore: 3,
+    },
+  }),
+
+  // math · calculationster · medium (Gr2–3)
+  // Addition, subtraction, and multiplication within 12.
+  Game.parse({
+    id: "math-calc-med",
+    subject: "math",
+    difficulty: 2,
+    template: "calculationster",
+    prompt: "Can you feed the monster 5 times before the clock runs out?",
+    explanation:
+      "Multiplication is repeated addition: 4 × 3 is the same as 4 + 4 + 4 = 12. Knowing your times tables up to 12 makes these fast!",
+    data: {
+      operations: ["+", "-", "×"],
+      maxOperand: 12,
+      durationSec: 30,
+      passingScore: 5,
+    },
+  }),
+
+  // math · calculationster · hard (Gr4–5)
+  // All four operations, larger numbers.
+  Game.parse({
+    id: "math-calc-hard",
+    subject: "math",
+    difficulty: 3,
+    template: "calculationster",
+    prompt: "All four operations — how many can you feed the monster?",
+    explanation:
+      "Division is the inverse of multiplication: 48 ÷ 6 asks 'what times 6 equals 48?' Thinking it through backwards (6 × ? = 48) often makes division click.",
+    data: {
+      operations: ["+", "-", "×", "÷"],
+      maxOperand: 20,
+      durationSec: 30,
+      passingScore: 6,
+    },
+  }),
 ];

@@ -14,7 +14,7 @@ interface ReqBody {
   subject?: Subject;
   difficulty?: Difficulty;
   avoid?: string[];
-  avoidTemplate?: Template;
+  avoidTemplates?: Template[];
 }
 
 export async function POST(request: Request) {
@@ -35,12 +35,14 @@ export async function POST(request: Request) {
 
   const avoid = Array.isArray(body.avoid) ? body.avoid.slice(0, 16) : [];
 
-  const avoidTemplate = TEMPLATES.includes(body.avoidTemplate as Template)
-    ? (body.avoidTemplate as Template)
-    : undefined;
+  const avoidTemplates = Array.isArray(body.avoidTemplates)
+    ? body.avoidTemplates
+        .filter((t): t is Template => TEMPLATES.includes(t as Template))
+        .slice(0, 5)
+    : [];
 
   try {
-    const game = await takeGame({ subject, difficulty, avoid, avoidTemplate });
+    const game = await takeGame({ subject, difficulty, avoid, avoidTemplates });
     return Response.json({ game });
   } catch (err) {
     const message = err instanceof Error ? err.message : "unknown error";

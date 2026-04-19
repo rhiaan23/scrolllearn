@@ -163,7 +163,20 @@ function WordRound({ word, stepLabel, onComplete, locked }: RoundProps) {
     <div className="flex w-full flex-col items-center gap-5">
       {/* Hint */}
       <div className="flex flex-col items-center gap-2">
-        <div className="text-6xl drop-shadow-md">{word.emoji}</div>
+        <div
+          className="relative flex h-[110px] w-[160px] items-center justify-center overflow-hidden rounded-xl ring-1 ring-white/10"
+          style={{
+            backgroundImage: "url(/sprites/frames/hint-frame.png)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            imageRendering: "pixelated",
+          }}
+        >
+          <div className="absolute inset-0 bg-black/25" aria-hidden="true" />
+          <div className="relative text-6xl drop-shadow-[0_3px_0_rgba(0,0,0,0.55)]">
+            {word.emoji}
+          </div>
+        </div>
         <div className="text-xs font-bold uppercase tracking-wider text-white/70">
           {word.hint}
         </div>
@@ -181,12 +194,12 @@ function WordRound({ word, stepLabel, onComplete, locked }: RoundProps) {
               disabled={poolIdx === null || locked || celebrating}
               onClick={() => unplaceSlot(i)}
               aria-label={ch ? `Remove ${ch} from slot ${i + 1}` : `Empty slot ${i + 1}`}
-              className={`flex h-12 w-10 items-center justify-center rounded-lg border-b-4 text-2xl font-black uppercase transition-colors ${
+              className={`flex h-12 w-10 items-center justify-center rounded-lg border-b-4 text-2xl font-black uppercase shadow-[0_2px_0_rgba(0,0,0,0.35)] backdrop-blur-sm transition-colors ${
                 ch
                   ? correctSoFar
                     ? "border-amber-200 bg-amber-300 text-amber-950"
-                    : "border-white/60 bg-white/30 text-white hover:bg-white/40"
-                  : "border-white/40 bg-white/10 text-white/30"
+                    : "border-white/70 bg-white/80 text-zinc-900 hover:bg-white"
+                  : "border-white/60 bg-white/25 text-white/50"
               }`}
             >
               {ch ?? ""}
@@ -205,10 +218,10 @@ function WordRound({ word, stepLabel, onComplete, locked }: RoundProps) {
               type="button"
               disabled={isUsed || locked || celebrating}
               onClick={() => placeLetter(i)}
-              className={`flex h-11 w-11 items-center justify-center rounded-lg border-2 text-xl font-bold uppercase transition-all active:scale-90 ${
+              className={`flex h-11 w-11 items-center justify-center rounded-lg border-2 text-xl font-bold uppercase shadow-[0_2px_0_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all active:scale-90 ${
                 isUsed
-                  ? "border-white/10 bg-white/5 text-white/20"
-                  : "border-white/30 bg-white/15 text-white hover:bg-white/25"
+                  ? "border-white/10 bg-white/10 text-white/30"
+                  : "border-white/60 bg-white/75 text-zinc-900 hover:bg-white"
               }`}
             >
               {letter}
