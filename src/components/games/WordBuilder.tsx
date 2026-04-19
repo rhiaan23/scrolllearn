@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { WordBuilderGame } from "@/lib/schema";
+import { PixelIcon } from "@/components/PixelIcon";
+import { emojiToIconSlug } from "@/lib/emojiToIcon";
 
 interface Props {
   game: WordBuilderGame;
@@ -164,7 +166,7 @@ function WordRound({ word, stepLabel, onComplete, locked }: RoundProps) {
       {/* Hint */}
       <div className="flex flex-col items-center gap-2">
         <div
-          className="relative flex h-[110px] w-[160px] items-center justify-center overflow-hidden rounded-xl ring-1 ring-white/10"
+          className="relative flex h-[120px] w-[160px] items-center justify-center overflow-hidden rounded-xl ring-1 ring-white/10"
           style={{
             backgroundImage: "url(/sprites/frames/hint-frame.png)",
             backgroundSize: "cover",
@@ -172,9 +174,18 @@ function WordRound({ word, stepLabel, onComplete, locked }: RoundProps) {
             imageRendering: "pixelated",
           }}
         >
-          <div className="absolute inset-0 bg-black/25" aria-hidden="true" />
-          <div className="relative text-6xl drop-shadow-[0_3px_0_rgba(0,0,0,0.55)]">
-            {word.emoji}
+          <div className="absolute inset-0 bg-black/35" aria-hidden="true" />
+          <div className="relative">
+            {(() => {
+              const slug = emojiToIconSlug(word.emoji);
+              return slug ? (
+                <PixelIcon name={slug} size={72} color="#fde68a" />
+              ) : (
+                <div className="font-display text-[22px] font-black uppercase tracking-widest text-amber-200">
+                  {word.hint.split(" ").slice(0, 2).join(" ")}
+                </div>
+              );
+            })()}
           </div>
         </div>
         <div className="text-xs font-bold uppercase tracking-wider text-white/70">

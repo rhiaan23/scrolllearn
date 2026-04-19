@@ -158,7 +158,7 @@ export function QuickSort({ game, onAnswer, locked }: Props) {
       >
         <div className="absolute inset-0 bg-black/55" aria-hidden="true" />
         <div className="relative flex items-center gap-2 text-sm font-bold text-white">
-          <GameIcon emoji={ruleEmoji} size={22} className="!drop-shadow-sm" />
+          <span className="text-lg leading-none">{ruleEmoji}</span>
           <span>{rule}</span>
         </div>
         <div className="relative flex items-center gap-3 text-xs font-bold">
@@ -208,8 +208,7 @@ export function QuickSort({ game, onAnswer, locked }: Props) {
                   <GameIcon
                     emoji={pool[item.poolIdx].emoji}
                     alt={pool[item.poolIdx].label}
-                    size={56}
-                    className="!drop-shadow-none"
+                    size={52}
                   />
                   <span className="text-[10px] font-bold uppercase tracking-wide text-zinc-700">
                     {pool[item.poolIdx].label}

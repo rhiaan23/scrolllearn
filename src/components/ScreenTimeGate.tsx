@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { paper } from "@/lib/theme";
+import { PaperButton } from "./paper/PaperButton";
 
 const LIMIT_MS = 10 * 60 * 1000; // 10 minutes
 const STORAGE_KEY = "scrolllearn-screen-ms";
@@ -75,24 +77,37 @@ export function ScreenTimeGate({ children }: Props) {
     // flex-1 + relative so this column-child fills the remaining height and
     // the expired overlay (absolute inset-0) covers exactly this region.
     <div className="relative flex flex-1 flex-col overflow-hidden">
-      {/* Countdown bar — always visible at top of feed */}
-      <div className="relative z-20 flex items-center gap-2 border-b border-white/10 bg-black/60 px-4 py-1.5 backdrop-blur-sm">
-        <span className="text-[10px] font-bold uppercase tracking-wider text-white/50">
+      {/* Countdown bar — paper style */}
+      <div
+        className="relative z-20 flex items-center gap-2 px-4 py-2"
+        style={{
+          background: paper.bg,
+          borderBottom: `1.5px dashed ${paper.ink}22`,
+        }}
+      >
+        <span
+          className="font-display text-[10px] font-black uppercase tracking-[0.18em]"
+          style={{ color: paper.inkSoft }}
+        >
           Screen time
         </span>
-        {/* Progress bar */}
-        <div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-white/10">
+        <div
+          className="relative h-2 flex-1 overflow-hidden rounded-full"
+          style={{ background: paper.bg2 }}
+        >
           <div
-            className={`h-full rounded-full transition-[width] duration-1000 ${
-              urgent ? "bg-rose-400" : "bg-emerald-400"
-            }`}
-            style={{ width: `${100 - pct}%` }}
+            className="h-full rounded-full transition-[width] duration-1000"
+            style={{
+              width: `${100 - pct}%`,
+              background: urgent
+                ? `linear-gradient(90deg, ${paper.math.hi}, ${paper.math.lo})`
+                : `linear-gradient(90deg, ${paper.science.hi}, ${paper.science.lo})`,
+            }}
           />
         </div>
         <span
-          className={`min-w-[38px] text-right text-[11px] font-black tabular-nums ${
-            urgent ? "text-rose-300" : "text-white/70"
-          }`}
+          className="min-w-[40px] text-right font-display text-[12px] font-black tabular-nums"
+          style={{ color: urgent ? paper.math.lo : paper.ink }}
         >
           {fmt(remainingMs)}
         </span>
@@ -100,10 +115,11 @@ export function ScreenTimeGate({ children }: Props) {
           type="button"
           onClick={reset}
           title="Reset screen timer"
-          className="ml-1 rounded-full p-0.5 text-white/40 transition-colors hover:text-white/80"
+          className="ml-1 rounded-full p-0.5 transition-opacity hover:opacity-70"
+          style={{ color: paper.inkSoft }}
           aria-label="Reset screen time"
         >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
             <path d="M3 3v5h5" />
           </svg>
@@ -115,23 +131,35 @@ export function ScreenTimeGate({ children }: Props) {
         {children}
       </div>
 
-      {/* Time's-up overlay */}
+      {/* Time's-up overlay — paper style */}
       {expired && (
-        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-6 bg-black/90 backdrop-blur-md">
-          <div className="text-6xl">⏰</div>
-          <div className="text-center">
-            <p className="text-2xl font-black text-white">Time&apos;s up!</p>
-            <p className="mt-1 text-sm text-white/60">
-              You&apos;ve used your 10-minute screen limit.
+        <div
+          className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-5 px-6"
+          style={{ background: "rgba(250,243,228,0.96)", backdropFilter: "blur(4px)" }}
+        >
+          <div
+            className="rounded-[24px] px-7 py-6 text-center"
+            style={{
+              background: "#FFFFFF",
+              border: `3px solid ${paper.ink}`,
+              boxShadow: "0 24px 48px rgba(43,29,16,0.28), 0 3px 0 rgba(43,29,16,0.12)",
+              transform: "rotate(-1.5deg)",
+              color: paper.ink,
+            }}
+          >
+            <p className="font-display text-[28px] font-black leading-tight">
+              Time&apos;s up.
+            </p>
+            <p
+              className="mt-2 max-w-[260px] font-body text-[13px] font-semibold"
+              style={{ color: paper.inkSoft }}
+            >
+              You&apos;ve used your 10-minute screen limit. Come back tomorrow or reset.
             </p>
           </div>
-          <button
-            type="button"
-            onClick={reset}
-            className="rounded-full bg-white px-7 py-3 text-base font-black text-black transition-opacity hover:opacity-80 active:scale-95"
-          >
+          <PaperButton variant="ink" onClick={reset}>
             Reset timer
-          </button>
+          </PaperButton>
         </div>
       )}
     </div>

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { GrammarQuestGame } from "@/lib/schema";
+import { PixelIcon } from "@/components/PixelIcon";
 
 interface Props {
   game: GrammarQuestGame;
@@ -91,11 +92,13 @@ export function GrammarQuest({ game, onAnswer, locked }: Props) {
         <div className="rounded-md bg-[#0e1933] px-2 py-1 text-center font-mono text-[10px] font-bold uppercase tracking-wider text-cyan-200 shadow-[0_2px_0_#000]">
           Q {idx + 1}/{N}
         </div>
-        <div className="rounded-md bg-[#0e1933] px-2 py-1 text-center font-mono text-[10px] font-bold uppercase tracking-wider text-amber-200 shadow-[0_2px_0_#000]">
-          ⭐ {score}
+        <div className="flex items-center justify-center gap-1 rounded-md bg-[#0e1933] px-2 py-1 text-center font-mono text-[10px] font-bold uppercase tracking-wider text-amber-200 shadow-[0_2px_0_#000]">
+          <PixelIcon name="sparkles" size={12} color="#fde68a" />
+          {score}
         </div>
-        <div className="rounded-md bg-[#0e1933] px-2 py-1 text-center font-mono text-[10px] font-bold uppercase tracking-wider text-emerald-200 shadow-[0_2px_0_#000]">
-          🎯 {passing}
+        <div className="flex items-center justify-center gap-1 rounded-md bg-[#0e1933] px-2 py-1 text-center font-mono text-[10px] font-bold uppercase tracking-wider text-emerald-200 shadow-[0_2px_0_#000]">
+          <PixelIcon name="target" size={12} color="#a7f3d0" />
+          {passing}
         </div>
       </div>
 

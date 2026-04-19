@@ -1,14 +1,28 @@
 @import "tailwindcss";
 
-:root {
-  --background: #000000;
-  --foreground: #ffffff;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-montserrat);
+  --color-paper-bg: #faf3e4;
+  --color-paper-bg2: #f3e8cf;
+  --color-paper-ink: #2b1d10;
+  --color-paper-inkSoft: #8a7652;
+
+  --color-math-hi: #ff8a4a;
+  --color-math-lo: #e05a1f;
+  --color-math-tint: #ffe2c8;
+  --color-math-ink: #7a2a0a;
+
+  --color-english-hi: #8e5ce0;
+  --color-english-lo: #5b2fa8;
+  --color-english-tint: #e8d7ff;
+  --color-english-ink: #3a1475;
+
+  --color-science-hi: #20b48a;
+  --color-science-lo: #0b8563;
+  --color-science-tint: #c5ecdd;
+  --color-science-ink: #053f2f;
+
+  --font-body: var(--font-nunito);
+  --font-display: var(--font-fraunces);
 }
 
 html,
@@ -17,11 +31,40 @@ body {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-montserrat), "Montserrat", system-ui, sans-serif;
-  /* prevent horizontal scroll on the feed */
+  background: #faf3e4;
+  color: #2b1d10;
+  font-family: var(--font-nunito), system-ui, sans-serif;
   overflow-x: hidden;
+}
+
+.font-display {
+  font-family: var(--font-fraunces), Georgia, serif;
+  letter-spacing: -0.03em;
+}
+
+/* Paper grain — two soft radial washes layered over a fill. mix-blend-multiply
+   keeps ink colors unchanged while darkening the cream. */
+.paper-grain {
+  position: relative;
+}
+.paper-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 15% 0%, rgba(43, 29, 16, 0.04) 0%, transparent 55%),
+    radial-gradient(100% 100% at 85% 100%, rgba(43, 29, 16, 0.04) 0%, transparent 60%);
+  mix-blend-mode: multiply;
+  border-radius: inherit;
+}
+
+/* Chunky paper press depth — 3px offset ink-tinted shadow. */
+.press-shadow {
+  box-shadow: 0 3px 0 rgba(43, 29, 16, 0.12);
+}
+.press-shadow-deep {
+  box-shadow: 0 6px 14px rgba(43, 29, 16, 0.14), 0 3px 0 rgba(43, 29, 16, 0.1);
 }
 
 /* Hide scrollbar on the feed (visual polish) */
@@ -81,11 +124,6 @@ body {
 }
 .animate-marquee {
   animation: marquee 12s linear infinite;
-}
-
-/* Top-edge vignette on each slide (matches TikTok-UI-Clone ::before) */
-.vignette-top {
-  box-shadow: 0 -33px 48px rgba(0, 0, 0, 0.5) inset;
 }
 
 /* Crisp upscaling for pixel-art sprites */

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { FractionGolfGame } from "@/lib/schema";
+import { PixelIcon } from "@/components/PixelIcon";
 
 interface Props {
   game: FractionGolfGame;
@@ -127,11 +128,13 @@ export function FractionGolf({ game, onAnswer, locked }: Props) {
     <div className="flex w-full flex-col items-center gap-2.5">
       {/* HUD: strokes used / par */}
       <div className="flex w-full items-center justify-between rounded-md bg-black/40 px-3 py-1.5 backdrop-blur-sm">
-        <div className="text-[11px] font-bold uppercase tracking-wider text-white/80">
-          ⛳ stroke <span className="text-amber-300">{strokes + 1}</span>/{maxStrokes}
+        <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-white/80">
+          <PixelIcon name="flag" size={14} color="#fcd34d" />
+          stroke <span className="text-amber-300">{strokes + 1}</span>/{maxStrokes}
         </div>
-        <div className="text-[11px] font-bold uppercase tracking-wider text-white/80">
-          🎯 reduce <span className="font-mono text-amber-300">{displayNumerator}/{displayDenominator}</span>
+        <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-white/80">
+          <PixelIcon name="target" size={14} color="#fcd34d" />
+          reduce <span className="font-mono text-amber-300">{displayNumerator}/{displayDenominator}</span>
         </div>
       </div>
 
@@ -192,13 +195,14 @@ export function FractionGolf({ game, onAnswer, locked }: Props) {
         {/* Result overlay */}
         {feedback && (
           <div
-            className={`pointer-events-none absolute inset-0 flex items-center justify-center text-5xl font-black ${
-              feedback === "correct" ? "text-amber-200" : "text-rose-200"
-            }`}
+            className="pointer-events-none absolute inset-0 flex items-center justify-center"
             aria-hidden="true"
           >
-            <span className="animate-[pop_0.4s_ease-out] drop-shadow-lg">
-              {feedback === "correct" ? "⛳" : "🏌"}
+            <span
+              className="animate-[pop_0.4s_ease-out] font-display text-4xl font-black drop-shadow-lg"
+              style={{ color: feedback === "correct" ? "#0B8563" : "#E05A1F" }}
+            >
+              {feedback === "correct" ? "Nice!" : "Miss"}
             </span>
           </div>
         )}

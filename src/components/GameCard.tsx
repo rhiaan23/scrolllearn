@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { type Game } from "@/lib/schema";
+import { INSTRUCTIONS } from "@/lib/instructions";
+import { paper } from "@/lib/theme";
 import { useScrollLearn } from "@/lib/store";
 import { ActionRail } from "./ActionRail";
 import { FooterLeft } from "./FooterLeft";
@@ -12,37 +14,13 @@ import { QuickSort } from "./games/QuickSort";
 import { MathCastle } from "./games/MathCastle";
 import { Hangman } from "./games/Hangman";
 import { MiniCrossword } from "./games/MiniCrossword";
-import { BalanceScale } from "./games/BalanceScale";
-import { MathChase } from "./games/MathChase";
 import { GrammarQuest } from "./games/GrammarQuest";
-import { CleanRiver } from "./games/CleanRiver";
 import { WizardDungeon } from "./games/WizardDungeon";
 import { FractionGolf } from "./games/FractionGolf";
 import { Calculationster } from "./games/Calculationster";
+import { NameFigure } from "./games/NameFigure";
 
 const DIFFICULTY_LABEL: Record<number, string> = { 1: "K–1", 2: "Gr2–3", 3: "Gr4–5" };
-const SUBJECT_PILL: Record<string, string> = {
-  math: "bg-blue-500/20 text-blue-300 ring-blue-500/40",
-  english: "bg-emerald-500/20 text-emerald-300 ring-emerald-500/40",
-  science: "bg-purple-500/20 text-purple-300 ring-purple-500/40",
-};
-
-// Per-template pixel-art backdrop. math_castle is intentionally omitted —
-// it already renders its own full-bleed castle scene.
-const TEMPLATE_BG: Partial<Record<Game["template"], string>> = {
-  merge_math: "/sprites/bg/merge-math.png",
-  word_builder: "/sprites/bg/word-builder.png",
-  quick_sort: "/sprites/bg/quick-sort.png",
-  hangman: "/sprites/bg/hangman.png",
-  mini_crossword: "/sprites/bg/mini-crossword.png",
-  balance_scale: "/sprites/bg/balance-scale.png",
-  math_chase: "/sprites/bg/math-chase.png",
-  grammar_quest: "/sprites/bg/grammar-quest.png",
-  clean_river: "/sprites/bg/clean-river.png",
-  wizard_dungeon: "/sprites/bg/wizard-dungeon.png",
-  fraction_golf: "/sprites/bg/fraction-golf.png",
-  calculationster: "/sprites/bg/calculationster.png",
-};
 
 interface Props {
   game: Game;
@@ -58,14 +36,9 @@ export function GameCard({ game, index, onAdvance }: Props) {
     null,
   );
   const [helpOpen, setHelpOpen] = useState(false);
-  // Initialize the first card as visible so it doesn't wait for the observer
-  // to fire before its game (e.g., a 20-second QuickSort timer) can start.
   const [isVisible, setIsVisible] = useState(index === 0);
   const advancedRef = useRef(false);
 
-  // Track whether this card is the one currently in view. When it is NOT,
-  // we set `locked` below — every game's timer/spawner/keyboard handler is
-  // already gated on `locked`, so this single flag pauses off-screen play.
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -91,8 +64,6 @@ export function GameCard({ game, index, onAdvance }: Props) {
     }
   }
 
-  // locked = "no input, no timers, no spawners"
-  // — true if the user finished, OR this card isn't currently the visible one.
   const locked = result !== null || !isVisible;
 
   let body: React.ReactNode;
@@ -115,17 +86,8 @@ export function GameCard({ game, index, onAdvance }: Props) {
     case "mini_crossword":
       body = <MiniCrossword game={game} onAnswer={handleAnswer} locked={locked} />;
       break;
-    case "balance_scale":
-      body = <BalanceScale game={game} onAnswer={handleAnswer} locked={locked} />;
-      break;
-    case "math_chase":
-      body = <MathChase game={game} onAnswer={handleAnswer} locked={locked} />;
-      break;
     case "grammar_quest":
       body = <GrammarQuest game={game} onAnswer={handleAnswer} locked={locked} />;
-      break;
-    case "clean_river":
-      body = <CleanRiver game={game} onAnswer={handleAnswer} locked={locked} />;
       break;
     case "wizard_dungeon":
       body = <WizardDungeon game={game} onAnswer={handleAnswer} locked={locked} />;
@@ -136,86 +98,154 @@ export function GameCard({ game, index, onAdvance }: Props) {
     case "calculationster":
       body = <Calculationster game={game} onAnswer={handleAnswer} locked={locked} />;
       break;
+    case "name_figure":
+      body = <NameFigure game={game} onAnswer={handleAnswer} locked={locked} />;
+      break;
   }
 
-  const bgSrc = TEMPLATE_BG[game.template];
+  const p = paper[game.subject];
+  const templateLabel = `${INSTRUCTIONS[game.template].title} · ${DIFFICULTY_LABEL[game.difficulty]}`;
 
   return (
     <section
       ref={sectionRef}
-      className="relative h-full w-full flex-shrink-0 snap-start snap-always overflow-hidden bg-black text-white [text-shadow:0_0_4px_rgb(0_0_0/0.5)]"
+      className="relative h-full w-full flex-shrink-0 snap-start snap-always overflow-hidden"
       aria-label={`Game ${index + 1}: ${game.subject}`}
+      style={{
+        background: `linear-gradient(180deg, ${p.tint} 0%, ${paper.bg} 70%)`,
+        color: paper.ink,
+      }}
     >
-      {/* Pixel-art backdrop */}
-      {bgSrc && (
-        <>
-          <div
-            className="pointer-events-none absolute inset-0 z-0"
-            style={{
-              backgroundImage: `url(${bgSrc})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              imageRendering: "pixelated",
-            }}
-            aria-hidden="true"
-          />
-          {/* Dim overlay so game content stays legible */}
-          <div
-            className="pointer-events-none absolute inset-0 z-[1] bg-black/55"
-            aria-hidden="true"
-          />
-        </>
-      )}
-
-      {/* Top vignette */}
+      {/* Decorative peek shapes — subject-tinted paper cutouts */}
       <div
-        className="pointer-events-none absolute inset-0 z-[5] vignette-top"
         aria-hidden="true"
+        className="pointer-events-none absolute"
+        style={{
+          top: 110,
+          right: -44,
+          width: 120,
+          height: 120,
+          borderRadius: "28%",
+          background: p.hi,
+          opacity: 0.2,
+          transform: "rotate(18deg)",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute"
+        style={{
+          bottom: 180,
+          left: -34,
+          width: 90,
+          height: 90,
+          borderRadius: "30%",
+          background: p.lo,
+          opacity: 0.15,
+          transform: "rotate(-10deg)",
+        }}
       />
 
-      {/* Difficulty + subject badge */}
-      <div className="pointer-events-none absolute left-3 top-14 z-20">
-        <span className={`rounded-full px-2 py-0.5 text-[11px] font-black ring-1 ${SUBJECT_PILL[game.subject]}`}>
-          {DIFFICULTY_LABEL[game.difficulty]} · {game.subject}
-        </span>
+      {/* Content column: template pill → title → game body */}
+      <div
+        className="absolute inset-x-5 z-10 flex flex-col items-center"
+        style={{ top: 28, bottom: 108 }}
+      >
+        <div
+          className="inline-flex items-center gap-1.5 font-display"
+          style={{
+            padding: "5px 12px",
+            borderRadius: 999,
+            background: "#FFFFFF",
+            border: `2px solid ${p.lo}`,
+            color: p.ink,
+            fontSize: 10,
+            fontWeight: 900,
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            transform: "rotate(-1deg)",
+          }}
+        >
+          {templateLabel}
+        </div>
+
+        <h1
+          className="font-display"
+          style={{
+            margin: "14px 0 4px",
+            fontWeight: 900,
+            fontSize: 30,
+            lineHeight: 0.95,
+            letterSpacing: "-0.03em",
+            textAlign: "center",
+            color: paper.ink,
+          }}
+        >
+          {INSTRUCTIONS[game.template].title}
+        </h1>
+
+        <div className="relative mt-5 flex w-full max-w-[420px] flex-1 items-center justify-center">
+          <div className="w-full" style={{ color: paper.ink }}>
+            {body}
+          </div>
+        </div>
       </div>
 
-      {/* Game body — centered between top nav and footer area.
-          Each game's component handles its own internal responsive sizing,
-          so the wrapper is a single max-width for everything. */}
-      <div className="absolute inset-x-0 top-4 bottom-[168px] z-10 flex items-center justify-center px-5">
-        <div className="w-full max-w-[420px]">{body}</div>
-      </div>
-
-      {/* Left caption overlay */}
+      {/* Caption below the card */}
       <FooterLeft game={game} />
 
       {/* Right action rail */}
       <ActionRail subject={game.subject} onHelp={() => setHelpOpen(true)} />
 
-      {/* Result toast */}
+      {/* Flash feedback — subtle full-card green/red wash + big Right!/Wrong! */}
       {result && (
-        <div
-          className={`absolute left-1/2 top-1/2 z-40 -translate-x-1/2 -translate-y-1/2 rounded-2xl border-2 px-5 py-3 text-center backdrop-blur-md ${
-            result.correct
-              ? "border-green-200 bg-green-400/40 text-white"
-              : "border-red-200 bg-red-400/40 text-white"
-          } animate-[pop_0.4s_ease-out]`}
-        >
-          <div className="text-2xl font-black">
-            {result.correct ? "✨ Nice!" : "🤔 Try again"}
+        <>
+          <div
+            className="pointer-events-none absolute inset-0 z-30 animate-[pop_0.32s_ease-out]"
+            aria-hidden="true"
+            style={{
+              background: result.correct
+                ? "radial-gradient(80% 60% at 50% 50%, rgba(32,180,138,0.28) 0%, rgba(32,180,138,0.08) 55%, transparent 90%)"
+                : "radial-gradient(80% 60% at 50% 50%, rgba(224,90,31,0.28) 0%, rgba(224,90,31,0.08) 55%, transparent 90%)",
+            }}
+          />
+          <div
+            className="absolute left-1/2 top-1/2 z-40 rounded-[22px] px-7 py-4 text-center animate-[pop_0.4s_ease-out]"
+            style={{
+              background: "#FFFFFF",
+              border: `3px solid ${result.correct ? "#0B8563" : "#E05A1F"}`,
+              boxShadow: "0 18px 36px rgba(43,29,16,0.22), 0 3px 0 rgba(43,29,16,0.1)",
+              transform: `translate(-50%, -50%) rotate(${result.correct ? -3 : 3}deg)`,
+            }}
+          >
+            <div
+              className="font-display text-[34px] font-black leading-none tracking-tight"
+              style={{ color: result.correct ? "#0B8563" : "#E05A1F" }}
+            >
+              {result.correct ? "Right!" : "Wrong!"}
+            </div>
+            <div
+              className="mt-1.5 font-body text-[12px] font-semibold"
+              style={{ color: paper.inkSoft }}
+            >
+              {result.description}
+            </div>
+            {result.correct && (
+              <div
+                className="mt-2 inline-block rounded-full px-3 py-1 font-display text-[11px] font-black"
+                style={{ background: p.tint, color: p.ink }}
+              >
+                +10 pts
+              </div>
+            )}
           </div>
-          <div className="mt-0.5 text-xs opacity-90">{result.description}</div>
-          {result.correct && (
-            <div className="mt-1 text-xs font-black text-yellow-300">+10 pts</div>
-          )}
-        </div>
+        </>
       )}
 
       {/* Instructions modal */}
       <InstructionsModal
         template={game.template}
+        subject={game.subject}
         open={helpOpen}
         onClose={() => setHelpOpen(false)}
       />

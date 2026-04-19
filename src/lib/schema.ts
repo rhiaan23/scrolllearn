@@ -118,29 +118,6 @@ export const MiniCrosswordGame = z.object({
   }),
 });
 
-export const BalanceScaleGame = z.object({
-  template: z.literal("balance_scale"),
-  ...baseShape,
-  data: z.object({
-    fixed: z.object({
-      side: z.enum(["left", "right"]),
-      weights: z.array(z.number().int().min(1).max(99)).min(1).max(4),
-    }),
-    pool: z.array(z.number().int().min(1).max(99)).min(2).max(8),
-  }),
-});
-
-export const MathChaseGame = z.object({
-  template: z.literal("math_chase"),
-  ...baseShape,
-  data: z.object({
-    target: z.number().int().min(2).max(60),
-    durationSec: z.number().int().min(15).max(60).default(25),
-    spawnIntervalMs: z.number().int().min(500).max(2500).default(1100),
-    pool: z.array(z.number().int().min(1).max(30)).min(6).max(20),
-  }),
-});
-
 export const GrammarQuestGame = z.object({
   template: z.literal("grammar_quest"),
   ...baseShape,
@@ -156,25 +133,6 @@ export const GrammarQuestGame = z.object({
       .min(3)
       .max(10),
     passingScore: z.number().int().min(1).optional(), // defaults to ceil(N * 0.6)
-  }),
-});
-
-export const CleanRiverGame = z.object({
-  template: z.literal("clean_river"),
-  ...baseShape,
-  data: z.object({
-    rounds: z
-      .array(
-        z.object({
-          expression: z.string().min(1).max(20),
-          answer: z.number().int(),
-          options: z.array(z.number().int()).min(3).max(4),
-        }),
-      )
-      .min(3)
-      .max(5),
-    fallDurationMs: z.number().int().min(5000).max(12000).default(8000),
-    lives: z.number().int().min(1).max(3).default(2),
   }),
 });
 
@@ -221,6 +179,17 @@ export const CalculationsterGame = z.object({
   }),
 });
 
+export const NameFigureGame = z.object({
+  template: z.literal("name_figure"),
+  ...baseShape,
+  data: z.object({
+    imageSrc: z.string().min(1), // absolute path under /public, e.g. /figures/tesla.jpg
+    figure: z.string().min(2).max(40), // the correct full name
+    clue: z.string().min(4).max(140), // 1-sentence hint shown under the portrait
+    options: z.array(z.string().min(2).max(40)).min(3).max(4), // includes `figure`
+  }),
+});
+
 export const Game = z.discriminatedUnion("template", [
   MergeMathGame,
   WordBuilderGame,
@@ -228,13 +197,11 @@ export const Game = z.discriminatedUnion("template", [
   MathCastleGame,
   HangmanGame,
   MiniCrosswordGame,
-  BalanceScaleGame,
-  MathChaseGame,
   GrammarQuestGame,
-  CleanRiverGame,
   WizardDungeonGame,
   FractionGolfGame,
   CalculationsterGame,
+  NameFigureGame,
 ]);
 
 export type Game = z.infer<typeof Game>;
@@ -244,13 +211,11 @@ export type QuickSortGame = z.infer<typeof QuickSortGame>;
 export type MathCastleGame = z.infer<typeof MathCastleGame>;
 export type HangmanGame = z.infer<typeof HangmanGame>;
 export type MiniCrosswordGame = z.infer<typeof MiniCrosswordGame>;
-export type BalanceScaleGame = z.infer<typeof BalanceScaleGame>;
-export type MathChaseGame = z.infer<typeof MathChaseGame>;
 export type GrammarQuestGame = z.infer<typeof GrammarQuestGame>;
-export type CleanRiverGame = z.infer<typeof CleanRiverGame>;
 export type WizardDungeonGame = z.infer<typeof WizardDungeonGame>;
 export type FractionGolfGame = z.infer<typeof FractionGolfGame>;
 export type CalculationsterGame = z.infer<typeof CalculationsterGame>;
+export type NameFigureGame = z.infer<typeof NameFigureGame>;
 
 export const TEMPLATES = [
   "merge_math",
@@ -259,13 +224,11 @@ export const TEMPLATES = [
   "math_castle",
   "hangman",
   "mini_crossword",
-  "balance_scale",
-  "math_chase",
   "grammar_quest",
-  "clean_river",
   "wizard_dungeon",
   "fraction_golf",
   "calculationster",
+  "name_figure",
 ] as const;
 export type Template = (typeof TEMPLATES)[number];
 

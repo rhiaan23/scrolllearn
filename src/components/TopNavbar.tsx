@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { paper } from "@/lib/theme";
+import { Icon } from "./paper/Icon";
 
 interface Props {
   activeTab: "teacher" | "student";
@@ -9,16 +11,27 @@ interface Props {
 
 export function TopNavbar({ activeTab, onReset }: Props) {
   return (
-    <header className="relative z-40 flex h-[50px] w-full flex-shrink-0 items-center justify-between px-5 text-white [text-shadow:0_0_2px_rgb(0_0_0/0.6)]">
-      {/* Left: spacer to balance reset button */}
-      <div className="w-8" />
-
-      {/* Center: Teacher | Student */}
-      <nav className="flex items-center gap-5 text-sm font-medium">
+    <header
+      className="relative z-40 flex h-[58px] w-full flex-shrink-0 items-center justify-between px-5"
+      style={{
+        background: paper.bg,
+        borderBottom: `1.5px dashed ${paper.ink}22`,
+      }}
+    >
+      {/* Left: Teacher / Student tabs */}
+      <nav className="flex items-center gap-4 font-body text-[13px]">
         <Tab label="Teacher" href="/teacher" active={activeTab === "teacher"} />
-        <span className="text-white/60">|</span>
         <Tab label="Student" href="/feed" active={activeTab === "student"} />
       </nav>
+
+      {/* Center: FunFeed wordmark */}
+      <div
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[22px] font-black leading-none"
+        style={{ letterSpacing: "-0.04em", color: paper.ink }}
+      >
+        Fun
+        <span style={{ fontStyle: "italic", color: paper.math.lo }}>Feed</span>
+      </div>
 
       {/* Right: reset */}
       <button
@@ -28,9 +41,10 @@ export function TopNavbar({ activeTab, onReset }: Props) {
           if (!onReset) return;
           if (confirm("Reset your progress?")) onReset();
         }}
-        className="text-white/90 transition-opacity hover:opacity-70"
+        className="transition-opacity hover:opacity-70"
+        style={{ color: paper.inkSoft }}
       >
-        <ResetIcon />
+        <Icon name="reset" size={18} />
       </button>
     </header>
   );
@@ -40,31 +54,19 @@ function Tab({ label, href, active }: { label: string; href: string; active: boo
   return (
     <Link
       href={href}
-      className={`relative ${active ? "font-bold text-white" : "font-medium text-white/75 hover:text-white/95"}`}
+      className="relative font-extrabold transition-colors"
+      style={{
+        color: active ? paper.ink : paper.inkSoft,
+        letterSpacing: "-0.01em",
+      }}
     >
       {label}
       {active && (
-        <span className="absolute -bottom-1.5 left-1/2 h-[2px] w-6 -translate-x-1/2 rounded-full bg-white" />
+        <span
+          className="absolute -bottom-1.5 left-1/2 h-[3px] w-6 -translate-x-1/2 rounded-full"
+          style={{ background: paper.math.lo }}
+        />
       )}
     </Link>
-  );
-}
-
-function ResetIcon() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
-      <path d="M3 3v5h5" />
-    </svg>
   );
 }

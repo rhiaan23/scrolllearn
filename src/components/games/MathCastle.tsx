@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { MathCastleGame } from "@/lib/schema";
+import { PixelIcon } from "@/components/PixelIcon";
 
 interface Props {
   game: MathCastleGame;
@@ -207,15 +208,19 @@ export function MathCastle({ game, onAnswer, locked }: Props) {
   return (
     <div ref={wrapRef} className="flex w-full flex-col items-center gap-2">
       <div className="flex w-full items-center justify-between rounded-xl bg-black/30 px-4 py-2 backdrop-blur-sm">
-        <div className="flex gap-1 text-lg" aria-label={`${lives} lives`}>
+        <div className="flex gap-1" aria-label={`${lives} lives`}>
           {Array.from({ length: startingLives }).map((_, i) => (
-            <span key={i} className={i < lives ? "" : "opacity-20 grayscale"}>
-              ❤️
-            </span>
+            <PixelIcon
+              key={i}
+              name="heart"
+              size={18}
+              color={i < lives ? "#ef4444" : "#525252"}
+            />
           ))}
         </div>
-        <div className="text-xs font-bold uppercase tracking-wider text-white/80">
-          🏰 <span className="text-amber-300">{killed}</span>/{enemies.length} defeated
+        <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-white/80">
+          <PixelIcon name="castle" size={14} color="#fcd34d" />
+          <span className="text-amber-300">{killed}</span>/{enemies.length} defeated
         </div>
       </div>
 

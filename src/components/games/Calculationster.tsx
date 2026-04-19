@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { CalculationsterGame } from "@/lib/schema";
 import { MONSTER_SPRITES, PixelSprite } from "@/components/PixelSprite";
+import { PixelIcon } from "@/components/PixelIcon";
 
 /**
  * Calculationster — timed math drill where solving problems feeds a monster.
@@ -136,16 +137,18 @@ export function Calculationster({ game, onAnswer, locked }: Props) {
     <div className="flex w-full flex-col items-center gap-3">
       {/* HUD */}
       <div className="flex w-full items-center justify-between rounded-md bg-black/40 px-3 py-1.5 backdrop-blur-sm">
-        <div className="text-[11px] font-bold uppercase tracking-wider text-white/80">
-          🎯 score{" "}
+        <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-white/80">
+          <PixelIcon name="target" size={14} color="#fcd34d" />
+          score{" "}
           <span className="font-mono text-amber-300">
             {score}/{passingScore}
           </span>
         </div>
         <div
-          className={`font-mono text-sm font-black ${secondsLeft <= 5 ? "animate-pulse text-red-300" : "text-white"}`}
+          className={`flex items-center gap-1.5 font-mono text-sm font-black ${secondsLeft <= 5 ? "animate-pulse text-red-300" : "text-white"}`}
         >
-          ⏱ {secondsLeft}s
+          <PixelIcon name="clock" size={14} />
+          {secondsLeft}s
         </div>
       </div>
 
@@ -182,8 +185,8 @@ export function Calculationster({ game, onAnswer, locked }: Props) {
           />
         </div>
         {feedback === "correct" && (
-          <div className="animate-[pop_0.3s_ease-out] text-xs font-bold text-emerald-300">
-            +1 fed! 🍖
+          <div className="flex items-center gap-1 animate-[pop_0.3s_ease-out] text-xs font-bold text-emerald-300">
+            +1 fed! <PixelIcon name="heart" size={14} color="#6ee7b7" />
           </div>
         )}
         {feedback === "wrong" && (

@@ -324,148 +324,6 @@ export const SEED_GAMES: Game[] = [
     },
   }),
 
-  // 19 — math · balance_scale · easy
-  Game.parse({
-    id: "math-balance-easy",
-    subject: "math",
-    difficulty: 1,
-    template: "balance_scale",
-    prompt: "Balance the scale — both sides must weigh the same.",
-    explanation:
-      "The left pan holds 10. Add weights to the right pan that add up to 10. Try 4 + 6 or 7 + 3.",
-    data: {
-      fixed: { side: "left", weights: [10] },
-      pool: [3, 4, 6, 7, 2, 8],
-    },
-  }),
-
-  // 20 — math · balance_scale · medium
-  Game.parse({
-    id: "math-balance-med",
-    subject: "math",
-    difficulty: 2,
-    template: "balance_scale",
-    prompt: "Match the heavier side — pick the right numbers.",
-    explanation:
-      "Fixed side weighs 7 + 8 = 15. Combinations that sum to 15: 9+6, 7+5+3, 4+11, etc.",
-    data: {
-      fixed: { side: "left", weights: [7, 8] },
-      pool: [9, 6, 5, 4, 3, 11, 2],
-    },
-  }),
-
-  // 21 — math · balance_scale · hard
-  Game.parse({
-    id: "math-balance-hard",
-    subject: "math",
-    difficulty: 3,
-    template: "balance_scale",
-    prompt: "Balance a bigger load — plan your picks.",
-    explanation:
-      "Fixed side is 12 + 9 + 5 = 26. One solution: 14 + 12, or 15 + 8 + 3.",
-    data: {
-      fixed: { side: "right", weights: [12, 9, 5] },
-      pool: [14, 12, 15, 8, 3, 7, 6, 4],
-    },
-  }),
-
-  // 22 — math · math_chase · easy
-  Game.parse({
-    id: "math-chase-20",
-    subject: "math",
-    difficulty: 1,
-    template: "math_chase",
-    prompt: "Tap falling numbers that add to 20 — don't overshoot!",
-    explanation:
-      "Pick pairs that make 20: 10+10, 15+5, 12+8. Skip numbers that would push you over.",
-    data: {
-      target: 20,
-      durationSec: 25,
-      spawnIntervalMs: 1100,
-      pool: [2, 3, 5, 8, 10, 12, 15, 7],
-    },
-  }),
-
-  // 23 — math · math_chase · medium
-  Game.parse({
-    id: "math-chase-30",
-    subject: "math",
-    difficulty: 2,
-    template: "math_chase",
-    prompt: "Reach exactly 30 — watch the numbers fall.",
-    explanation:
-      "Harder targets need three or four additions: 15+10+5, 12+8+10, 7+13+5+5.",
-    data: {
-      target: 30,
-      durationSec: 30,
-      spawnIntervalMs: 950,
-      pool: [3, 5, 7, 8, 10, 12, 13, 15, 4, 6],
-    },
-  }),
-
-  // 24 — math · clean_river · easy
-  Game.parse({
-    id: "math-river-easy",
-    subject: "math",
-    difficulty: 1,
-    template: "clean_river",
-    prompt: "Clean the river — tap the right answer before it drifts away!",
-    explanation:
-      "Read the expression, find the answer floating down, tap it. The others are tricks.",
-    data: {
-      rounds: [
-        { expression: "2 + 3", answer: 5, options: [5, 4, 6] },
-        { expression: "4 + 1", answer: 5, options: [3, 5, 7] },
-        { expression: "6 - 2", answer: 4, options: [4, 6, 2] },
-      ],
-      fallDurationMs: 9500,
-      lives: 3,
-    },
-  }),
-
-  // 25 — math · clean_river · medium
-  Game.parse({
-    id: "math-river-med",
-    subject: "math",
-    difficulty: 2,
-    template: "clean_river",
-    prompt: "Mixed plus and minus — grab the right trash!",
-    explanation:
-      "Add or subtract carefully. 13-5=8, 7+6=13, 16-9=7, 8+5=13.",
-    data: {
-      rounds: [
-        { expression: "7 + 6", answer: 13, options: [12, 13, 14] },
-        { expression: "13 - 5", answer: 8, options: [8, 7, 9] },
-        { expression: "16 - 9", answer: 7, options: [5, 7, 8, 9] },
-        { expression: "8 + 5", answer: 13, options: [12, 13, 14] },
-      ],
-      fallDurationMs: 8000,
-      lives: 2,
-    },
-  }),
-
-  // 26 — math · clean_river · hard
-  Game.parse({
-    id: "math-river-hard",
-    subject: "math",
-    difficulty: 3,
-    template: "clean_river",
-    prompt: "Times tables at river speed — don't miss!",
-    explanation:
-      "Single-digit multiplication. 6×7=42, 8×4=32, 9×5=45, 7×8=56, 6×9=54.",
-    data: {
-      rounds: [
-        { expression: "6 × 7", answer: 42, options: [36, 42, 48, 49] },
-        { expression: "8 × 4", answer: 32, options: [24, 32, 36] },
-        { expression: "9 × 5", answer: 45, options: [40, 45, 50] },
-        { expression: "7 × 8", answer: 56, options: [48, 54, 56, 63] },
-        { expression: "6 × 9", answer: 54, options: [48, 54, 56] },
-      ],
-      fallDurationMs: 6500,
-      lives: 2,
-    },
-  }),
-
   // english · grammar_quest · easy
   // Mechanic + question content ported from AstroMike101/grammar-quest (MIT,
   Game.parse({
@@ -707,6 +565,79 @@ export const SEED_GAMES: Game[] = [
       maxOperand: 20,
       durationSec: 30,
       passingScore: 6,
+    },
+  }),
+
+  // science · name_figure · Einstein
+  Game.parse({
+    id: "sci-figure-einstein",
+    subject: "science",
+    difficulty: 2,
+    template: "name_figure",
+    prompt: "Who is this playful physicist?",
+    explanation:
+      "Albert Einstein reshaped physics with the theory of relativity and the famous equation E=mc².",
+    data: {
+      imageSrc: "/figures/einstein.jpg",
+      figure: "Albert Einstein",
+      clue: "A physicist famous for the theory of relativity and E = mc².",
+      options: ["Albert Einstein", "Niels Bohr", "Galileo Galilei", "Nikola Tesla"],
+    },
+  }),
+
+  // science · name_figure · Newton
+  Game.parse({
+    id: "sci-figure-newton",
+    subject: "science",
+    difficulty: 2,
+    template: "name_figure",
+    prompt: "Who watched an apple fall and wondered why?",
+    explanation:
+      "Sir Isaac Newton described the laws of motion and universal gravitation in the 1600s.",
+    data: {
+      imageSrc: "/figures/newton.jpg",
+      figure: "Isaac Newton",
+      clue: "He described the three laws of motion and the law of gravity.",
+      options: ["Isaac Newton", "Charles Darwin", "Michael Faraday", "Galileo Galilei"],
+    },
+  }),
+
+  // science · name_figure · Tesla
+  Game.parse({
+    id: "sci-figure-tesla",
+    subject: "science",
+    difficulty: 3,
+    template: "name_figure",
+    prompt: "Who invented the AC electric motor?",
+    explanation:
+      "Nikola Tesla pioneered alternating-current electricity that powers most homes today.",
+    data: {
+      imageSrc: "/figures/tesla.jpg",
+      figure: "Nikola Tesla",
+      clue: "An inventor who made alternating-current electricity practical.",
+      options: ["Nikola Tesla", "Thomas Edison", "Alexander Bell", "Albert Einstein"],
+    },
+  }),
+
+  // english · name_figure · Gandhi (history / general literacy)
+  Game.parse({
+    id: "eng-figure-gandhi",
+    subject: "english",
+    difficulty: 2,
+    template: "name_figure",
+    prompt: "Who led India's fight for independence without violence?",
+    explanation:
+      "Mahatma Gandhi led India to independence through peaceful protest and civil disobedience.",
+    data: {
+      imageSrc: "/figures/gandhi.jpg",
+      figure: "Mahatma Gandhi",
+      clue: "He led India to independence using non-violent protest.",
+      options: [
+        "Mahatma Gandhi",
+        "Nelson Mandela",
+        "Martin Luther King Jr.",
+        "Jawaharlal Nehru",
+      ],
     },
   }),
 ];

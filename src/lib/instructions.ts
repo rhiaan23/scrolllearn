@@ -68,26 +68,6 @@ export const INSTRUCTIONS: Record<Template, Instruction> = {
     ],
     goal: "Fill every cell with the correct letter.",
   },
-  balance_scale: {
-    title: "Balance Scale",
-    emoji: "⚖️",
-    steps: [
-      "The scale already has weights on one side — read the total.",
-      "Tap numbered weights in the pool to drop them on the empty pan.",
-      "Tap a placed weight to send it back to the pool.",
-    ],
-    goal: "Make both pans weigh the same so the scale balances.",
-  },
-  math_chase: {
-    title: "Math Chase",
-    emoji: "🏃",
-    steps: [
-      "Numbers fall from above — tap the ones you want to grab.",
-      "Each tap adds that number to your running total.",
-      "Avoid overshooting — going over the target costs you a life.",
-    ],
-    goal: "Hit the target number exactly before the timer runs out.",
-  },
   grammar_quest: {
     title: "Grammar Quest",
     emoji: "🌊",
@@ -97,16 +77,6 @@ export const INSTRUCTIONS: Record<Template, Instruction> = {
       "You answer one question at a time, then move on automatically.",
     ],
     goal: "Get enough questions right to clear the round.",
-  },
-  clean_river: {
-    title: "Clean the River",
-    emoji: "🌊",
-    steps: [
-      "Solve the math expression shown above the river.",
-      "Numbered trash floats down — tap the one that matches the answer.",
-      "Wrong taps and missed answers cost a heart.",
-    ],
-    goal: "Clear every round before your hearts run out.",
   },
   wizard_dungeon: {
     title: "Wizard Dungeon",
@@ -120,13 +90,23 @@ export const INSTRUCTIONS: Record<Template, Instruction> = {
   },
   fraction_golf: {
     title: "Fraction Golf",
-    emoji: "⛳",
+    emoji: "🏑",
     steps: [
       "Look at the target fraction on the green.",
       "Tap a numbered ball, then tap the numerator hole (top) or denominator hole (bottom) to drop it in.",
       "Tap a placed ball to send it back to the pool.",
     ],
     goal: "Sink balls into the right holes so they make the target fraction.",
+  },
+  name_figure: {
+    title: "Name the Figure",
+    emoji: "🖼️",
+    steps: [
+      "Look at the portrait on the card.",
+      "Read the short clue under the picture.",
+      "Tap the name you think matches the face.",
+    ],
+    goal: "Pick the right historical figure on the first try.",
   },
   calculationster: {
     title: "Calculationster",
