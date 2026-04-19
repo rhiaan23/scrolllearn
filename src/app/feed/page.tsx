@@ -111,7 +111,6 @@ export default function FeedPage() {
     return () => {
       cancelled = true;
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchOne, tabKey]);
 
   // Watch the scroll position; when the user is near the end, prefetch more.
