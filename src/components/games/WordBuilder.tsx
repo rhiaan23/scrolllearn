@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { WordBuilderGame } from "@/lib/schema";
 import { PixelIcon } from "@/components/PixelIcon";
 import { emojiToIconSlug } from "@/lib/emojiToIcon";
+import { paper } from "@/lib/theme";
 
 interface Props {
   game: WordBuilderGame;
@@ -166,32 +167,39 @@ function WordRound({ word, stepLabel, onComplete, locked }: RoundProps) {
       {/* Hint */}
       <div className="flex flex-col items-center gap-2">
         <div
-          className="relative flex h-[120px] w-[160px] items-center justify-center overflow-hidden rounded-xl ring-1 ring-white/10"
+          className="relative flex h-[120px] w-[160px] items-center justify-center overflow-hidden rounded-xl"
           style={{
-            backgroundImage: "url(/sprites/frames/hint-frame.png)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            imageRendering: "pixelated",
+            background: "#FFFFFF",
+            border: `2px solid ${paper.ink}22`,
+            boxShadow: "0 3px 0 rgba(43,29,16,0.08)",
           }}
         >
-          <div className="absolute inset-0 bg-black/35" aria-hidden="true" />
-          <div className="relative">
-            {(() => {
-              const slug = emojiToIconSlug(word.emoji);
-              return slug ? (
-                <PixelIcon name={slug} size={72} color="#fde68a" />
-              ) : (
-                <div className="font-display text-[22px] font-black uppercase tracking-widest text-amber-200">
-                  {word.hint.split(" ").slice(0, 2).join(" ")}
-                </div>
-              );
-            })()}
-          </div>
+          {(() => {
+            const slug = emojiToIconSlug(word.emoji);
+            return slug ? (
+              <PixelIcon name={slug} size={72} color={paper.ink} />
+            ) : (
+              <div
+                className="font-display text-2xl font-black uppercase tracking-widest"
+                style={{ color: paper.ink }}
+              >
+                {word.emoji || word.hint.split(" ").slice(0, 2).join(" ")}
+              </div>
+            );
+          })()}
         </div>
-        <div className="text-xs font-bold uppercase tracking-wider text-white/70">
+        <div
+          className="font-display text-[12px] font-black uppercase tracking-[0.18em]"
+          style={{ color: paper.ink }}
+        >
           {word.hint}
         </div>
-        <div className="text-[10px] font-medium text-white/50">{stepLabel}</div>
+        <div
+          className="font-body text-[10px] font-semibold"
+          style={{ color: paper.inkSoft }}
+        >
+          {stepLabel}
+        </div>
       </div>
 
       {/* Slots — tap a filled slot to send its letter back to the pool */}
@@ -205,12 +213,12 @@ function WordRound({ word, stepLabel, onComplete, locked }: RoundProps) {
               disabled={poolIdx === null || locked || celebrating}
               onClick={() => unplaceSlot(i)}
               aria-label={ch ? `Remove ${ch} from slot ${i + 1}` : `Empty slot ${i + 1}`}
-              className={`flex h-12 w-10 items-center justify-center rounded-lg border-b-4 text-2xl font-black uppercase shadow-[0_2px_0_rgba(0,0,0,0.35)] backdrop-blur-sm transition-colors ${
+              className={`flex h-12 w-10 items-center justify-center rounded-lg border-b-4 text-2xl font-black uppercase shadow-[0_2px_0_rgba(43,29,16,0.12)] transition-colors ${
                 ch
                   ? correctSoFar
-                    ? "border-amber-200 bg-amber-300 text-amber-950"
-                    : "border-white/70 bg-white/80 text-zinc-900 hover:bg-white"
-                  : "border-white/60 bg-white/25 text-white/50"
+                    ? "border-emerald-600 bg-emerald-300 text-emerald-950"
+                    : "border-[#2B1D10]/70 bg-white text-[#2B1D10]"
+                  : "border-[#2B1D10]/30 bg-white/70 text-[#2B1D10]/30"
               }`}
             >
               {ch ?? ""}
@@ -229,10 +237,10 @@ function WordRound({ word, stepLabel, onComplete, locked }: RoundProps) {
               type="button"
               disabled={isUsed || locked || celebrating}
               onClick={() => placeLetter(i)}
-              className={`flex h-11 w-11 items-center justify-center rounded-lg border-2 text-xl font-bold uppercase shadow-[0_2px_0_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all active:scale-90 ${
+              className={`flex h-11 w-11 items-center justify-center rounded-lg border-2 text-xl font-bold uppercase shadow-[0_2px_0_rgba(43,29,16,0.12)] transition-all active:scale-90 ${
                 isUsed
-                  ? "border-white/10 bg-white/10 text-white/30"
-                  : "border-white/60 bg-white/75 text-zinc-900 hover:bg-white"
+                  ? "border-[#2B1D10]/15 bg-[#2B1D10]/5 text-[#2B1D10]/25"
+                  : "border-[#2B1D10]/40 bg-white text-[#2B1D10] hover:bg-[#F3E8CF]"
               }`}
             >
               {letter}
@@ -245,7 +253,8 @@ function WordRound({ word, stepLabel, onComplete, locked }: RoundProps) {
         type="button"
         onClick={unplaceLast}
         disabled={!assignment.some((v) => v !== null) || celebrating}
-        className="text-xs font-medium text-white/60 underline-offset-2 hover:underline disabled:text-white/20"
+        className="font-body text-xs font-semibold underline-offset-2 hover:underline disabled:opacity-30"
+        style={{ color: paper.inkSoft }}
       >
         ← undo last
       </button>

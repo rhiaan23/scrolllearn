@@ -54,6 +54,7 @@ export default function FeedPage() {
           difficulty,
           avoid,
           avoidTemplates: recentTemplatesRef.current,
+          strictSubject: pinnedSubjectRef.current !== null,
         }),
       });
       const json = await res.json();

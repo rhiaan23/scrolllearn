@@ -6,6 +6,8 @@ interface TakeOpts {
   difficulty?: Difficulty;
   avoid?: string[]; // ordered oldest → newest of recently-served IDs
   avoidTemplates?: Template[]; // last N served templates — avoid repeating mechanics
+  /** When true, never fall back to a different subject even if the pool is exhausted. */
+  strictSubject?: boolean;
 }
 
 // Hard adjacency window: NEVER return a game whose ID appears in the last
@@ -53,8 +55,11 @@ export async function takeGame(opts: TakeOpts): Promise<Game> {
   );
   if (subjectFresh.length > 0) return pickRandom(subjectFresh);
 
-  const anyFresh = SEED_GAMES.filter((g) => notSeen(g) && differentTemplate(g));
-  if (anyFresh.length > 0) return pickRandom(anyFresh);
+  // Tier 3 (cross-subject) — only allowed when not strictly filtered.
+  if (!opts.strictSubject) {
+    const anyFresh = SEED_GAMES.filter((g) => notSeen(g) && differentTemplate(g));
+    if (anyFresh.length > 0) return pickRandom(anyFresh);
+  }
 
   // Tier 4-6: template adjacency relaxed, but avoid list still honored.
   const exact = SEED_GAMES.filter(
@@ -65,8 +70,18 @@ export async function takeGame(opts: TakeOpts): Promise<Game> {
   const subjectMatch = SEED_GAMES.filter((g) => g.subject === opts.subject && notSeen(g));
   if (subjectMatch.length > 0) return pickRandom(subjectMatch);
 
-  const anyUnseen = SEED_GAMES.filter(notSeen);
-  if (anyUnseen.length > 0) return pickRandom(anyUnseen);
+  if (!opts.strictSubject) {
+    const anyUnseen = SEED_GAMES.filter(notSeen);
+    if (anyUnseen.length > 0) return pickRandom(anyUnseen);
+  }
+
+  // When strict, recycle within the subject instead of breaking filter.
+  const subjectPool = SEED_GAMES.filter((g) => g.subject === opts.subject);
+  if (opts.strictSubject) {
+    const notTooRecentInSubject = subjectPool.filter(notRecent);
+    if (notTooRecentInSubject.length > 0) return pickRandom(notTooRecentInSubject);
+    return pickRandom(subjectPool.length > 0 ? subjectPool : SEED_GAMES);
+  }
 
   // Cycled past the whole avoid list — relax it, but STILL refuse anything
   // we just served in the last NO_REPEAT_WINDOW picks.

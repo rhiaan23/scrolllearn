@@ -35,6 +35,7 @@ export function GameCard({ game, index, onAdvance }: Props) {
   const [result, setResult] = useState<{ correct: boolean; description: string } | null>(
     null,
   );
+  const [toastVisible, setToastVisible] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(index === 0);
   const advancedRef = useRef(false);
@@ -57,7 +58,9 @@ export function GameCard({ game, index, onAdvance }: Props) {
   function handleAnswer(isCorrect: boolean, description: string) {
     if (advancedRef.current) return;
     setResult({ correct: isCorrect, description });
+    setToastVisible(true);
     recordAnswer(game, isCorrect);
+    setTimeout(() => setToastVisible(false), 900);
     if (onAdvance) {
       advancedRef.current = true;
       setTimeout(() => onAdvance(), isCorrect ? 1100 : 1700);
@@ -198,7 +201,7 @@ export function GameCard({ game, index, onAdvance }: Props) {
       <ActionRail subject={game.subject} onHelp={() => setHelpOpen(true)} />
 
       {/* Flash feedback — subtle full-card green/red wash + big Right!/Wrong! */}
-      {result && (
+      {result && toastVisible && (
         <>
           <div
             className="pointer-events-none absolute inset-0 z-30 animate-[pop_0.32s_ease-out]"

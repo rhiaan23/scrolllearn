@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { HangmanGame } from "@/lib/schema";
+import { paper } from "@/lib/theme";
 
 interface Props {
   game: HangmanGame;
@@ -72,9 +73,22 @@ export function Hangman({ game, onAnswer, locked }: Props) {
   return (
     <div className="flex w-full flex-col items-center gap-3">
       {/* Top status: hint + lives */}
-      <div className="flex w-full items-center justify-between rounded-xl bg-black/30 px-3 py-2 backdrop-blur-sm">
-        <div className="flex-1 pr-2 text-[12px] font-semibold leading-tight text-white">
-          <span className="text-amber-300">Hint:</span> {game.data.hint}
+      <div
+        className="flex w-full items-center justify-between rounded-xl px-3 py-2"
+        style={{
+          background: "#FFFFFF",
+          border: `1.5px dashed ${paper.ink}44`,
+          color: paper.ink,
+        }}
+      >
+        <div className="flex-1 pr-2 font-body text-[12px] font-semibold leading-tight">
+          <span
+            className="font-display font-black uppercase tracking-[0.15em]"
+            style={{ color: paper.math.lo }}
+          >
+            Hint:
+          </span>{" "}
+          {game.data.hint}
         </div>
         <div className="flex shrink-0 gap-0.5 text-sm" aria-label={`${livesLeft} guesses left`}>
           {Array.from({ length: maxMisses }).map((_, i) => (
@@ -96,7 +110,8 @@ export function Hangman({ game, onAnswer, locked }: Props) {
           return (
             <span
               key={i}
-              className="flex h-9 w-7 items-center justify-center border-b-2 border-white text-lg font-black text-white"
+              className="flex h-9 w-7 items-center justify-center border-b-2 text-lg font-black"
+              style={{ borderColor: paper.ink, color: paper.ink }}
             >
               {revealed ? ch : ""}
             </span>
@@ -118,12 +133,12 @@ export function Hangman({ game, onAnswer, locked }: Props) {
                   type="button"
                   onClick={() => handleGuess(ch)}
                   disabled={used || locked || finished}
-                  className={`flex h-8 min-w-[26px] items-center justify-center rounded-md px-1.5 text-[13px] font-bold shadow transition-transform active:scale-90 ${
+                  className={`flex h-8 min-w-[26px] items-center justify-center rounded-md px-1.5 text-[13px] font-bold shadow-[0_2px_0_rgba(43,29,16,0.14)] transition-transform active:scale-90 ${
                     isHit
                       ? "bg-emerald-400 text-emerald-950"
                       : isMiss
-                        ? "bg-rose-500/70 text-white line-through"
-                        : "bg-white/90 text-slate-900 hover:bg-white"
+                        ? "bg-rose-400 text-rose-950 line-through"
+                        : "bg-white text-[#2B1D10] hover:bg-[#F3E8CF]"
                   } ${used ? "cursor-default" : "cursor-pointer"}`}
                   aria-label={`Guess ${ch}`}
                 >
@@ -147,8 +162,8 @@ function HangmanArt({ misses, maxMisses }: { misses: number; maxMisses: number }
       width="110"
       height="110"
       viewBox="0 0 120 120"
-      className="text-white drop-shadow"
       aria-label={`Hangman drawing, ${misses} of ${maxMisses} misses`}
+      style={{ color: "#2B1D10", filter: "drop-shadow(0 2px 0 rgba(43,29,16,0.12))" }}
     >
       {/* Gallows */}
       <line x1="10" y1="115" x2="80" y2="115" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />

@@ -1039,6 +1039,66 @@
       "difficulty": 1,
       "isCorrect": true,
       "timestamp": 1776594873416
+    },
+    {
+      "studentId": "99b41a56-323c-4349-aee6-fe186477d34e",
+      "classCode": "234",
+      "gameId": "math-castle-mul-hard",
+      "prompt": "Multiplication siege — defeat them all!",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776595759865
+    },
+    {
+      "studentId": "99b41a56-323c-4349-aee6-fe186477d34e",
+      "classCode": "234",
+      "gameId": "math-calc-hard",
+      "prompt": "All four operations — how many can you feed the monster?",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776595786828
+    },
+    {
+      "studentId": "99b41a56-323c-4349-aee6-fe186477d34e",
+      "classCode": "234",
+      "gameId": "sci-figure-einstein",
+      "prompt": "Who is this playful physicist?",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776595919573
+    },
+    {
+      "studentId": "99b41a56-323c-4349-aee6-fe186477d34e",
+      "classCode": "234",
+      "gameId": "sci-figure-tesla",
+      "prompt": "Who invented the AC electric motor?",
+      "subject": "science",
+      "difficulty": 3,
+      "isCorrect": true,
+      "timestamp": 1776595932406
+    },
+    {
+      "studentId": "99b41a56-323c-4349-aee6-fe186477d34e",
+      "classCode": "234",
+      "gameId": "math-calc-easy",
+      "prompt": "Solve the math problems before time runs out!",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": false,
+      "timestamp": 1776596501630
+    },
+    {
+      "studentId": "99b41a56-323c-4349-aee6-fe186477d34e",
+      "classCode": "234",
+      "gameId": "sci-tap-mammals",
+      "prompt": "Tap only the mammals before time runs out!",
+      "subject": "science",
+      "difficulty": 1,
+      "isCorrect": false,
+      "timestamp": 1776596630830
     }
   ]
 }

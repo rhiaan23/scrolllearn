@@ -15,6 +15,7 @@ interface ReqBody {
   difficulty?: Difficulty;
   avoid?: string[];
   avoidTemplates?: Template[];
+  strictSubject?: boolean;
 }
 
 export async function POST(request: Request) {
@@ -42,7 +43,14 @@ export async function POST(request: Request) {
     : [];
 
   try {
-    const game = await takeGame({ subject, difficulty, avoid, avoidTemplates });
+    const strictSubject = Boolean(body.strictSubject);
+    const game = await takeGame({
+      subject,
+      difficulty,
+      avoid,
+      avoidTemplates,
+      strictSubject,
+    });
     return Response.json({ game });
   } catch (err) {
     const message = err instanceof Error ? err.message : "unknown error";
