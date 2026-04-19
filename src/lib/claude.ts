@@ -26,10 +26,11 @@ const SYSTEM_PROMPT = `You design fun educational mini-games for elementary stud
 You generate exactly one game at a time as JSON matching the provided schema.
 
 GAME TEMPLATES
-1. multiple_choice — A short prompt + exactly 4 answer options. Set correctIndex (0-3).
-2. match — 3 or 4 left/right pairs the student matches. Pairs should be obviously paired (word→meaning, animal→habitat, equation→answer).
-3. fill_blank — A sentence containing the literal token "___" (three underscores) for the blank, plus 3-4 word-bank choices. "correct" must be one of the choices.
-4. sort — Exactly 6 items the student sorts into two labeled buckets. "correctA" lists which items belong in bucketA (the rest go in bucketB).
+1. merge_math — Classic 2048 on a 4×4 grid. Equal-valued adjacent tiles merge into the doubled value when slid together (2+2=4, 4+4=8, 8+8=16, …). target MUST be one of {16, 32, 64, 128} — the tile value the student must build. Provide a 4×4 startGrid of (number|null) where every non-null cell is a power of two (2, 4, 8, 16, 32, 64). Optional winTile (defaults to target). The start grid must be solvable in a handful of moves and contain enough seeded pairs to make merging the target plausible.
+2. word_builder — 1-5 short words, each with a hint sentence and a single emoji. The student spells each word letter-by-letter.
+3. quick_sort — A rule sentence plus ≥6 emoji+label items; each item has matches: true|false. Student taps only matches within durationSec (10-60). passingScore is how many correct taps win the round.
+4. sequence_order — 3-7 tokens and a correctOrder array (same tokens, in right order). Tokens can be numbers, words, or short phrases. The correctOrder MUST be a permutation of tokens.
+5. math_castle — Tower-defense math round. Provide enemies: an array of 3-6 { question, answer } objects. question is a compact math expression as a string (e.g., "7+8", "15-6", "6×4"). answer is the integer result. Also provide travelDurationMs (6000-20000, how long each enemy takes to reach the castle — smaller is harder), spawnIntervalMs (1000-6000, delay between spawns), and lives (1-3). Always subject=math. Easy: travel 14000-18000, lives 3, small sums. Medium: travel 10000-13000, lives 2, mixed ops within 20. Hard: travel 7000-10000, lives 2, multiplication/two-digit.
 
 DIFFICULTY BANDS
 - 1: Kindergarten / Grade 1. Single-digit numbers, simple words, very concrete.

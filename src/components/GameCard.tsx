@@ -10,6 +10,11 @@ import { MergeMath } from "./games/MergeMath";
 import { WordBuilder } from "./games/WordBuilder";
 import { QuickSort } from "./games/QuickSort";
 import { SequenceOrder } from "./games/SequenceOrder";
+import { MathCastle } from "./games/MathCastle";
+import { Hangman } from "./games/Hangman";
+import { MiniCrossword } from "./games/MiniCrossword";
+import { BalanceScale } from "./games/BalanceScale";
+import { MathChase } from "./games/MathChase";
 
 interface Props {
   game: Game;
@@ -20,10 +25,9 @@ interface Props {
 export function GameCard({ game, index, onAdvance }: Props) {
   const colors = SUBJECT_COLORS[game.subject];
   const recordAnswer = useScrollLearn((s) => s.recordAnswer);
-  const previously = useScrollLearn((s) => s.answered[game.id]);
 
   const [result, setResult] = useState<{ correct: boolean; description: string } | null>(
-    previously === undefined ? null : { correct: previously, description: "(previously played)" },
+    null,
   );
   const [helpOpen, setHelpOpen] = useState(false);
   const advancedRef = useRef(false);
@@ -54,6 +58,21 @@ export function GameCard({ game, index, onAdvance }: Props) {
     case "sequence_order":
       body = <SequenceOrder game={game} onAnswer={handleAnswer} locked={locked} />;
       break;
+    case "math_castle":
+      body = <MathCastle game={game} onAnswer={handleAnswer} locked={locked} />;
+      break;
+    case "hangman":
+      body = <Hangman game={game} onAnswer={handleAnswer} locked={locked} />;
+      break;
+    case "mini_crossword":
+      body = <MiniCrossword game={game} onAnswer={handleAnswer} locked={locked} />;
+      break;
+    case "balance_scale":
+      body = <BalanceScale game={game} onAnswer={handleAnswer} locked={locked} />;
+      break;
+    case "math_chase":
+      body = <MathChase game={game} onAnswer={handleAnswer} locked={locked} />;
+      break;
   }
 
   return (
@@ -73,7 +92,13 @@ export function GameCard({ game, index, onAdvance }: Props) {
 
       {/* Game body — centered between top nav and footer area */}
       <div className="absolute inset-x-0 top-4 bottom-[148px] z-10 flex items-center justify-center px-5">
-        <div className="w-full max-w-[380px]">{body}</div>
+        <div
+          className={`w-full ${
+            game.template === "math_castle" ? "max-w-[640px]" : "max-w-[380px]"
+          }`}
+        >
+          {body}
+        </div>
       </div>
 
       {/* Left caption overlay */}

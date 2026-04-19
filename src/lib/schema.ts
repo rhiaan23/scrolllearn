@@ -21,9 +21,14 @@ export const MergeMathGame = z.object({
   template: z.literal("merge_math"),
   ...baseShape,
   data: z.object({
-    target: z.number().int().min(2).max(99),
+    target: z.union([
+      z.literal(16),
+      z.literal(32),
+      z.literal(64),
+      z.literal(128),
+    ]),
     startGrid: Grid,
-    winMerges: z.number().int().min(1).max(10).default(3),
+    winTile: z.number().int().optional(),
   }),
 });
 
@@ -73,11 +78,88 @@ export const SequenceOrderGame = z.object({
   }),
 });
 
+export const MathCastleGame = z.object({
+  template: z.literal("math_castle"),
+  ...baseShape,
+  data: z.object({
+    enemies: z
+      .array(
+        z.object({
+          question: z.string().min(1).max(24),
+          answer: z.number().int(),
+        }),
+      )
+      .min(3)
+      .max(6),
+    travelDurationMs: z.number().int().min(6000).max(20000).default(12000),
+    spawnIntervalMs: z.number().int().min(1000).max(6000).default(2500),
+    lives: z.number().int().min(1).max(3).default(2),
+  }),
+});
+
+export const HangmanGame = z.object({
+  template: z.literal("hangman"),
+  ...baseShape,
+  data: z.object({
+    word: z.string().min(3).max(12),
+    hint: z.string().min(1).max(80),
+    maxMisses: z.number().int().min(3).max(10).default(6),
+  }),
+});
+
+export const MiniCrosswordGame = z.object({
+  template: z.literal("mini_crossword"),
+  ...baseShape,
+  data: z.object({
+    size: z.number().int().min(3).max(6),
+    entries: z
+      .array(
+        z.object({
+          answer: z.string().min(2).max(8),
+          clue: z.string().min(1).max(80),
+          row: z.number().int().min(0).max(5),
+          col: z.number().int().min(0).max(5),
+          direction: z.enum(["across", "down"]),
+        }),
+      )
+      .min(2)
+      .max(6),
+  }),
+});
+
+export const BalanceScaleGame = z.object({
+  template: z.literal("balance_scale"),
+  ...baseShape,
+  data: z.object({
+    fixed: z.object({
+      side: z.enum(["left", "right"]),
+      weights: z.array(z.number().int().min(1).max(99)).min(1).max(4),
+    }),
+    pool: z.array(z.number().int().min(1).max(99)).min(2).max(8),
+  }),
+});
+
+export const MathChaseGame = z.object({
+  template: z.literal("math_chase"),
+  ...baseShape,
+  data: z.object({
+    target: z.number().int().min(2).max(60),
+    durationSec: z.number().int().min(15).max(60).default(25),
+    spawnIntervalMs: z.number().int().min(500).max(2500).default(1100),
+    pool: z.array(z.number().int().min(1).max(30)).min(6).max(20),
+  }),
+});
+
 export const Game = z.discriminatedUnion("template", [
   MergeMathGame,
   WordBuilderGame,
   QuickSortGame,
   SequenceOrderGame,
+  MathCastleGame,
+  HangmanGame,
+  MiniCrosswordGame,
+  BalanceScaleGame,
+  MathChaseGame,
 ]);
 
 export type Game = z.infer<typeof Game>;
@@ -85,12 +167,22 @@ export type MergeMathGame = z.infer<typeof MergeMathGame>;
 export type WordBuilderGame = z.infer<typeof WordBuilderGame>;
 export type QuickSortGame = z.infer<typeof QuickSortGame>;
 export type SequenceOrderGame = z.infer<typeof SequenceOrderGame>;
+export type MathCastleGame = z.infer<typeof MathCastleGame>;
+export type HangmanGame = z.infer<typeof HangmanGame>;
+export type MiniCrosswordGame = z.infer<typeof MiniCrosswordGame>;
+export type BalanceScaleGame = z.infer<typeof BalanceScaleGame>;
+export type MathChaseGame = z.infer<typeof MathChaseGame>;
 
 export const TEMPLATES = [
   "merge_math",
   "word_builder",
   "quick_sort",
   "sequence_order",
+  "math_castle",
+  "hangman",
+  "mini_crossword",
+  "balance_scale",
+  "math_chase",
 ] as const;
 export type Template = (typeof TEMPLATES)[number];
 

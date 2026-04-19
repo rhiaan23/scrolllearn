@@ -40,8 +40,10 @@ export function WordBuilder({ game, onAnswer, locked }: Props) {
     if (finishedRef.current) return;
     if (wordIdx + 1 >= game.data.words.length) {
       finishedRef.current = true;
-      const n = game.data.words.length;
-      onAnswer(true, `spelled ${n} word${n === 1 ? "" : "s"}`);
+      const total = game.data.words.length;
+      const list = game.data.words.map((w) => w.answer.toLowerCase()).join(", ");
+      const prefix = total === 1 ? "spelled" : `spelled all ${total}:`;
+      onAnswer(true, `${prefix} ${list}`);
     } else {
       setWordIdx((i) => i + 1);
     }

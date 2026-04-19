@@ -14,20 +14,18 @@ export default function FeedPage() {
   const [games, games_set] = useState<Game[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [showOnboarding, setShowOnboarding] = useState(false);
-
   const fetchingRef = useRef(false); // prevent concurrent fetch loops
+  const loadedIdsRef = useRef<string[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const reset = useScrollLearn((s) => s.reset);
   const classCode = useScrollLearn((s) => s.classCode);
   const studentId = useScrollLearn((s) => s.studentId);
 
-  // Show onboarding once on first visit if not yet enrolled
-  useEffect(() => {
-    if (classCode === undefined && studentId === undefined) {
-      setShowOnboarding(true);
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // Show onboarding once on first visit if not yet enrolled. Lazy init from
+  // current store state avoids a cascading setState inside useEffect.
+  const [showOnboarding, setShowOnboarding] = useState(
+    () => classCode === undefined && studentId === undefined,
+  );
 
   const fetchOne = useCallback(async () => {
     if (fetchingRef.current) return;
@@ -35,11 +33,14 @@ export default function FeedPage() {
     setLoading(true);
     setError(null);
     try {
-      const params = nextRequestParams();
+      const base = nextRequestParams();
+      const avoid = Array.from(new Set([...base.avoid, ...loadedIdsRef.current])).slice(
+        -16,
+      );
       const res = await fetch("/api/games/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(params),
+        body: JSON.stringify({ ...base, avoid }),
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json.error ?? `HTTP ${res.status}`);
@@ -49,6 +50,7 @@ export default function FeedPage() {
       }
       games_set((g) => {
         if (g.find((x) => x.id === parsed.data.id)) return g; // dedupe
+        loadedIdsRef.current = [...loadedIdsRef.current, parsed.data.id];
         return [...g, parsed.data];
       });
     } catch (err) {

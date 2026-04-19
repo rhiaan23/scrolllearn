@@ -8,6 +8,60 @@
       "streak": 0,
       "bestStreak": 2,
       "joinedAt": 1776551458599
+    },
+    "ea4abfaa-aae1-4408-8f8e-9c8b693996d3": {
+      "id": "ea4abfaa-aae1-4408-8f8e-9c8b693996d3",
+      "name": "rhiaan",
+      "classCode": "1",
+      "score": 0,
+      "streak": 0,
+      "bestStreak": 0,
+      "joinedAt": 1776551998819
+    },
+    "6906198c-3045-418c-8fac-c41475e81dc1": {
+      "id": "6906198c-3045-418c-8fac-c41475e81dc1",
+      "name": "Rhai",
+      "classCode": "123",
+      "score": 10,
+      "streak": 0,
+      "bestStreak": 1,
+      "joinedAt": 1776555177144
+    },
+    "9fbd64df-39a1-465b-a9e3-1cdbc7a3790e": {
+      "id": "9fbd64df-39a1-465b-a9e3-1cdbc7a3790e",
+      "name": "Rhiaan",
+      "classCode": "123",
+      "score": 20,
+      "streak": 2,
+      "bestStreak": 2,
+      "joinedAt": 1776570819651
+    },
+    "085899ed-dd8e-4bf5-9500-fb893896960d": {
+      "id": "085899ed-dd8e-4bf5-9500-fb893896960d",
+      "name": "RHIAAn",
+      "classCode": "234",
+      "score": 60,
+      "streak": 0,
+      "bestStreak": 4,
+      "joinedAt": 1776570981990
+    },
+    "0aafc710-5351-438f-b6ed-caad5dc4df4b": {
+      "id": "0aafc710-5351-438f-b6ed-caad5dc4df4b",
+      "name": "rhi",
+      "classCode": "123",
+      "score": 120,
+      "streak": 6,
+      "bestStreak": 6,
+      "joinedAt": 1776572438314
+    },
+    "ac21271e-4206-4af6-a21e-067d28fd9bbe": {
+      "id": "ac21271e-4206-4af6-a21e-067d28fd9bbe",
+      "name": "sdam",
+      "classCode": "123",
+      "score": 0,
+      "streak": 0,
+      "bestStreak": 0,
+      "joinedAt": 1776573063023
     }
   },
   "answers": [
@@ -40,6 +94,246 @@
       "difficulty": 2,
       "isCorrect": false,
       "timestamp": 1776551857696
+    },
+    {
+      "studentId": "ea4abfaa-aae1-4408-8f8e-9c8b693996d3",
+      "classCode": "1",
+      "gameId": "math-merge-15",
+      "prompt": "Merge tiles that add up to 15.",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": true,
+      "timestamp": 1776552013389
+    },
+    {
+      "studentId": "ea4abfaa-aae1-4408-8f8e-9c8b693996d3",
+      "classCode": "1",
+      "gameId": "sci-tap-mammals",
+      "prompt": "Tap only the mammals before time runs out!",
+      "subject": "science",
+      "difficulty": 1,
+      "isCorrect": false,
+      "timestamp": 1776554043780
+    },
+    {
+      "studentId": "6906198c-3045-418c-8fac-c41475e81dc1",
+      "classCode": "123",
+      "gameId": "math-castle-mul-hard",
+      "prompt": "Multiplication siege — defeat them all!",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776555194187
+    },
+    {
+      "studentId": "6906198c-3045-418c-8fac-c41475e81dc1",
+      "classCode": "123",
+      "gameId": "math-castle-mix-med",
+      "prompt": "Hold the line — answer the math to fire back!",
+      "subject": "math",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776555194259
+    },
+    {
+      "studentId": "6906198c-3045-418c-8fac-c41475e81dc1",
+      "classCode": "123",
+      "gameId": "math-merge-12",
+      "prompt": "Merge tiles that add up to 12.",
+      "subject": "math",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776555199948
+    },
+    {
+      "studentId": "6906198c-3045-418c-8fac-c41475e81dc1",
+      "classCode": "123",
+      "gameId": "math-merge-15",
+      "prompt": "Merge tiles that add up to 15.",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776555200902
+    },
+    {
+      "studentId": "6906198c-3045-418c-8fac-c41475e81dc1",
+      "classCode": "123",
+      "gameId": "sci-tap-flyers",
+      "prompt": "Tap only the things that fly!",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776555215793
+    },
+    {
+      "studentId": "9fbd64df-39a1-465b-a9e3-1cdbc7a3790e",
+      "classCode": "123",
+      "gameId": "sci-tap-mammals",
+      "prompt": "Tap only the mammals before time runs out!",
+      "subject": "science",
+      "difficulty": 1,
+      "isCorrect": false,
+      "timestamp": 1776570834036
+    },
+    {
+      "studentId": "9fbd64df-39a1-465b-a9e3-1cdbc7a3790e",
+      "classCode": "123",
+      "gameId": "sci-tap-flyers",
+      "prompt": "Tap only the things that fly!",
+      "subject": "science",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776570843690
+    },
+    {
+      "studentId": "9fbd64df-39a1-465b-a9e3-1cdbc7a3790e",
+      "classCode": "123",
+      "gameId": "math-castle-add-easy",
+      "prompt": "Defend the castle — solve each sum before the enemy gets through!",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776570900012
+    },
+    {
+      "studentId": "9fbd64df-39a1-465b-a9e3-1cdbc7a3790e",
+      "classCode": "123",
+      "gameId": "math-merge-10",
+      "prompt": "Slide tiles together that add up to 10.",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776570906899
+    },
+    {
+      "studentId": "085899ed-dd8e-4bf5-9500-fb893896960d",
+      "classCode": "234",
+      "gameId": "eng-spell-easy",
+      "prompt": "Tap the letters to spell each word.",
+      "subject": "english",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776570995501
+    },
+    {
+      "studentId": "085899ed-dd8e-4bf5-9500-fb893896960d",
+      "classCode": "234",
+      "gameId": "math-castle-mix-med",
+      "prompt": "Hold the line — answer the math to fire back!",
+      "subject": "math",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776571014435
+    },
+    {
+      "studentId": "085899ed-dd8e-4bf5-9500-fb893896960d",
+      "classCode": "234",
+      "gameId": "math-order-asc",
+      "prompt": "Put these numbers in order, smallest to biggest.",
+      "subject": "math",
+      "difficulty": 2,
+      "isCorrect": false,
+      "timestamp": 1776571027780
+    },
+    {
+      "studentId": "085899ed-dd8e-4bf5-9500-fb893896960d",
+      "classCode": "234",
+      "gameId": "eng-sentence",
+      "prompt": "Put the words in order to make a sentence.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776571037359
+    },
+    {
+      "studentId": "085899ed-dd8e-4bf5-9500-fb893896960d",
+      "classCode": "234",
+      "gameId": "math-castle-mul-hard",
+      "prompt": "Multiplication siege — defeat them all!",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": false,
+      "timestamp": 1776571041455
+    },
+    {
+      "studentId": "085899ed-dd8e-4bf5-9500-fb893896960d",
+      "classCode": "234",
+      "gameId": "eng-spell-med",
+      "prompt": "Spell the word for each picture.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776571054483
+    },
+    {
+      "studentId": "085899ed-dd8e-4bf5-9500-fb893896960d",
+      "classCode": "234",
+      "gameId": "math-chase-20",
+      "prompt": "Tap falling numbers that add to 20 — don't overshoot!",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": false,
+      "timestamp": 1776572264843
+    },
+    {
+      "studentId": "0aafc710-5351-438f-b6ed-caad5dc4df4b",
+      "classCode": "123",
+      "gameId": "eng-hangman-weather",
+      "prompt": "Weather word — start with vowels.",
+      "subject": "english",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776572459700
+    },
+    {
+      "studentId": "0aafc710-5351-438f-b6ed-caad5dc4df4b",
+      "classCode": "123",
+      "gameId": "sci-water-cycle",
+      "prompt": "Order the steps of the water cycle.",
+      "subject": "science",
+      "difficulty": 3,
+      "isCorrect": true,
+      "timestamp": 1776572482415
+    },
+    {
+      "studentId": "0aafc710-5351-438f-b6ed-caad5dc4df4b",
+      "classCode": "123",
+      "gameId": "math-2048-easy",
+      "prompt": "Slide so equal tiles bump into each other and double — build a 16!",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776572496445
+    },
+    {
+      "studentId": "0aafc710-5351-438f-b6ed-caad5dc4df4b",
+      "classCode": "123",
+      "gameId": "math-balance-easy",
+      "prompt": "Balance the scale — both sides must weigh the same.",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": true,
+      "timestamp": 1776572515446
+    },
+    {
+      "studentId": "0aafc710-5351-438f-b6ed-caad5dc4df4b",
+      "classCode": "123",
+      "gameId": "math-balance-hard",
+      "prompt": "Balance a bigger load — plan your picks.",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": true,
+      "timestamp": 1776572537536
+    },
+    {
+      "studentId": "0aafc710-5351-438f-b6ed-caad5dc4df4b",
+      "classCode": "123",
+      "gameId": "math-balance-med",
+      "prompt": "Match the heavier side — pick the right numbers.",
+      "subject": "math",
+      "difficulty": 2,
+      "isCorrect": true,
+      "timestamp": 1776572543335
     }
   ]
 }

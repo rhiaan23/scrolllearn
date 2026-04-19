@@ -80,3 +80,36 @@ body {
 .vignette-top {
   box-shadow: 0 -33px 48px rgba(0, 0, 0, 0.5) inset;
 }
+
+/* Math Castle — sprite walk cycle (18 frames across the sheet) */
+@keyframes mc-walk {
+  from { background-position: 0 0; }
+  to   { background-position: -1620px 0; }
+}
+
+/* Math Castle — enemy march from right field edge toward the castle */
+@keyframes mc-march {
+  from { transform: translateX(var(--mc-start, 293px)); }
+  to   { transform: translateX(var(--mc-end, 66px)); }
+}
+
+/* Math Castle — castle hit shake */
+@keyframes mc-castle-shake {
+  0%, 100% { transform: translateX(4px); }
+  25%      { transform: translateX(-2px); }
+  75%      { transform: translateX(10px); }
+}
+
+/* Math Castle — wrong-answer enemy shake (nested horizontal wiggle on top of march) */
+@keyframes mc-shake {
+  0%, 100% { filter: none; }
+  25%      { filter: hue-rotate(60deg) brightness(1.4); }
+  50%      { filter: hue-rotate(-40deg) brightness(0.8); }
+  75%      { filter: hue-rotate(30deg) brightness(1.2); }
+}
+
+/* Math Chase — number falls from top to bottom of field */
+@keyframes mc-fall {
+  from { transform: translateY(0); }
+  to   { transform: translateY(340px); }
+}

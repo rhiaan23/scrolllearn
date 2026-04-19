@@ -12,44 +12,42 @@ import { Game } from "./schema";
  * game throws on import, not at runtime.
  */
 export const SEED_GAMES: Game[] = [
-  // 1 — math · merge_math · easy
+  // 1 — math · merge_math · easy (2048 to 16)
   Game.parse({
-    id: "math-merge-10",
+    id: "math-2048-easy",
     subject: "math",
     difficulty: 1,
     template: "merge_math",
-    prompt: "Slide tiles together that add up to 10.",
+    prompt: "Slide so equal tiles bump into each other and double — build a 16!",
     explanation:
-      "These pairs make 10: 1+9, 2+8, 3+7, 4+6, 5+5. They are called number partners.",
+      "Two 2s make a 4. Two 4s make an 8. Two 8s make a 16. Same numbers double when they touch.",
     data: {
-      target: 10,
-      winMerges: 3,
+      target: 16,
       startGrid: [
-        [3, null, 7, null],
-        [null, 4, null, 6],
-        [8, null, 2, null],
-        [null, 1, null, 9],
+        [2, null, 2, null],
+        [null, 4, null, 4],
+        [2, null, 2, null],
+        [null, null, null, null],
       ],
     },
   }),
 
-  // 2 — math · merge_math · medium
+  // 2 — math · merge_math · medium (2048 to 32)
   Game.parse({
-    id: "math-merge-12",
+    id: "math-2048-med",
     subject: "math",
     difficulty: 2,
     template: "merge_math",
-    prompt: "Merge tiles that add up to 12.",
+    prompt: "Same-number tiles double when they touch. Build a 32!",
     explanation:
-      "Look for pairs that make 12: 3+9, 4+8, 5+7, 6+6. Combine them by sliding!",
+      "Plan your slides so doubled tiles end up next to their twin. 2→4→8→16→32.",
     data: {
-      target: 12,
-      winMerges: 3,
+      target: 32,
       startGrid: [
-        [4, 8, null, 5],
-        [null, 7, 3, null],
-        [9, null, null, 6],
-        [null, 5, 7, null],
+        [2, 4, 2, 4],
+        [4, null, 8, null],
+        [null, 8, null, 4],
+        [2, null, 2, null],
       ],
     },
   }),
@@ -69,23 +67,22 @@ export const SEED_GAMES: Game[] = [
     },
   }),
 
-  // 4 — math · merge_math · hard
+  // 4 — math · merge_math · hard (2048 to 64)
   Game.parse({
-    id: "math-merge-15",
+    id: "math-2048-hard",
     subject: "math",
     difficulty: 3,
     template: "merge_math",
-    prompt: "Merge tiles that add up to 15.",
+    prompt: "Build a 64 tile! Doubles double when they touch.",
     explanation:
-      "Pairs that make 15: 6+9, 7+8. The grid starts dense — plan your slides carefully!",
+      "Powers of two: 2, 4, 8, 16, 32, 64. Keep your big tile in a corner so it stays safe.",
     data: {
-      target: 15,
-      winMerges: 3,
+      target: 64,
       startGrid: [
-        [6, 9, 3, 7],
-        [8, null, 5, 2],
-        [4, 7, null, 8],
-        [9, 1, 6, null],
+        [16, 8, 4, 2],
+        [8, 16, 2, 4],
+        [4, 2, 8, 16],
+        [2, 4, 16, 8],
       ],
     },
   }),
@@ -221,6 +218,236 @@ export const SEED_GAMES: Game[] = [
         "Rain",
         "Collection",
       ],
+    },
+  }),
+
+  // 11 — math · math_castle · easy
+  Game.parse({
+    id: "math-castle-add-easy",
+    subject: "math",
+    difficulty: 1,
+    template: "math_castle",
+    prompt: "Defend the castle — solve each sum before the enemy gets through!",
+    explanation:
+      "Single-digit addition. Count on from the bigger number: 3+2 → 3, then 4, 5.",
+    data: {
+      enemies: [
+        { question: "2+1", answer: 3 },
+        { question: "3+2", answer: 5 },
+        { question: "4+3", answer: 7 },
+      ],
+      travelDurationMs: 16000,
+      spawnIntervalMs: 3500,
+      lives: 3,
+    },
+  }),
+
+  // 12 — math · math_castle · medium
+  Game.parse({
+    id: "math-castle-mix-med",
+    subject: "math",
+    difficulty: 2,
+    template: "math_castle",
+    prompt: "Hold the line — answer the math to fire back!",
+    explanation:
+      "Mixed addition and subtraction within 20. Line up the numbers and count carefully.",
+    data: {
+      enemies: [
+        { question: "7+6", answer: 13 },
+        { question: "15-8", answer: 7 },
+        { question: "9+8", answer: 17 },
+        { question: "12-5", answer: 7 },
+      ],
+      travelDurationMs: 12000,
+      spawnIntervalMs: 2800,
+      lives: 2,
+    },
+  }),
+
+  // 13 — math · math_castle · hard
+  Game.parse({
+    id: "math-castle-mul-hard",
+    subject: "math",
+    difficulty: 3,
+    template: "math_castle",
+    prompt: "Multiplication siege — defeat them all!",
+    explanation:
+      "Single-digit multiplication. 6×7=42, 8×7=56, 9×6=54, 7×7=49, 8×8=64.",
+    data: {
+      enemies: [
+        { question: "6×7", answer: 42 },
+        { question: "8×7", answer: 56 },
+        { question: "9×6", answer: 54 },
+        { question: "7×7", answer: 49 },
+        { question: "8×8", answer: 64 },
+      ],
+      travelDurationMs: 9000,
+      spawnIntervalMs: 2200,
+      lives: 2,
+    },
+  }),
+
+  // 14 — english · hangman · easy
+  Game.parse({
+    id: "eng-hangman-pets",
+    subject: "english",
+    difficulty: 1,
+    template: "hangman",
+    prompt: "Guess the pet before the drawing finishes.",
+    explanation:
+      "Sound out common letters first: vowels like A, E, I, O, U, then frequent consonants like R, S, T, N.",
+    data: {
+      word: "rabbit",
+      hint: "A fluffy pet with long ears",
+      maxMisses: 6,
+    },
+  }),
+
+  // 15 — english · hangman · medium
+  Game.parse({
+    id: "eng-hangman-weather",
+    subject: "english",
+    difficulty: 2,
+    template: "hangman",
+    prompt: "Weather word — start with vowels.",
+    explanation:
+      "Common weather words include RAIN, SNOW, WIND, STORM. Try vowels A, E, I, O first.",
+    data: {
+      word: "thunder",
+      hint: "The loud sound after lightning",
+      maxMisses: 6,
+    },
+  }),
+
+  // 16 — science · hangman · medium
+  Game.parse({
+    id: "sci-hangman-body",
+    subject: "science",
+    difficulty: 2,
+    template: "hangman",
+    prompt: "Part of your body — guess the word.",
+    explanation:
+      "This organ pumps blood through your body. Three syllables won't help you — letters will.",
+    data: {
+      word: "stomach",
+      hint: "Where your food goes after you swallow",
+      maxMisses: 7,
+    },
+  }),
+
+  // 17 — english · mini_crossword · easy
+  Game.parse({
+    id: "eng-xword-animals",
+    subject: "english",
+    difficulty: 1,
+    template: "mini_crossword",
+    prompt: "Mini crossword — animals.",
+    explanation:
+      "Two words sharing a letter: CAT across and CUP down share a C. Tap a cell to switch between across and down.",
+    data: {
+      size: 3,
+      entries: [
+        { answer: "CAT", clue: "Meows and purrs", row: 0, col: 0, direction: "across" },
+        { answer: "CUP", clue: "Holds your drink", row: 0, col: 0, direction: "down" },
+      ],
+    },
+  }),
+
+  // 18 — english · mini_crossword · medium
+  Game.parse({
+    id: "eng-xword-kitchen",
+    subject: "english",
+    difficulty: 2,
+    template: "mini_crossword",
+    prompt: "Mini crossword — kitchen things.",
+    explanation:
+      "SPOON crosses SOUP at their shared letter. Read both clues to confirm.",
+    data: {
+      size: 5,
+      entries: [
+        { answer: "SPOON", clue: "You eat soup with it", row: 0, col: 0, direction: "across" },
+        { answer: "SOUP", clue: "Hot liquid meal", row: 0, col: 0, direction: "down" },
+        { answer: "OVEN", clue: "Bakes your cookies", row: 2, col: 1, direction: "across" },
+      ],
+    },
+  }),
+
+  // 19 — math · balance_scale · easy
+  Game.parse({
+    id: "math-balance-easy",
+    subject: "math",
+    difficulty: 1,
+    template: "balance_scale",
+    prompt: "Balance the scale — both sides must weigh the same.",
+    explanation:
+      "The left pan holds 10. Add weights to the right pan that add up to 10. Try 4 + 6 or 7 + 3.",
+    data: {
+      fixed: { side: "left", weights: [10] },
+      pool: [3, 4, 6, 7, 2, 8],
+    },
+  }),
+
+  // 20 — math · balance_scale · medium
+  Game.parse({
+    id: "math-balance-med",
+    subject: "math",
+    difficulty: 2,
+    template: "balance_scale",
+    prompt: "Match the heavier side — pick the right numbers.",
+    explanation:
+      "Fixed side weighs 7 + 8 = 15. Combinations that sum to 15: 9+6, 7+5+3, 4+11, etc.",
+    data: {
+      fixed: { side: "left", weights: [7, 8] },
+      pool: [9, 6, 5, 4, 3, 11, 2],
+    },
+  }),
+
+  // 21 — math · balance_scale · hard
+  Game.parse({
+    id: "math-balance-hard",
+    subject: "math",
+    difficulty: 3,
+    template: "balance_scale",
+    prompt: "Balance a bigger load — plan your picks.",
+    explanation:
+      "Fixed side is 12 + 9 + 5 = 26. One solution: 14 + 12, or 15 + 8 + 3.",
+    data: {
+      fixed: { side: "right", weights: [12, 9, 5] },
+      pool: [14, 12, 15, 8, 3, 7, 6, 4],
+    },
+  }),
+
+  // 22 — math · math_chase · easy
+  Game.parse({
+    id: "math-chase-20",
+    subject: "math",
+    difficulty: 1,
+    template: "math_chase",
+    prompt: "Tap falling numbers that add to 20 — don't overshoot!",
+    explanation:
+      "Pick pairs that make 20: 10+10, 15+5, 12+8. Skip numbers that would push you over.",
+    data: {
+      target: 20,
+      durationSec: 25,
+      spawnIntervalMs: 1100,
+      pool: [2, 3, 5, 8, 10, 12, 15, 7],
+    },
+  }),
+
+  // 23 — math · math_chase · medium
+  Game.parse({
+    id: "math-chase-30",
+    subject: "math",
+    difficulty: 2,
+    template: "math_chase",
+    prompt: "Reach exactly 30 — watch the numbers fall.",
+    explanation:
+      "Harder targets need three or four additions: 15+10+5, 12+8+10, 7+13+5+5.",
+    data: {
+      target: 30,
+      durationSec: 30,
+      spawnIntervalMs: 950,
+      pool: [3, 5, 7, 8, 10, 12, 13, 15, 4, 6],
     },
   }),
 ];
