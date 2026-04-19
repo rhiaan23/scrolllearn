@@ -17,6 +17,14 @@ import { BalanceScale } from "./games/BalanceScale";
 import { MathChase } from "./games/MathChase";
 import { GrammarQuest } from "./games/GrammarQuest";
 import { CleanRiver } from "./games/CleanRiver";
+import { WizardDungeon } from "./games/WizardDungeon";
+
+const DIFFICULTY_LABEL: Record<number, string> = { 1: "K–1", 2: "Gr2–3", 3: "Gr4–5" };
+const SUBJECT_PILL: Record<string, string> = {
+  math: "bg-blue-500/20 text-blue-300 ring-blue-500/40",
+  english: "bg-emerald-500/20 text-emerald-300 ring-emerald-500/40",
+  science: "bg-purple-500/20 text-purple-300 ring-purple-500/40",
+};
 
 interface Props {
   game: Game;
@@ -104,6 +112,9 @@ export function GameCard({ game, index, onAdvance }: Props) {
     case "clean_river":
       body = <CleanRiver game={game} onAnswer={handleAnswer} locked={locked} />;
       break;
+    case "wizard_dungeon":
+      body = <WizardDungeon game={game} onAnswer={handleAnswer} locked={locked} />;
+      break;
   }
 
   return (
@@ -117,6 +128,13 @@ export function GameCard({ game, index, onAdvance }: Props) {
         className="pointer-events-none absolute inset-0 z-[5] vignette-top"
         aria-hidden="true"
       />
+
+      {/* Difficulty + subject badge */}
+      <div className="pointer-events-none absolute left-3 top-14 z-20">
+        <span className={`rounded-full px-2 py-0.5 text-[11px] font-black ring-1 ${SUBJECT_PILL[game.subject]}`}>
+          {DIFFICULTY_LABEL[game.difficulty]} · {game.subject}
+        </span>
+      </div>
 
       {/* Game body — centered between top nav and footer area.
           Each game's component handles its own internal responsive sizing,
@@ -144,6 +162,9 @@ export function GameCard({ game, index, onAdvance }: Props) {
             {result.correct ? "✨ Nice!" : "🤔 Try again"}
           </div>
           <div className="mt-0.5 text-xs opacity-90">{result.description}</div>
+          {result.correct && (
+            <div className="mt-1 text-xs font-black text-yellow-300">+10 pts</div>
+          )}
         </div>
       )}
 

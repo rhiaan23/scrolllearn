@@ -48,6 +48,12 @@ export function writeData(data: ClassData): void {
   fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), "utf-8");
 }
 
+export interface SubjectScores {
+  math: number;
+  english: number;
+  science: number;
+}
+
 export interface StruggleRow {
   prompt: string;
   subject: Subject;
@@ -60,10 +66,27 @@ export interface StruggleRow {
 export function getClassStats(classCode: string) {
   const data = readData();
 
+  // Compute per-subject scores for each student from existing answer events.
+  const studentSubjectScores = new Map<string, SubjectScores>();
+  for (const ev of data.answers) {
+    if (ev.classCode !== classCode) continue;
+    if (!studentSubjectScores.has(ev.studentId)) {
+      studentSubjectScores.set(ev.studentId, { math: 0, english: 0, science: 0 });
+    }
+    if (ev.isCorrect) {
+      const ss = studentSubjectScores.get(ev.studentId)!;
+      ss[ev.subject] = (ss[ev.subject] ?? 0) + 10;
+    }
+  }
+
   const students = Object.values(data.students)
     .filter((s) => s.classCode === classCode)
     .sort((a, b) => b.score - a.score)
-    .map((s, i) => ({ ...s, rank: i + 1 }));
+    .map((s, i) => ({
+      ...s,
+      rank: i + 1,
+      subjectScores: studentSubjectScores.get(s.id) ?? { math: 0, english: 0, science: 0 },
+    }));
 
   // Aggregate per prompt
   const promptMap = new Map<

@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { TopNavbar } from "@/components/TopNavbar";
-import type { StudentRecord, StruggleRow } from "@/lib/classData";
+import type { StudentRecord, StruggleRow, SubjectScores } from "@/lib/classData";
 
 interface Stats {
-  students: (StudentRecord & { rank: number })[];
+  students: (StudentRecord & { rank: number; subjectScores: SubjectScores })[];
   struggles: StruggleRow[];
 }
 
@@ -132,6 +132,9 @@ export default function TeacherPage() {
                         <th className="px-4 py-3 text-left">Rank</th>
                         <th className="px-4 py-3 text-left">Name</th>
                         <th className="px-4 py-3 text-right">Score</th>
+                        <th className="px-3 py-3 text-right text-blue-400/70">Math</th>
+                        <th className="px-3 py-3 text-right text-emerald-400/70">Eng</th>
+                        <th className="px-3 py-3 text-right text-purple-400/70">Sci</th>
                         <th className="px-4 py-3 text-right">Streak</th>
                         <th className="px-4 py-3 text-right">Best</th>
                       </tr>
@@ -144,6 +147,9 @@ export default function TeacherPage() {
                           </td>
                           <td className="px-4 py-3 font-semibold">{s.name}</td>
                           <td className="px-4 py-3 text-right font-black text-yellow-400">{s.score}</td>
+                          <td className="px-3 py-3 text-right font-semibold text-blue-300">{s.subjectScores.math}</td>
+                          <td className="px-3 py-3 text-right font-semibold text-emerald-300">{s.subjectScores.english}</td>
+                          <td className="px-3 py-3 text-right font-semibold text-purple-300">{s.subjectScores.science}</td>
                           <td className="px-4 py-3 text-right text-white/70">🔥 {s.streak}</td>
                           <td className="px-4 py-3 text-right text-white/50">{s.bestStreak}</td>
                         </tr>
