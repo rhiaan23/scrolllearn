@@ -1,27 +1,31 @@
 "use client";
 
 import type { Subject } from "@/lib/schema";
+import { useScrollLearn } from "@/lib/store";
 import { PaperSticker } from "./paper/PaperSticker";
+import { AlertSticker } from "./paper/AlertSticker";
 import { Icon } from "./paper/Icon";
 
 interface Props {
   subject: Subject;
+  gameId: string;
   onHelp: () => void;
-  onExplain?: () => void;
 }
 
-export function ActionRail({ subject, onHelp, onExplain }: Props) {
+export function ActionRail({ subject, gameId, onHelp }: Props) {
+  const studentName = useScrollLearn((s) => s.studentName);
+  const studentId = useScrollLearn((s) => s.studentId);
+  const classCode = useScrollLearn((s) => s.classCode);
+
   return (
     <div className="absolute right-3 bottom-6 z-30 flex flex-col items-center gap-4">
-      <PaperSticker
+      <AlertSticker
+        gameId={gameId}
+        studentName={studentName}
+        studentId={studentId}
+        classCode={classCode}
         tone={subject}
-        rot={-8}
-        size={54}
-        onClick={onExplain}
-        ariaLabel="Explain this answer"
-      >
-        <Icon name="sparkle" size={22} />
-      </PaperSticker>
+      />
       <PaperSticker
         tone="ink"
         rot={4}

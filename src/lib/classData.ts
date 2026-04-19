@@ -25,13 +25,30 @@ export interface AnswerEvent {
   timestamp: number;
 }
 
+export interface AlertEvent {
+  studentId?: string;
+  studentName?: string;
+  classCode?: string;
+  gameId: string;
+  text: string;
+  mode: "twilio" | "sms-link" | "unconfigured";
+  timestamp: number;
+}
+
 interface ClassData {
   students: Record<string, StudentRecord>;
   answers: AnswerEvent[];
+  alerts?: AlertEvent[];
 }
 
 function empty(): ClassData {
-  return { students: {}, answers: [] };
+  return { students: {}, answers: [], alerts: [] };
+}
+
+export function appendAlert(ev: AlertEvent): void {
+  const data = readData();
+  data.alerts = [...(data.alerts ?? []), ev];
+  writeData(data);
 }
 
 export function readData(): ClassData {

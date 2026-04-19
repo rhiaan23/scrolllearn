@@ -198,7 +198,11 @@ export function GameCard({ game, index, onAdvance }: Props) {
       <FooterLeft game={game} />
 
       {/* Right action rail */}
-      <ActionRail subject={game.subject} onHelp={() => setHelpOpen(true)} />
+      <ActionRail
+        subject={game.subject}
+        gameId={game.id}
+        onHelp={() => setHelpOpen(true)}
+      />
 
       {/* Flash feedback — subtle full-card green/red wash + big Right!/Wrong! */}
       {result && toastVisible && (

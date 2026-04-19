@@ -7,7 +7,8 @@ type IconName =
   | "reset"
   | "check"
   | "cross"
-  | "chevron-right";
+  | "chevron-right"
+  | "alert";
 
 interface Props extends SVGProps<SVGSVGElement> {
   name: IconName;
@@ -82,6 +83,16 @@ export function Icon({ name, size = 20, ...rest }: Props) {
       return (
         <svg {...common}>
           <path d="M9 6l6 6-6 6" />
+        </svg>
+      );
+    case "alert":
+      // Megaphone / hand-raise — signals "I need help, now"
+      return (
+        <svg {...common}>
+          <path d="M4 10v4" />
+          <path d="M4 10l9-5v14l-9-5" />
+          <path d="M13 7.5v9" />
+          <path d="M17 9.5c1 .6 1.5 1.5 1.5 2.5s-.5 1.9-1.5 2.5" />
         </svg>
       );
   }

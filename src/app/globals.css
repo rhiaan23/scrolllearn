@@ -210,3 +210,61 @@ body {
   0%, 100% { transform: scaleY(0.4); }
   50%      { transform: scaleY(1); }
 }
+
+/* ── Landing page animations ── */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(var(--float-rot, 0deg)); }
+  50%      { transform: translateY(-14px) rotate(var(--float-rot, 0deg)); }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0px) rotate(var(--float-rot, 0deg)); }
+  50%      { transform: translateY(-10px) rotate(var(--float-rot, 0deg)); }
+}
+
+@keyframes phone-glow {
+  0%, 100% { box-shadow: 0 0 40px rgba(255,138,74,0.15), 0 20px 60px rgba(43,29,16,0.2); }
+  50%      { box-shadow: 0 0 60px rgba(255,138,74,0.25), 0 20px 60px rgba(43,29,16,0.25); }
+}
+.animate-phone-glow {
+  animation: phone-glow 3s ease-in-out infinite;
+}
+
+@keyframes count-bar {
+  from { width: 0%; }
+  to   { width: var(--bar-w, 100%); }
+}
+
+@keyframes slide-up-feed {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* Gradient text helper */
+.text-gradient-math {
+  background: linear-gradient(145deg, #ff8a4a 0%, #e05a1f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-gradient-english {
+  background: linear-gradient(145deg, #8e5ce0 0%, #5b2fa8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-gradient-science {
+  background: linear-gradient(145deg, #20b48a 0%, #0b8563 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
