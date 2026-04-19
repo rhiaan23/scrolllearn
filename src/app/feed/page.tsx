@@ -5,6 +5,7 @@ import { GameCard } from "@/components/GameCard";
 import { AmbientBg } from "@/components/AmbientBg";
 import { TopNavbar } from "@/components/TopNavbar";
 import { StudentOnboarding } from "@/components/StudentOnboarding";
+import { ScreenTimeGate } from "@/components/ScreenTimeGate";
 import type { Game, Subject } from "@/lib/schema";
 import { Game as GameSchema } from "@/lib/schema";
 import { nextRequestParams, useScrollLearn } from "@/lib/store";
@@ -178,66 +179,68 @@ export default function FeedPage() {
       {showOnboarding && <StudentOnboarding onDone={() => setShowOnboarding(false)} />}
       <TopNavbar activeTab="student" onReset={reset} />
 
-      {/* Subject category tabs */}
-      <div className="relative z-20 flex gap-2 overflow-x-auto border-b border-white/10 bg-black/60 px-4 py-2 backdrop-blur-sm">
-        {(["all", "math", "english", "science"] as const).map((key) => {
-          const subjectVal = key === "all" ? null : (key as Subject);
-          const isActive = pinnedSubject === subjectVal;
-          return (
-            <button
-              key={key}
-              type="button"
-              onClick={() => handleTabChange(subjectVal)}
-              className={`shrink-0 rounded-full px-3 py-1 text-xs font-bold transition ${
-                isActive ? ACTIVE_TAB_STYLE[key] : "bg-white/10 text-white/60 hover:bg-white/20"
-              }`}
-            >
-              {TAB_LABELS[key]}
-            </button>
-          );
-        })}
-      </div>
+      <ScreenTimeGate>
+        {/* Subject category tabs */}
+        <div className="relative z-20 flex gap-2 overflow-x-auto border-b border-white/10 bg-black/60 px-4 py-2 backdrop-blur-sm">
+          {(["all", "math", "english", "science"] as const).map((key) => {
+            const subjectVal = key === "all" ? null : (key as Subject);
+            const isActive = pinnedSubject === subjectVal;
+            return (
+              <button
+                key={key}
+                type="button"
+                onClick={() => handleTabChange(subjectVal)}
+                className={`shrink-0 rounded-full px-3 py-1 text-xs font-bold transition ${
+                  isActive ? ACTIVE_TAB_STYLE[key] : "bg-white/10 text-white/60 hover:bg-white/20"
+                }`}
+              >
+                {TAB_LABELS[key]}
+              </button>
+            );
+          })}
+        </div>
 
-      <div
-        ref={containerRef}
-        className="snap-y snap-mandatory relative z-10 flex-1 overflow-y-scroll"
-      >
-        {games.map((g, i) => (
-          <GameCard
-            key={`${i}-${g.id}`}
-            game={g}
-            index={i}
-            onAdvance={advance}
-          />
-        ))}
+        <div
+          ref={containerRef}
+          className="snap-y snap-mandatory relative z-10 flex-1 overflow-y-scroll"
+        >
+          {games.map((g, i) => (
+            <GameCard
+              key={`${i}-${g.id}`}
+              game={g}
+              index={i}
+              onAdvance={advance}
+            />
+          ))}
 
-        {(games.length === 0 || loading || error) && (
-          <div className="flex h-full w-full snap-start snap-always items-center justify-center bg-black/60 backdrop-blur-sm">
-            <div className="flex flex-col items-center gap-4 text-white">
-              {error ? (
-                <>
-                  <div className="text-5xl">⚠️</div>
-                  <p className="max-w-xs text-center text-sm text-red-300">{error}</p>
-                  <button
-                    type="button"
-                    onClick={fetchOne}
-                    className="rounded-full bg-white/15 px-5 py-2 text-sm font-bold hover:bg-white/25"
-                  >
-                    Try again
-                  </button>
-                </>
-              ) : (
-                <>
-                  <div className="h-12 w-12 animate-spin rounded-full border-4 border-white/30 border-t-white" />
-                  <p className="text-sm font-medium text-white/70">
-                    {games.length === 0 ? "Cooking up your first game…" : "Loading next…"}
-                  </p>
-                </>
-              )}
+          {(games.length === 0 || loading || error) && (
+            <div className="flex h-full w-full snap-start snap-always items-center justify-center bg-black/60 backdrop-blur-sm">
+              <div className="flex flex-col items-center gap-4 text-white">
+                {error ? (
+                  <>
+                    <div className="text-5xl">⚠️</div>
+                    <p className="max-w-xs text-center text-sm text-red-300">{error}</p>
+                    <button
+                      type="button"
+                      onClick={fetchOne}
+                      className="rounded-full bg-white/15 px-5 py-2 text-sm font-bold hover:bg-white/25"
+                    >
+                      Try again
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <div className="h-12 w-12 animate-spin rounded-full border-4 border-white/30 border-t-white" />
+                    <p className="text-sm font-medium text-white/70">
+                      {games.length === 0 ? "Cooking up your first game…" : "Loading next…"}
+                    </p>
+                  </>
+                )}
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      </ScreenTimeGate>
     </div>
   );
 }

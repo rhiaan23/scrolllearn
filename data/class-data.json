@@ -229,9 +229,9 @@
       "id": "7c084548-8141-4fde-84c2-7f90f5857646",
       "name": "alex",
       "classCode": "ROOM123",
-      "score": 0,
-      "streak": 0,
-      "bestStreak": 0,
+      "score": 180,
+      "streak": 1,
+      "bestStreak": 7,
       "joinedAt": 1776588747165
     }
   },
@@ -795,6 +795,26 @@
       "difficulty": 3,
       "isCorrect": false,
       "timestamp": 1776587199821
+    },
+    {
+      "studentId": "b8079147-949d-411d-bab1-60d41ceb1be4",
+      "classCode": "123",
+      "gameId": "math-chase-20",
+      "prompt": "Tap falling numbers that add to 20 — don't overshoot!",
+      "subject": "math",
+      "difficulty": 1,
+      "isCorrect": false,
+      "timestamp": 1776589207836
+    },
+    {
+      "studentId": "7c084548-8141-4fde-84c2-7f90f5857646",
+      "classCode": "ROOM123",
+      "gameId": "math-frac-golf-hard",
+      "prompt": "Two-digit fraction — find its simplest form!",
+      "subject": "math",
+      "difficulty": 3,
+      "isCorrect": true,
+      "timestamp": 1776589273537
     }
   ]
 }
